@@ -9,17 +9,10 @@
     </parent>
 
   <groupId>net.alaux.diosmio</groupId>
-  <artifactId>diosmio-services</artifactId>
+  <artifactId>diosmio-services-interface</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>DiosMio Services</name>
+  <name>DiosMio Services Interface</name>
   <url>http://maven.apache.org</url>
   
-  <dependencies>
-    <dependency>
-      <groupId>net.alaux.diosmio</groupId>
-      <artifactId>diosmio-services-interface</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-  </dependencies>
 </project>

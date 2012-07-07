@@ -14,7 +14,7 @@
       <map>
 <!--         <entry key="bean:name=testBean1" value-ref="testBean"/> -->
         <entry key="net.alaux.diosmio:name=sayHello" value-ref="sayHello"/>
-        <entry key="net.alaux.diosmio:name=fileSystemArtifactManager" value-ref="fileSystemArtifactManager"/>
+        <entry key="net.alaux.diosmio:name=artifactManager" value-ref="artifactManager"/>
       </map>
     </property>
   </bean>
@@ -25,6 +25,6 @@
 <!--   </bean> -->
   
   <bean id="sayHello" class="net.alaux.diosmio.core.SayHelloService" />
-  <bean id="fileSystemArtifactManager" class="net.alaux.diosmio.core.services.impl.FileSystemArtifactManager" />
+  <bean id="artifactManager" class="net.alaux.diosmio.core.services.impl.FileSystemArtifactManager" />
 </beans>
 

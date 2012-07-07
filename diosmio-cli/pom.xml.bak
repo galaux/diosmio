@@ -193,7 +193,7 @@
         </executions>
  
         <configuration>
-          <mainClass>net.alaux.diosmio.DiosMioCli</mainClass>
+          <mainClass>net.alaux.diosmio.ui.cli.DiosMioCli</mainClass>
         </configuration>
       </plugin>
     </plugins>

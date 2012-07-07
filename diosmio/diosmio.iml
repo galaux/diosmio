@@ -183,6 +183,7 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="diosmio-services" />
+    <orderEntry type="module" module-name="diosmio-services-interface" />
   </component>
   <component name="WebModuleBuildComponent">
     <setting name="EXPLODED_URL" value="file://$MODULE_DIR$/target/diosmio" />
@@ -286,6 +287,10 @@
     <containerElement type="module" name="diosmio-services">
       <attribute name="method" value="5" />
       <attribute name="URI" value="/WEB-INF/lib/diosmio-services-1.0-SNAPSHOT.jar" />
+    </containerElement>
+    <containerElement type="module" name="diosmio-services-interface">
+      <attribute name="method" value="5" />
+      <attribute name="URI" value="/WEB-INF/lib/diosmio-services-interface-1.0-SNAPSHOT.jar" />
     </containerElement>
     <deploymentDescriptor version="2.3" name="web.xml" optional="false" url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/web.xml" />
     <webroots>

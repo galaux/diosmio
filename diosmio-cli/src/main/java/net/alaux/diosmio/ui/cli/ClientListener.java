@@ -1,4 +1,4 @@
-package net.alaux.diosmio;
+package net.alaux.diosmio.ui.cli;
 
 import javax.management.AttributeChangeNotification;
 import javax.management.Notification;

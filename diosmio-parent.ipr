@@ -24,7 +24,7 @@
   </component>
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
   <component name="EntryPointsManager">
-    <entry_points />
+    <entry_points version="2.0" />
   </component>
   <component name="ExportToHTMLSettings">
     <option name="PRINT_LINE_NUMBERS" value="false" />
@@ -39,6 +39,14 @@
   </component>
   <component name="JUnitProjectSettings">
     <option name="TEST_RUNNER" value="UI" />
+  </component>
+  <component name="JavacSettings">
+    <option name="DEBUGGING_INFO" value="true" />
+    <option name="GENERATE_NO_WARNINGS" value="false" />
+    <option name="DEPRECATION" value="true" />
+    <option name="ADDITIONAL_OPTIONS_STRING" value="" />
+    <option name="MAXIMUM_HEAP_SIZE" value="128" />
+    <option name="USE_GENERICS_COMPILER" value="false" />
   </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" />
@@ -56,6 +64,17 @@
     <option name="OTHER_OPTIONS" />
     <option name="HEAP_SIZE" />
     <option name="OPEN_IN_BROWSER" value="false" />
+  </component>
+  <component name="JikesSettings">
+    <option name="DEBUGGING_INFO" value="true" />
+    <option name="DEPRECATION" value="true" />
+    <option name="GENERATE_NO_WARNINGS" value="false" />
+    <option name="GENERATE_MAKE_FILE_DEPENDENCIES" value="false" />
+    <option name="DO_FULL_DEPENDENCE_CHECK" value="false" />
+    <option name="IS_INCREMENTAL_MODE" value="false" />
+    <option name="IS_EMACS_ERRORS_MODE" value="true" />
+    <option name="ADDITIONAL_OPTIONS_STRING" value="" />
+    <option name="MAXIMUM_HEAP_SIZE" value="128" />
   </component>
   <component name="Palette2">
     <group name="Swing">
@@ -178,22 +197,21 @@
       </item>
     </group>
   </component>
-  <component name="ProjectCodeStyleSettingsManager">
-    <option name="PER_PROJECT_SETTINGS">
-      <value />
-    </option>
-  </component>
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/diosmio/diosmio.iml" filepath="$PROJECT_DIR$/diosmio/diosmio.iml" />
       <module fileurl="file://$PROJECT_DIR$/diosmio-cli/diosmio-cli.iml" filepath="$PROJECT_DIR$/diosmio-cli/diosmio-cli.iml" />
       <module fileurl="file://$PROJECT_DIR$/diosmio-parent.iml" filepath="$PROJECT_DIR$/diosmio-parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/diosmio-services/diosmio-services.iml" filepath="$PROJECT_DIR$/diosmio-services/diosmio-services.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diosmio-services-interface/diosmio-services-interface.iml" filepath="$PROJECT_DIR$/diosmio-services-interface/diosmio-services-interface.iml" />
     </modules>
+  </component>
+  <component name="ProjectResources">
+    <default-html-doctype>http://www.w3.org/1999/xhtml</default-html-doctype>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" />
   <component name="VcsDirectoryMappings">
-    <mapping directory="" vcs="" />
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
 </project>
 
