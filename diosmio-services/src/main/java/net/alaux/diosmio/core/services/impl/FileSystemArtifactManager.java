@@ -1,11 +1,10 @@
 package net.alaux.diosmio.core.services.impl;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 import net.alaux.diosmio.core.services.IArtifactManager;
 import net.alaux.diosmio.utils.DiosMioUtils;
+import sun.misc.IOUtils;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class FileSystemArtifactManager implements IArtifactManager {
@@ -25,24 +24,26 @@ public class FileSystemArtifactManager implements IArtifactManager {
 	}
 
 
-	public void addArtifact(File file) throws Exception {
-		// No check (yet?). Should we do this here or on the presentation side?
+	public void addArtifact(String name, byte[] content) throws Exception {
 
-		if (file == null || !file.canRead()) {
-			throw new Exception("error.file_not_readable");
-		}
+        File artifact = new File(STORE_DIRECTORY_PATH + FILE_SEPARATOR + name);
 
-		String destFilePath = storageDirectory.getAbsolutePath()
-				+ FILE_SEPARATOR + file.getName();
-
-		File destFile = new File(destFilePath);
-
-		if (destFile == null || destFile.exists()) {
+		if (artifact == null || artifact.exists()) {
 			throw new Exception("error.file_already_exists");
 		}
 
-		DiosMioUtils.copyFile(file, destFile);
+        FileOutputStream fos = new FileOutputStream(artifact);
+        try {
+            fos.write(content);
+        } finally {
+            fos.flush();
+            fos.close();
+        }
 	}
+
+        // TODO remove this static method as it is not used anymore
+//		DiosMioUtils.copyFile(file, destFile);
+
 
 	public File[] listArtifacts() {
 		return storageDirectory.listFiles();
@@ -53,8 +54,11 @@ public class FileSystemArtifactManager implements IArtifactManager {
 		throw new NotImplementedException();
 	}
 
-	public boolean deleteArtifact(File file) throws Exception {
-		if (file == null || !file.exists()) {
+	public boolean deleteArtifact(String artifactId) throws Exception {
+
+        File file = new File(STORE_DIRECTORY_PATH + FILE_SEPARATOR + artifactId);
+
+		if (file == null || !file.exists() || !file.canWrite()) {
 			throw new Exception("error.file_not_readable");
 		}
 

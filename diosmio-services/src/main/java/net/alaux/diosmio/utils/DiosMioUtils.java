@@ -23,8 +23,7 @@ public class DiosMioUtils {
 			long count = 0;
 			long size = source.size();
 			while ((count += destination.transferFrom(source, count, size
-					- count)) < size)
-				;
+					- count)) < size);
 		} finally {
 			if (source != null) {
 				source.close();

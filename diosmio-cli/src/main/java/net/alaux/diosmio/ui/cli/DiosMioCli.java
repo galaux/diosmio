@@ -3,6 +3,8 @@ package net.alaux.diosmio.ui.cli;
 import net.alaux.diosmio.ui.cli.core.CliArtifactManagerActions;
 import net.alaux.diosmio.ui.cli.core.CliMiscActions;
 import org.apache.commons.cli.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.management.*;
 import java.io.IOException;
@@ -22,7 +24,7 @@ public class DiosMioCli {
 //	SaySomething saySomething;
 
     private static Options options;
-    private static DiosMioCli cli;
+    private static DiosMioCli diosmioCli;
 
     private static final String DM_CLI_VERSION = "1.0-SNAPSHOT";
 
@@ -44,6 +46,8 @@ public class DiosMioCli {
     public static final String OPT_ARTIF_MNGR_DEL_L = "delete-artifact";
 
 
+    public static final Logger logger = LoggerFactory.getLogger(DiosMioCli.class);
+
     /**
      *
      * @throws IOException
@@ -51,6 +55,8 @@ public class DiosMioCli {
      * @throws InstanceNotFoundException
      */
     public DiosMioCli(String[] args) {
+
+//        logger.info("Application starting");
 
         try {
             // Parse command line
@@ -82,7 +88,7 @@ public class DiosMioCli {
             // Misc *******************************************
             if (cmd.hasOption(OPT_MISC_HELP)) {
                 HelpFormatter formatter = new HelpFormatter();
-                formatter.printHelp("diosmio-cli <option> [...]", options);
+                formatter.printHelp("diosmio-diosmioCli <option> [...]", options);
             } else if (cmd.hasOption(OPT_MISC_SHOW_BEANS)) {
                 CliMiscActions.displayMBeanList();
 
@@ -98,6 +104,8 @@ public class DiosMioCli {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+
+//        logger.info("Application terminated");
     }
 
     /**
@@ -106,6 +114,6 @@ public class DiosMioCli {
      * @throws Exception
      */
     public static void main(String[] args) {
-        cli = new DiosMioCli(args);
+        diosmioCli = new DiosMioCli(args);
     }
 }

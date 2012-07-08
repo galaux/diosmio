@@ -2,39 +2,43 @@ package net.alaux.diosmio.ui.cli.core;
 
 import net.alaux.diosmio.core.services.IArtifactManager;
 import net.alaux.diosmio.ui.cli.ClientListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import sun.misc.IOUtils;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.management.InstanceNotFoundException;
 import javax.management.JMX;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 
-/**
- * Created with IntelliJ IDEA.
- * User: miguel
- * Date: 7/7/12
- * Time: 7:17 PM
- * To change this template use File | Settings | File Templates.
- */
-//throws IOException, MalformedObjectNameException, InstanceNotFoundException
 public class CliArtifactManagerActions extends CliActions {
 
-    private static final String BEAN_NAME = "artifactManager";
+    public static final Logger logger = LoggerFactory.getLogger(CliArtifactManagerActions.class);
 
-    public static void addArtifact(String arg) throws IOException, InstanceNotFoundException, MalformedObjectNameException {
-
-        System.out.println("listArtifacts");
+    // TODO handle Exception
+    public static void addArtifact(String arg) throws IOException, InstanceNotFoundException, MalformedObjectNameException, Exception {
 
         initJmxConnection();
 
         IArtifactManager artifactManager = getServiceBean(IArtifactManager.class);
 
-        File[] artifactList = artifactManager.listArtifacts();
+        File artifact = new File(arg);
+        if (artifact == null || !artifact.canRead()) {
+            throw new Exception("cli.error.cannot_read_file");
+        }
 
-        System.out.println("\nGot " + artifactList.length + " files.");
+        FileInputStream fis = new FileInputStream(artifact);
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] buf = new byte[1024];
+        for (int readNum; (readNum = fis.read(buf)) != -1;) {
+            bos.write(buf, 0, readNum);
+        }
+
+        artifactManager.addArtifact(artifact.getName(), bos.toByteArray());
 
         closeJmxConnection();
     }
@@ -55,8 +59,27 @@ public class CliArtifactManagerActions extends CliActions {
         closeJmxConnection();
     }
 
-    public static boolean deleteArtifact(String arg) {
-        System.out.println("deleteArtifact");
-        throw  new NotImplementedException();
+    /**
+     * For now, let's just identify a file based on its filename
+     * @param arg
+     * @return
+     * @throws IOException
+     * @throws InstanceNotFoundException
+     * @throws MalformedObjectNameException
+     */
+    // TODO handle "Exception" as BusinessExceptin
+    public static void deleteArtifact(String arg) throws IOException, InstanceNotFoundException, MalformedObjectNameException, Exception  {
+
+        initJmxConnection();
+
+        IArtifactManager artifactManager = getServiceBean(IArtifactManager.class);
+
+        if (artifactManager.deleteArtifact(arg)) {
+            System.out.println("Artifact deleted");
+        }   else {
+            System.out.println("Could not delete artifact");
+        }
+
+        closeJmxConnection();
     }
 }
