@@ -2,29 +2,37 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/util
+                           http://www.springframework.org/schema/util/spring-util-3.0.xsd
+                           http://www.springframework.org/schema/context
+	                        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-  <util:properties id="myProps" location="classpath:/application.properties"/>
-    
-    
-      <!-- this bean must not be lazily initialized if the exporting is to happen -->
-  <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
-    <property name="beans">
-      <map>
-<!--         <entry key="bean:name=testBean1" value-ref="testBean"/> -->
-        <entry key="net.alaux.diosmio:name=sayHello" value-ref="sayHello"/>
-        <entry key="net.alaux.diosmio:name=artifactManager" value-ref="artifactManager"/>
-      </map>
-    </property>
-  </bean>
+    <util:properties id="serviceProperties" location="classpath:/application.properties"/>
 
-<!--   <bean id="testBean" class="net.alaux.diosmio.gui.jmxcli.JmxCliServiceMBeanImpl"> -->
-<!--     <property name="test" value="TEST"/> -->
-<!--     <property name="name" value="NAME"/> -->
-<!--   </bean> -->
-  
-  <bean id="sayHello" class="net.alaux.diosmio.core.SayHelloService" />
-  <bean id="artifactManager" class="net.alaux.diosmio.core.services.impl.FileSystemArtifactManager" />
+    <!--Enables use of "Autowired"-->
+    <!--<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>-->
+    <!--<context:annotation-config />-->
+
+    <!--<bean id="sayHello" class="net.alaux.diosmio.core.SayHelloService" />-->
+
+    <bean id="artifactManager" class="net.alaux.diosmio.core.services.impl.FileSystemArtifactManager">
+        <!--Injection of properties as constructor parameter so that one can use it inside the constructor -->
+        <constructor-arg ref="serviceProperties"/>
+    </bean>
+
+    <!-- this bean must not be lazily initialized if the exporting is to happen -->
+    <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
+        <property name="beans">
+            <map>
+                <!--         <entry key="bean:name=testBean1" value-ref="testBean"/> -->
+                <!--<entry key="net.alaux.diosmio:name=sayHello" value-ref="sayHello"/>-->
+                <entry key="net.alaux.diosmio:name=artifactManager" value-ref="artifactManager"/>
+            </map>
+        </property>
+    </bean>
+
 </beans>
 
