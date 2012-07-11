@@ -18,7 +18,7 @@ import java.util.TreeSet;
  */
 public class CliMiscActions extends CliActions {
 
-    public static void displayMBeanList() throws IOException, MalformedObjectNameException {
+    public void displayMBeanList() throws IOException, MalformedObjectNameException {
 
         initJmxConnection();
 

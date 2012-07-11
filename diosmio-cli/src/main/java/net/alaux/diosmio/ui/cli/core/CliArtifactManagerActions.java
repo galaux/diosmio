@@ -16,10 +16,8 @@ import java.util.Arrays;
 
 public class CliArtifactManagerActions extends CliActions {
 
-    public static final Logger logger = LoggerFactory.getLogger(CliArtifactManagerActions.class);
-
     // TODO handle Exception
-    public static void addArtifact(String arg) throws IOException, InstanceNotFoundException, MalformedObjectNameException, Exception {
+    public void addArtifact(String arg) throws IOException, InstanceNotFoundException, MalformedObjectNameException, Exception {
 
         initJmxConnection();
 
@@ -43,7 +41,7 @@ public class CliArtifactManagerActions extends CliActions {
         closeJmxConnection();
     }
 
-    public static void listArtifacts() throws IOException, InstanceNotFoundException, MalformedObjectNameException {
+    public void listArtifacts() throws IOException, InstanceNotFoundException, MalformedObjectNameException {
 
         initJmxConnection();
 
@@ -68,7 +66,7 @@ public class CliArtifactManagerActions extends CliActions {
      * @throws MalformedObjectNameException
      */
     // TODO handle "Exception" as BusinessExceptin
-    public static void deleteArtifact(String arg) throws IOException, InstanceNotFoundException, MalformedObjectNameException, Exception  {
+    public void deleteArtifact(String arg) throws IOException, InstanceNotFoundException, MalformedObjectNameException, Exception  {
 
         initJmxConnection();
 

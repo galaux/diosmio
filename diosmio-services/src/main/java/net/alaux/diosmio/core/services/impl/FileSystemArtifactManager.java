@@ -36,7 +36,6 @@ public class FileSystemArtifactManager extends DiosMioGenericService implements 
         }
     }
 
-
     /**
      *
      * @param name
@@ -86,14 +85,14 @@ public class FileSystemArtifactManager extends DiosMioGenericService implements 
      *
      * @param artifactId
      * @return
-     * @throws Exception
+     * @throws IOException
      */
-    public boolean deleteArtifact(String artifactId) throws Exception {
+    public boolean deleteArtifact(String artifactId) throws IOException {
 
         File file = new File(STORAGE_DIR_PATH + FILE_SEPARATOR + artifactId);
 
         if (file == null || !file.exists() || !file.canWrite()) {
-            throw new Exception("error.file_not_readable");
+            throw new IOException("error.file_not_readable");
         }
 
         return file.delete();

@@ -2,15 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="46ee2ec7-23de-429c-b06d-24b76901bf93" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/diosmio-services/src/main/java/net/alaux/diosmio/DiosMioGenericService.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/diosmio-cli/java2.pdf" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/KissLogger.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/DiosMioCli.java" afterPath="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/DiosMioCli.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/CliActions.java" afterPath="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/CliActions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/CliArtifactManagerActions.java" afterPath="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/CliArtifactManagerActions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/CliMiscActions.java" afterPath="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/CliMiscActions.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diosmio-parent.iws" afterPath="$PROJECT_DIR$/diosmio-parent.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diosmio-services/diosmio-services.iml" afterPath="$PROJECT_DIR$/diosmio-services/diosmio-services.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diosmio-services/pom.xml" afterPath="$PROJECT_DIR$/diosmio-services/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diosmio-services/src/main/java/net/alaux/diosmio/core/services/impl/FileSystemArtifactManager.java" afterPath="$PROJECT_DIR$/diosmio-services/src/main/java/net/alaux/diosmio/core/services/impl/FileSystemArtifactManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diosmio/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/diosmio/src/main/resources/application.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diosmio/src/main/resources/applicationContext.xml" afterPath="$PROJECT_DIR$/diosmio/src/main/resources/applicationContext.xml" />
     </list>
     <ignored path="diosmio-parent.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -206,19 +204,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="CliArtifactManagerActions.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/CliArtifactManagerActions.java">
+      <file leaf-file-name="CliActions.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/CliActions.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="64" selection-start="952" selection-end="952" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FileSystemArtifactManager.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/diosmio-services/src/main/java/net/alaux/diosmio/core/services/impl/FileSystemArtifactManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="82" column="5" selection-start="2271" selection-end="2271" vertical-scroll-proportion="1.4748201">
+            <state line="19" column="13" selection-start="566" selection-end="566" vertical-scroll-proportion="-11.04">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -226,46 +215,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/diosmio-services/pom.xml">
+      <file leaf-file-name="DiosMioCli.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/DiosMioCli.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="6" selection-start="1183" selection-end="1183" vertical-scroll-proportion="0.0">
+            <state line="180" column="38" selection-start="6683" selection-end="6683" vertical-scroll-proportion="0.3508772">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/diosmio-cli/pom.xml">
+      <file leaf-file-name="CliMiscActions.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/CliMiscActions.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="0" selection-start="1090" selection-end="1408" vertical-scroll-proportion="0.0">
+            <state line="20" column="10" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="application.properties" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/diosmio/src/main/resources/application.properties">
+      <file leaf-file-name="CliArtifactManagerActions.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/CliArtifactManagerActions.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="74" selection-start="39" selection-end="81" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DiosMioGenericService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/diosmio-services/src/main/java/net/alaux/diosmio/DiosMioGenericService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="66" selection-start="586" selection-end="586" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="applicationContext.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/diosmio/src/main/resources/applicationContext.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="12" selection-start="1064" selection-end="1064" vertical-scroll-proportion="-10.2">
+            <state line="16" column="52" selection-start="565" selection-end="565" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -281,6 +252,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GradleLocalSettings">
+    <option name="expandStates">
+      <map>
+        <entry key="diosmio-parent" value="true" />
+      </map>
+    </option>
+  </component>
   <component name="HierarchyBrowserManager">
     <option name="SHOW_PACKAGES" value="false" />
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -289,18 +267,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/diosmio-cli/pom.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/DiosMioCli.java" />
         <option value="$PROJECT_DIR$/diosmio-services/src/main/java/net/alaux/diosmio/utils/DiosMioUtils.java" />
         <option value="$PROJECT_DIR$/diosmio-services-interface/src/main/java/net/alaux/diosmio/core/services/IArtifactManager.java" />
-        <option value="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/CliArtifactManagerActions.java" />
         <option value="$PROJECT_DIR$/README.txt" />
         <option value="$PROJECT_DIR$/diosmio/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/diosmio-services/pom.xml" />
         <option value="$PROJECT_DIR$/diosmio-services/src/main/java/net/alaux/diosmio/DiosMioGenericService.java" />
         <option value="$PROJECT_DIR$/diosmio/src/main/resources/applicationContext.xml" />
+        <option value="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/SimpleLogger.java" />
+        <option value="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/DiosMioCliSimpleLogger.java" />
+        <option value="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/KissLogger.java" />
         <option value="$PROJECT_DIR$/diosmio-services/src/main/java/net/alaux/diosmio/core/services/impl/FileSystemArtifactManager.java" />
+        <option value="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/CliActions.java" />
+        <option value="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/CliArtifactManagerActions.java" />
+        <option value="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/CliMiscActions.java" />
+        <option value="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/DiosMioCli.java" />
       </list>
     </option>
   </component>
@@ -973,7 +955,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291714" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32965687" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1109,36 +1091,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/DiosMioCli.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="4" selection-start="1443" selection-end="1521" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/diosmio-services/src/main/java/net/alaux/diosmio/utils/DiosMioUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="37" selection-start="691" selection-end="691" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/diosmio/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="143" column="74" selection-start="4909" selection-end="4909" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="70" selection-start="540" selection-end="540" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/diosmio-cli/applicationContext.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/diosmio-services-interface/src/main/java/net/alaux/diosmio/core/services/IArtifactManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="29" selection-start="220" selection-end="220" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/net/alaux/diosmio/diosmio-services-interface/1.0-SNAPSHOT/diosmio-services-interface-1.0-SNAPSHOT.jar!/net/alaux/diosmio/core/services/IArtifactManager.class">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="17" selection-start="173" selection-end="173" vertical-scroll-proportion="0.074165635" />
@@ -1149,52 +1101,91 @@
         <state line="7" column="55" selection-start="349" selection-end="355" vertical-scroll-proportion="0.12280702" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/CliArtifactManagerActions.java">
+    <entry file="file://$PROJECT_DIR$/diosmio-services/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="64" selection-start="952" selection-end="952" vertical-scroll-proportion="0.0" />
+        <state line="33" column="6" selection-start="1183" selection-end="1183" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-7-openjdk/jre/lib/rt.jar!/java/lang/System.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="44" selection-start="255" selection-end="255" vertical-scroll-proportion="0.107913665" />
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-7-openjdk/jre/lib/rt.jar!/java/util/Properties.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="29" selection-start="791" selection-end="791" vertical-scroll-proportion="0.3057554" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/diosmio-cli/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="0" selection-start="1090" selection-end="1408" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/diosmio/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="74" selection-start="39" selection-end="81" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/diosmio-services/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="6" selection-start="1183" selection-end="1183" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/diosmio/src/main/resources/applicationContext.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="12" selection-start="1064" selection-end="1064" vertical-scroll-proportion="-10.2">
-          <folding />
-        </state>
+        <state line="34" column="0" selection-start="1090" selection-end="1408" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/diosmio-services/src/main/java/net/alaux/diosmio/DiosMioGenericService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="66" selection-start="586" selection-end="586" vertical-scroll-proportion="0.0">
+        <state line="21" column="66" selection-start="586" selection-end="586" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/diosmio/src/main/resources/applicationContext.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="12" selection-start="1064" selection-end="1064" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/diosmio/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="72" selection-start="81" selection-end="81" vertical-scroll-proportion="0.017985612">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/commons-cli/commons-cli/1.2/commons-cli-1.2.jar!/org/apache/commons/cli/Options.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="98" selection-start="904" selection-end="911" vertical-scroll-proportion="0.37688443">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/KissLogger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="17" selection-start="1238" selection-end="1238" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/diosmio-services/src/main/java/net/alaux/diosmio/core/services/impl/FileSystemArtifactManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="5" selection-start="2271" selection-end="2271" vertical-scroll-proportion="1.4748201">
+        <state line="83" column="31" selection-start="2279" selection-end="2279" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/CliArtifactManagerActions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="52" selection-start="565" selection-end="565" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/CliActions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="13" selection-start="566" selection-end="566" vertical-scroll-proportion="-11.04">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/core/CliMiscActions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="10" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/DiosMioCli.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="180" column="38" selection-start="6683" selection-end="6683" vertical-scroll-proportion="0.3508772">
+          <folding />
         </state>
       </provider>
     </entry>

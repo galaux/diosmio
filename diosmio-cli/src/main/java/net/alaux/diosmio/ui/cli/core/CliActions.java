@@ -24,21 +24,21 @@ public class CliActions {
 
     private static final String BEAN_ARTIFACT_MANAGER_NAME= "artifactManager";
 
-    static JMXServiceURL url;
-    static JMXConnector jmxc;
-    static MBeanServerConnection mbsc;
+    JMXServiceURL url;
+    JMXConnector jmxc;
+    MBeanServerConnection mbsc;
 
-    static void initJmxConnection() throws IOException {
+    void initJmxConnection() throws IOException {
         url = new JMXServiceURL(JMX_URL);
         jmxc = JMXConnectorFactory.connect(url, null);
         mbsc = jmxc.getMBeanServerConnection();
     }
 
-    static void closeJmxConnection() throws IOException {
+    void closeJmxConnection() throws IOException {
         jmxc.close();
     }
 
-    public static <T> T getServiceBean(Class<T> clazz) throws IOException, InstanceNotFoundException, MalformedObjectNameException {
+    public  <T> T getServiceBean(Class<T> clazz) throws IOException, InstanceNotFoundException, MalformedObjectNameException {
 
         T mbean = null;
         if (clazz == IArtifactManager.class) {
