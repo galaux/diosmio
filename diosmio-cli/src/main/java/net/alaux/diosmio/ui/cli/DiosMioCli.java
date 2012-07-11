@@ -1,7 +1,7 @@
 package net.alaux.diosmio.ui.cli;
 
-import net.alaux.diosmio.ui.cli.core.CliArtifactManagerActions;
-import net.alaux.diosmio.ui.cli.core.CliMiscActions;
+import net.alaux.diosmio.ui.cli.core.CliArtifactManagerJmxActions;
+import net.alaux.diosmio.ui.cli.core.CliMiscJmxActions;
 import net.alaux.diosmio.ui.cli.core.KissLogger;
 import org.apache.commons.cli.*;
 
@@ -9,10 +9,8 @@ import org.apache.commons.cli.*;
 import javax.management.*;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.PropertyResourceBundle;
 
 
 /**
@@ -178,18 +176,26 @@ public class DiosMioCli {
                 formatter.printHelp("diosmio-diosmioCli <option> [...]", options);
             } else if (cmd.hasOption(OPT_MISC_SHOW_BEANS)) {
                 logger.info("Option '" + OPT_MISC_SHOW_BEANS_L + "' found");
-                (new CliMiscActions()).displayMBeanList();
+                CliMiscJmxActions cliMiscJmxActions = new CliMiscJmxActions();
+                cliMiscJmxActions.displayMBeanList();
+                cliMiscJmxActions.closeJmxConnection();
 
                 // Artifact Manager ***************************
             } else if (cmd.hasOption(OPT_ARTIF_MNGR_LIST)) {
                 logger.info("Option '" + OPT_ARTIF_MNGR_LIST_L+ "' found");
-                (new CliArtifactManagerActions()).listArtifacts();
+                CliArtifactManagerJmxActions cliArtifactManagerJmxActions = new CliArtifactManagerJmxActions();
+                cliArtifactManagerJmxActions.listArtifacts();
+                cliArtifactManagerJmxActions.closeJmxConnection();
             } else if (cmd.hasOption(OPT_ARTIF_MNGR_ADD)) {
                 logger.info("Option '" + OPT_ARTIF_MNGR_ADD_L + "' found with value '" + cmd.getOptionValue(OPT_ARTIF_MNGR_ADD) + "'");
-                (new CliArtifactManagerActions()).addArtifact(cmd.getOptionValue(OPT_ARTIF_MNGR_ADD));
+                CliArtifactManagerJmxActions cliArtifactManagerJmxActions = new CliArtifactManagerJmxActions();
+                cliArtifactManagerJmxActions.addArtifact(cmd.getOptionValue(OPT_ARTIF_MNGR_ADD));
+                cliArtifactManagerJmxActions.closeJmxConnection();
             } else if (cmd.hasOption(OPT_ARTIF_MNGR_DEL)) {
                 logger.info("Option '" + OPT_ARTIF_MNGR_DEL_L + "' found with value '" + cmd.getOptionValue(OPT_ARTIF_MNGR_DEL) + "'");
-                (new CliArtifactManagerActions()).deleteArtifact(cmd.getOptionValue(OPT_ARTIF_MNGR_DEL));
+                CliArtifactManagerJmxActions cliArtifactManagerJmxActions = new CliArtifactManagerJmxActions();
+                cliArtifactManagerJmxActions.deleteArtifact(cmd.getOptionValue(OPT_ARTIF_MNGR_DEL));
+                cliArtifactManagerJmxActions.closeJmxConnection();
             }
 
         } catch (Exception e) {

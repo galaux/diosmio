@@ -17,7 +17,7 @@ import java.io.IOException;
  * Time: 7:32 PM
  * To change this template use File | Settings | File Templates.
  */
-public class CliActions {
+public class CliJmxActions {
 
     private static final String JMX_URL = "service:jmx:rmi:///jndi/rmi://:8090/jmxrmi";
     static final String DM_DOMAIN_NAME="net.alaux.diosmio";
@@ -28,13 +28,13 @@ public class CliActions {
     JMXConnector jmxc;
     MBeanServerConnection mbsc;
 
-    void initJmxConnection() throws IOException {
+    public CliJmxActions() throws IOException {
         url = new JMXServiceURL(JMX_URL);
         jmxc = JMXConnectorFactory.connect(url, null);
         mbsc = jmxc.getMBeanServerConnection();
     }
 
-    void closeJmxConnection() throws IOException {
+    public void closeJmxConnection() throws IOException {
         jmxc.close();
     }
 

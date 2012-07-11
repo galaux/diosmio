@@ -1,25 +1,20 @@
 package net.alaux.diosmio.ui.cli.core;
 
 import net.alaux.diosmio.core.services.IArtifactManager;
-import net.alaux.diosmio.ui.cli.ClientListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import sun.misc.IOUtils;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.management.InstanceNotFoundException;
-import javax.management.JMX;
 import javax.management.MalformedObjectNameException;
-import javax.management.ObjectName;
 import java.io.*;
 import java.util.Arrays;
 
-public class CliArtifactManagerActions extends CliActions {
+public class CliArtifactManagerJmxActions extends CliJmxActions {
+
+    public CliArtifactManagerJmxActions() throws IOException{
+        super();
+    }
 
     // TODO handle Exception
     public void addArtifact(String arg) throws IOException, InstanceNotFoundException, MalformedObjectNameException, Exception {
-
-        initJmxConnection();
 
         IArtifactManager artifactManager = getServiceBean(IArtifactManager.class);
 
@@ -37,13 +32,9 @@ public class CliArtifactManagerActions extends CliActions {
         }
 
         artifactManager.addArtifact(artifact.getName(), bos.toByteArray());
-
-        closeJmxConnection();
     }
 
     public void listArtifacts() throws IOException, InstanceNotFoundException, MalformedObjectNameException {
-
-        initJmxConnection();
 
         IArtifactManager artifactManager = getServiceBean(IArtifactManager.class);
 
@@ -53,8 +44,6 @@ public class CliArtifactManagerActions extends CliActions {
         for (File artifact : artifactList) {
             System.out.println(artifact.getName());
         }
-
-        closeJmxConnection();
     }
 
     /**
@@ -68,8 +57,6 @@ public class CliArtifactManagerActions extends CliActions {
     // TODO handle "Exception" as BusinessExceptin
     public void deleteArtifact(String arg) throws IOException, InstanceNotFoundException, MalformedObjectNameException, Exception  {
 
-        initJmxConnection();
-
         IArtifactManager artifactManager = getServiceBean(IArtifactManager.class);
 
         if (artifactManager.deleteArtifact(arg)) {
@@ -77,7 +64,5 @@ public class CliArtifactManagerActions extends CliActions {
         }   else {
             System.out.println("Could not delete artifact");
         }
-
-        closeJmxConnection();
     }
 }
