@@ -2,7 +2,7 @@ package net.alaux.diosmio.ui.cli.core;
 
 import net.alaux.diosmio.core.services.IArtifactManager;
 import net.alaux.diosmio.ui.cli.ClientListener;
-import sun.org.mozilla.javascript.ast.ReturnStatement;
+import net.alaux.diosmio.ui.cli.DiosMioCli;
 
 import javax.management.*;
 import javax.management.remote.JMXConnector;
@@ -19,8 +19,11 @@ import java.io.IOException;
  */
 public class CliJmxActions {
 
-    private static final String JMX_URL = "service:jmx:rmi:///jndi/rmi://:8090/jmxrmi";
-    static final String DM_DOMAIN_NAME="net.alaux.diosmio";
+//    private static final String JMX_URL = "service:jmx:rmi:///jndi/rmi://:8090/jmxrmi";
+//    static final String DM_DOMAIN_NAME="net.alaux.diosmio";
+
+    private static final String JMX_URL = DiosMioCli.getProperty("cli.rmi.url");
+    static final String DM_DOMAIN_NAME = DiosMioCli.getProperty("common.domain_name");
 
     private static final String BEAN_ARTIFACT_MANAGER_NAME= "artifactManager";
 

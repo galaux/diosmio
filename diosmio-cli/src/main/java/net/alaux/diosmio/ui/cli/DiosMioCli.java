@@ -10,7 +10,9 @@ import javax.management.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 
 /**
@@ -63,8 +65,12 @@ public class DiosMioCli {
 
     private static final String DEFAULT_CONF_PATH = "diosmio-cli.conf";
     private static String configFilePath;
-    private static Properties diosmioProperties;
+    private static Properties properties;
 
+
+    public static String getProperty(String key) {
+        return properties.getProperty(key);
+    }
 
     /**
      *
@@ -74,35 +80,30 @@ public class DiosMioCli {
      * @throws IOException
      * @throws Exception
      */
-    public static Properties getDiosMioProperties(String filePath, String defaultFilePath) throws IOException, Exception {
+    public Properties getDiosMioProperties(String filePath, String defaultFilePath) throws IOException, Exception {
 
         logger.info("Trying to load property file");
-        File f = null;
+
+        InputStream is = null;
         if (filePath != null) {
-            f = new File(filePath);
+            File f = new File(filePath);
             if (!f.exists() || !f.canRead()) {
-                f = null;
                 logger.error("Cannot access specified configuration file (" + filePath + ")");
             }
         }
 
-        if (f == null) {
-            f = new File(defaultFilePath);
-            if (!f.exists() || !f.canRead()) {
-                logger.error("Cannot access default configuration file '" + filePath + "'");
-                f = null;
-            }
+        if (is == null) {
+            logger.info("Falling back to default configuration file (" + defaultFilePath + ")");
+            is = ClassLoader.getSystemClassLoader().getResourceAsStream(defaultFilePath);
         }
 
-        if (f == null) {
+        if (is == null) {
             // TODO Handle this properly
             throw new Exception("cli.no_config_file");
         }
 
-        logger.info("Using configuration file " + f.getAbsolutePath());
-
         Properties res =  new Properties();
-        res.load(new FileInputStream(f));
+        res.load(is);
         return res;
     }
 
@@ -168,7 +169,7 @@ public class DiosMioCli {
             logger.info("Parsing options");
 
             // Other technical options ************************
-            diosmioProperties = getDiosMioProperties(cmd.getOptionValue(OPT_TECH_CONFIG_FILE), DEFAULT_CONF_PATH);
+            properties = getDiosMioProperties(cmd.getOptionValue(OPT_TECH_CONFIG_FILE), DEFAULT_CONF_PATH);
 
             // Misc *******************************************
             if (cmd.hasOption(OPT_TECH_HELP)) {
