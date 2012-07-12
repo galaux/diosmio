@@ -198,11 +198,11 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/diosmio/diosmio.iml" filepath="$PROJECT_DIR$/diosmio/diosmio.iml" />
-      <module fileurl="file://$PROJECT_DIR$/diosmio-cli/diosmio-cli.iml" filepath="$PROJECT_DIR$/diosmio-cli/diosmio-cli.iml" />
-      <module fileurl="file://$PROJECT_DIR$/diosmio-parent.iml" filepath="$PROJECT_DIR$/diosmio-parent.iml" />
-      <module fileurl="file://$PROJECT_DIR$/diosmio-services/diosmio-services.iml" filepath="$PROJECT_DIR$/diosmio-services/diosmio-services.iml" />
-      <module fileurl="file://$PROJECT_DIR$/diosmio-services-interface/diosmio-services-interface.iml" filepath="$PROJECT_DIR$/diosmio-services-interface/diosmio-services-interface.iml" />
+      <module fileurl="file://$USER_HOME$/documents/it/diosmios/5/diosmio/diosmio/diosmio.iml" filepath="$USER_HOME$/documents/it/diosmios/5/diosmio/diosmio/diosmio.iml" />
+      <module fileurl="file://$USER_HOME$/documents/it/diosmios/5/diosmio/diosmio-cli/diosmio-cli.iml" filepath="$USER_HOME$/documents/it/diosmios/5/diosmio/diosmio-cli/diosmio-cli.iml" />
+      <module fileurl="file://$USER_HOME$/documents/it/diosmios/5/diosmio/diosmio-parent.iml" filepath="$USER_HOME$/documents/it/diosmios/5/diosmio/diosmio-parent.iml" />
+      <module fileurl="file://$USER_HOME$/documents/it/diosmios/5/diosmio/diosmio-services/diosmio-services.iml" filepath="$USER_HOME$/documents/it/diosmios/5/diosmio/diosmio-services/diosmio-services.iml" />
+      <module fileurl="file://$USER_HOME$/documents/it/diosmios/5/diosmio/diosmio-services-interface/diosmio-services-interface.iml" filepath="$USER_HOME$/documents/it/diosmios/5/diosmio/diosmio-services-interface/diosmio-services-interface.iml" />
     </modules>
   </component>
   <component name="ProjectResources">
@@ -210,7 +210,7 @@
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" />
   <component name="VcsDirectoryMappings">
-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$USER_HOME$/documents/it/diosmios/5/diosmio" vcs="Git" />
   </component>
 </project>
 
