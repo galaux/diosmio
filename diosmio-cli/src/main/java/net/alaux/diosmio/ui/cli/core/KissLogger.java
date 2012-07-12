@@ -86,7 +86,7 @@ public class KissLogger {
 
     public void printAtLevel(String mess, Level l) {
         if (l.getValue() <= level.getValue()) {
-            out.println(mess);
+            out.println(l.name() + " - " + mess);
         }
     }
 }

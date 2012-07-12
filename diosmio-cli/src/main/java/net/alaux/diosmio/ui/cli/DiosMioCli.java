@@ -15,18 +15,7 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 
 
-/**
- * Hello world!
- *
- */
 public class DiosMioCli {
-
-
-//    private static final String DM_BEAN_ARTF_MNG_FS_NAME = "net.alaux.diosmio:name=fileSystemArtifactManager";
-//    private static final String DM_BEAN_ARTF_MNG_FS_NAME = "fileSystemArtifactManager";
-
-//	@Resource(name = "sayHello")
-//	SaySomething saySomething;
 
     private static Options options;
     private static DiosMioCli diosmioCli;
@@ -61,6 +50,7 @@ public class DiosMioCli {
     private static final String OPT_ARTIF_MNGR_DEL_L = "delete-artifact";
 
     private static KissLogger logger;
+
     private static final String DIOSMIOCLI_LOG_PATH = "/tmp/diosmio-cli.log";
 
     private static final String DEFAULT_CONF_PATH = "diosmio-cli.conf";
@@ -174,7 +164,7 @@ public class DiosMioCli {
             // Misc *******************************************
             if (cmd.hasOption(OPT_TECH_HELP)) {
                 HelpFormatter formatter = new HelpFormatter();
-                formatter.printHelp("diosmio-diosmioCli <option> [...]", options);
+                formatter.printHelp("diosmio-cli <option> [...]", options);
             } else if (cmd.hasOption(OPT_MISC_SHOW_BEANS)) {
                 logger.info("Option '" + OPT_MISC_SHOW_BEANS_L + "' found");
                 CliMiscJmxActions cliMiscJmxActions = new CliMiscJmxActions();
@@ -201,8 +191,10 @@ public class DiosMioCli {
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
+            logger.error(e.getMessage());
         } finally {
-            logger.info("Application terminated");
+            logger.info("I'm done!");
+            logger.info("----------------------");
             logger.close();
         }
     }
