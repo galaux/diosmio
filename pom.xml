@@ -16,6 +16,7 @@
     <module>diosmio</module>
     <module>diosmio-services-interface</module>
     <module>diosmio-services</module>
+    <module>diosmio-server-common</module>
     <module>diosmio-cli</module>
   </modules>
   

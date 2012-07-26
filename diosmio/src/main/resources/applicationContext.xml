@@ -8,20 +8,17 @@
                            http://www.springframework.org/schema/util
                            http://www.springframework.org/schema/util/spring-util-3.0.xsd
                            http://www.springframework.org/schema/context
-	                        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	                       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-    <util:properties id="serviceProperties" location="classpath:/application.properties"/>
+    <context:annotation-config/>
+    <context:component-scan base-package="net.alaux.diosmio"/>
+    <context:property-placeholder location="file:${diosmio-conf-file}"/>
 
-    <!--Enables use of "Autowired"-->
-    <!--<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>-->
-    <!--<context:annotation-config />-->
+    <!--<util:properties id="serviceProperties" location="file:${diosmio-conf-file}"/>-->
 
-    <!--<bean id="sayHello" class="net.alaux.diosmio.core.SayHelloService" />-->
+    <bean id="appProps" class="net.alaux.diosmio.server.common.AppProperties"/>
 
-    <bean id="artifactManager" class="net.alaux.diosmio.core.services.impl.FileSystemArtifactManager">
-        <!--Injection of properties as constructor parameter so that one can use it inside the constructor -->
-        <constructor-arg ref="serviceProperties"/>
-    </bean>
+    <bean id="artifactManager" class="net.alaux.diosmio.core.services.impl.FileSystemArtifactManager"/>
 
     <!-- this bean must not be lazily initialized if the exporting is to happen -->
     <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">

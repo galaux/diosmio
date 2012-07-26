@@ -1,22 +1,16 @@
 package net.alaux.diosmio.core.persistence.dao.impl;
 
-import me.prettyprint.cassandra.serializers.StringSerializer;
-import me.prettyprint.cassandra.service.ThriftKsDef;
 import me.prettyprint.cassandra.service.template.ColumnFamilyTemplate;
-import me.prettyprint.cassandra.service.template.ColumnFamilyUpdater;
-import me.prettyprint.cassandra.service.template.ThriftColumnFamilyTemplate;
 import me.prettyprint.hector.api.Cluster;
 import me.prettyprint.hector.api.Keyspace;
-import me.prettyprint.hector.api.ddl.ColumnFamilyDefinition;
-import me.prettyprint.hector.api.ddl.ComparatorType;
 import me.prettyprint.hector.api.ddl.KeyspaceDefinition;
-import me.prettyprint.hector.api.exceptions.HectorException;
 import me.prettyprint.hector.api.factory.HFactory;
 import me.prettyprint.hom.EntityManagerImpl;
 import net.alaux.diosmio.core.persistence.dao.PersistenceDao;
 import net.alaux.diosmio.core.persistence.entity.Artifact;
+import net.alaux.diosmio.server.common.AppProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Arrays;
 import java.util.UUID;
 
 /**
@@ -28,41 +22,67 @@ import java.util.UUID;
  */
 public class CassandraEmDao implements PersistenceDao {
 
-    public static final String CASSANDRA_CLUSTER_NAME = "DiosMio-cluster";
-    public static final String CASSANDRA_CLUSTER_HOST = "localhost";
-    public static final String CASSANDRA_CLUSTER_PORT = "9160";
-    public static final String CASSANDRA_KEYSPACE = "DiosMioKeyspace";
-    public static final int CASSANDRA_REPLICATION_FACTOR = 1;
+    @Autowired
+    AppProperties appProps;
+
     private Cluster cluster;
     private KeyspaceDefinition keyspaceDef;
     private Cluster appCluster;
     private ColumnFamilyTemplate<String, String> template;
     private Keyspace ksp;
 
+    private EntityManagerImpl em = null;
+
     public CassandraEmDao() {
 
-        Cluster cluster = HFactory.getOrCreateCluster("TestPool", "192.168.0.1:9160");
-        Keyspace keyspace = HFactory.createKeyspace("DiosMioKeyspace", cluster);
+////        Cluster cluster = HFactory.getOrCreateCluster("TestPool", "192.168.0.1:9160");
+//        Cluster cluster = HFactory.getOrCreateCluster(appProps.CASSANDRA_CLUSTER_NAME,
+//                appProps.CASSANDRA_CLUSTER_HOST + ":" + appProps.CASSANDRA_CLUSTER_PORT);
+//        Keyspace keyspace = HFactory.createKeyspace(appProps.CASSANDRA_KEYSPACE, cluster);
 
-        try {
-            EntityManagerImpl em = new EntityManagerImpl(keyspace, "net.alaux");
+//        try {
 
-            Artifact pojo1 = new Artifact();
-            pojo1.setId(UUID.randomUUID());
-            pojo1.setLongProp1(123L);
+//        if (em == null) {
+//            em = new EntityManagerImpl(keyspace, "net.alaux.diosmio.core.persistence.entity");
+//        }
 
-            em.persist(pojo1);
+//            Artifact pojo1 = new Artifact();
+//            pojo1.setId(UUID.randomUUID());
+//            pojo1.setLongProp1(123L);
+//
+//            em.persist(pojo1);
+//
+//            // do some stuff
+//
+//            Artifact pojo2 = em.find(Artifact.class, pojo1.getId());
+//
+//            // do some more stuff
+//
+//            System.out.println("Id = " + pojo2.getId());
+//            System.out.println("LonProp1 = " + pojo2.getLongProp1());
+//        } finally {
+//            cluster.getConnectionManager().shutdown();
+//        }
+    }
 
-            // do some stuff
+    public void create(Artifact artifact) {
+        artifact.setId(UUID.randomUUID());
+        em.persist(artifact);
+    }
 
-            Artifact pojo2 = em.find(Artifact.class, pojo1.getId());
+//    public void read() {
+//
+//    }
+//
+//    public void update() {
+//
+//    }
+//
+//    public void delete() {
+//
+//    }
 
-            // do some more stuff
-
-            System.out.println("Id = " + pojo2.getId());
-            System.out.println("LonProp1 = " + pojo2.getLongProp1());
-        } finally {
-            cluster.getConnectionManager().shutdown();
-        }
+    public void close() {
+        cluster.getConnectionManager().shutdown();
     }
 }

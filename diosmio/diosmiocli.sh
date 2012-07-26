@@ -5,12 +5,12 @@ THIS_VERSION=0.1
 
 DIOSMIO_PREFIX='diosmio'
 
-CMDLINE_JMXCLIENT_JAR=lib/cmdline-jmxclient-0.10.3.jar
+CMDLINE_JMXCLIENT_JAR=/home/miguel/documents/it/diosmio//misc/cmdline-jmxclient-0.10.3.jar
 DEFAULT_AUTH_STR='-'
 USER=
 PASS=
-HOST=localhost
-PORT=8090
+HOST=192.168.0.1
+PORT=8091
 
 usage() {
   echo "${THIS_NAME} v${THIS_VERSION} usage"

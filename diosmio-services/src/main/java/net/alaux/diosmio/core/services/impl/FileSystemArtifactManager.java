@@ -1,39 +1,40 @@
 package net.alaux.diosmio.core.services.impl;
 
 import java.io.*;
-import java.util.Properties;
 
-import net.alaux.diosmio.DiosMioGenericService;
-import net.alaux.diosmio.core.services.IArtifactManager;
+import net.alaux.diosmio.core.persistence.dao.impl.CassandraEmDao;
+import net.alaux.diosmio.core.persistence.entity.Artifact;
+import net.alaux.diosmio.server.common.AppProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import javax.annotation.PostConstruct;
 
-public class FileSystemArtifactManager extends DiosMioGenericService implements IArtifactManager  {
 
-    private final String STORAGE_DIR_PATH = serviceProperties.getProperty("server.store.directory.path");
+public class FileSystemArtifactManager {
 
-    private static final String FILE_SEPARATOR = System.getProperty("file.separator");
+    @Autowired
+//    @Qualifier("appProps")
+    public AppProperties appProps;
 
-    private static File storageDirectory;
+    private File storageDirectory;
+
+    private CassandraEmDao dao;
 
     public static final Logger logger = LoggerFactory.getLogger(FileSystemArtifactManager.class);
 
-    /**
-     *
-     * @param serviceProperties
-     * @throws IOException
-     */
-    public FileSystemArtifactManager(Properties serviceProperties) throws IOException {
+    @PostConstruct
+    public void init() throws IOException {
 
-        super(serviceProperties);
-
-        storageDirectory = new File(STORAGE_DIR_PATH);
+        storageDirectory = new File(appProps.storageDirPath);
         if (storageDirectory == null || !storageDirectory.exists() || !storageDirectory.canRead()
                 || !storageDirectory.isDirectory()) {
             throw new IOException("error.storage_dir_not_accessible");
         }
+
+        dao = new CassandraEmDao();
     }
 
     /**
@@ -44,19 +45,22 @@ public class FileSystemArtifactManager extends DiosMioGenericService implements 
      */
     public void addArtifact(String name, byte[] content) throws Exception {
 
-        File artifact = new File(STORAGE_DIR_PATH + FILE_SEPARATOR + name);
+        File file = new File(appProps.storageDirPath + appProps.FILE_SEPARATOR + name);
 
-        if (artifact == null || artifact.exists()) {
+        if (file == null || file.exists()) {
             throw new Exception("error.file_already_exists");
         }
 
-        FileOutputStream fos = new FileOutputStream(artifact);
+        FileOutputStream fos = new FileOutputStream(file);
         try {
             fos.write(content);
         } finally {
             fos.flush();
             fos.close();
         }
+
+        Artifact artifact = new Artifact(name, "/");
+        dao.create(artifact);
     }
 
     // TODO remove this static method as it is not used anymore
@@ -89,7 +93,7 @@ public class FileSystemArtifactManager extends DiosMioGenericService implements 
      */
     public boolean deleteArtifact(String artifactId) throws IOException {
 
-        File file = new File(STORAGE_DIR_PATH + FILE_SEPARATOR + artifactId);
+        File file = new File(appProps.storageDirPath + appProps.FILE_SEPARATOR + artifactId);
 
         if (file == null || !file.exists() || !file.canWrite()) {
             throw new IOException("error.file_not_readable");

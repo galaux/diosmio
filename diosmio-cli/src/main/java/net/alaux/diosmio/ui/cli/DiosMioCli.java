@@ -77,7 +77,9 @@ public class DiosMioCli {
         InputStream is = null;
         if (filePath != null) {
             File f = new File(filePath);
-            if (!f.exists() || !f.canRead()) {
+            if (f.exists() && f.canRead()) {
+                is = new FileInputStream(f);
+            } else {
                 logger.error("Cannot access specified configuration file (" + filePath + ")");
             }
         }
