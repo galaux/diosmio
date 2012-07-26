@@ -24,8 +24,6 @@
     <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
         <property name="beans">
             <map>
-                <!--         <entry key="bean:name=testBean1" value-ref="testBean"/> -->
-                <!--<entry key="net.alaux.diosmio:name=sayHello" value-ref="sayHello"/>-->
                 <entry key="net.alaux.diosmio:name=artifactManager" value-ref="artifactManager"/>
             </map>
         </property>
