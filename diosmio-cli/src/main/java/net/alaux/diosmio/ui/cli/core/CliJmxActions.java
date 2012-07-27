@@ -1,6 +1,6 @@
 package net.alaux.diosmio.ui.cli.core;
 
-import net.alaux.diosmio.core.services.IArtifactManager;
+import net.alaux.diosmio.core.service.ArtifactManager;
 import net.alaux.diosmio.ui.cli.ClientListener;
 import net.alaux.diosmio.ui.cli.DiosMioCli;
 
@@ -18,9 +18,6 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 public class CliJmxActions {
-
-//    private static final String JMX_URL = "service:jmx:rmi:///jndi/rmi://:8090/jmxrmi";
-//    static final String DM_DOMAIN_NAME="net.alaux.diosmio";
 
     private static final String JMX_URL = DiosMioCli.getProperty("cli.rmi.url");
     static final String DM_DOMAIN_NAME = DiosMioCli.getProperty("common.domain_name");
@@ -44,7 +41,7 @@ public class CliJmxActions {
     public  <T> T getServiceBean(Class<T> clazz) throws IOException, InstanceNotFoundException, MalformedObjectNameException {
 
         T mbean = null;
-        if (clazz == IArtifactManager.class) {
+        if (clazz == ArtifactManager.class) {
             ObjectName mbeanName = new ObjectName(DM_DOMAIN_NAME + ":name=" + BEAN_ARTIFACT_MANAGER_NAME);
             mbean =  JMX.newMBeanProxy(mbsc, mbeanName, clazz, true);
             ClientListener listener = new ClientListener();

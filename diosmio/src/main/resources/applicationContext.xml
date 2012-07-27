@@ -14,11 +14,13 @@
     <context:component-scan base-package="net.alaux.diosmio"/>
     <context:property-placeholder location="file:${diosmio-conf-file}"/>
 
-    <!--<util:properties id="serviceProperties" location="file:${diosmio-conf-file}"/>-->
-
     <bean id="appProps" class="net.alaux.diosmio.server.common.AppProperties"/>
 
-    <bean id="artifactManager" class="net.alaux.diosmio.core.services.impl.FileSystemArtifactManager"/>
+    <!--<util:properties id="serviceProperties" location="file:${diosmio-conf-file}"/>-->
+
+    <bean id="fileDao" class="net.alaux.diosmio.core.persistence.dao.file.impl.SimpleFileDao"/>
+    <bean id="dbDao" class="net.alaux.diosmio.core.persistence.dao.db.impl.CassandraEmDao"/>
+    <bean id="artifactManager" class="net.alaux.diosmio.core.service.impl.SimpleArtifactManager"/>
 
     <!-- this bean must not be lazily initialized if the exporting is to happen -->
     <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">

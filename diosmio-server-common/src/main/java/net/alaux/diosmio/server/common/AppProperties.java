@@ -13,16 +13,16 @@ public class AppProperties {
     public String cassandraClusterName;
 
     @Value("${server.persistence.cassandra.cluster.host}")
-    public static String cassandraClusterHost;
+    public String cassandraClusterHost;
 
     @Value("${server.persistence.cassandra.cluster.port}")
-    public static String cassandraClusterPort;
+    public String cassandraClusterPort;
 
     @Value("${server.persistence.cassandra.keyspace}")
-    public static String cassandraClusterKeyspace;
+    public String cassandraClusterKeyspace;
 
     @Value("${server.persistence.cassandra.replication_factor}")
-    public static String cassandraClusterReplicationFactor;
+    public String cassandraClusterReplicationFactor;
 
 
     public static final String FILE_SEPARATOR   = System.getProperty("file.separator");

@@ -1,7 +1,8 @@
-package net.alaux.diosmio.core.persistence.entity;
+package net.alaux.diosmio.core.entity.impl;
 
 import me.prettyprint.hom.annotations.Column;
 import me.prettyprint.hom.annotations.Id;
+import net.alaux.diosmio.core.entity.Artifact;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -16,7 +17,7 @@ import java.util.UUID;
  */
 @Entity
 @Table(name="ColumnFamilyName")
-public class Artifact {
+public class JavaWar implements Artifact {
 
     @Id
     private UUID id;
@@ -51,7 +52,7 @@ public class Artifact {
         this.relativePath = relativePath;
     }
 
-    public Artifact(String name, String relativePath) {
+    public JavaWar(String name, String relativePath) {
         this.name = name;
         this.relativePath = relativePath;
     }
