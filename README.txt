@@ -11,3 +11,10 @@ General technical overview
             Should later host a GUI
         diosmio-cli
             A CLI to invoke the services run by the diosmio webapp
+
+
+TODO
+    - We directly use Hibernate. Use JPa abstraction on top of Hibernate as explained here
+        http://blog.springsource.org/2012/04/06/migrating-to-spring-3-1-and-hibernate-4-1/
+
+    - Create BusinessExceptions and use then across all the application instead of raw Exception

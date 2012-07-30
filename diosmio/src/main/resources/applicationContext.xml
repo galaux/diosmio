@@ -8,7 +8,8 @@
                            http://www.springframework.org/schema/util
                            http://www.springframework.org/schema/util/spring-util-3.0.xsd
                            http://www.springframework.org/schema/context
-	                       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	                       http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc">
 
     <context:annotation-config/>
     <context:component-scan base-package="net.alaux.diosmio"/>
@@ -19,7 +20,8 @@
     <!--<util:properties id="serviceProperties" location="file:${diosmio-conf-file}"/>-->
 
     <bean id="fileDao" class="net.alaux.diosmio.core.persistence.dao.file.impl.SimpleFileDao"/>
-    <bean id="dbDao" class="net.alaux.diosmio.core.persistence.dao.db.impl.CassandraEmDao"/>
+    <!--<bean id="dbDao" class="net.alaux.diosmio.core.persistence.dao.db.impl.CassandraEmDao"/>-->
+    <bean id="javaWarDao" class="net.alaux.diosmio.core.persistence.dao.db.impl.ArtifactDao"/>
     <bean id="artifactManager" class="net.alaux.diosmio.core.service.impl.SimpleArtifactManager"/>
 
     <!-- this bean must not be lazily initialized if the exporting is to happen -->
@@ -30,6 +32,39 @@
             </map>
         </property>
     </bean>
+
+    <!-- Hibernate -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="url" value="jdbc:h2:${server.persistence.hibernate.h2.dbfilename};DB_CLOSE_DELAY=-1;MVCC=TRUE"/>
+        <property name="driverClass" value="org.h2.Driver" />
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="hibernateProperties">
+            <props>
+                <!-- would like to know all the properties supported here -->
+                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+                <prop key="connection.driver_class">org.h2.Driver</prop>
+                <!--<prop key="connection.url">jdbc:h2:/tmp/victory;DB_CLOSE_DELAY=-1;MVCC=TRUE</prop>-->
+                <prop key="connection.username">sa</prop>
+                <prop key="connection.password"></prop>
+                <prop key="connection.pool_size">1</prop>
+                <!--<prop key="dialect">org.hibernate.dialect.H2Dialect</prop>-->
+                <prop key="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</prop>
+                <prop key="show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">${server.persistence.hibernate.hbm2ddl.auto}</prop>
+            </props>
+        </property>
+
+        <property name="annotatedClasses">
+            <list>
+                <value>net.alaux.diosmio.core.entity.Artifact</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--<bean id="eventDao" class="net.alaux.diosmio.core.persistence.dao.db.impl.EventDao"/>-->
 
 </beans>
 

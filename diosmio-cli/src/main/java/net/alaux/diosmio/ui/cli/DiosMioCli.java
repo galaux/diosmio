@@ -2,7 +2,7 @@ package net.alaux.diosmio.ui.cli;
 
 import net.alaux.diosmio.ui.cli.core.CliArtifactManagerJmxActions;
 import net.alaux.diosmio.ui.cli.core.CliMiscJmxActions;
-import net.alaux.diosmio.ui.cli.core.KissLogger;
+import net.alaux.diosmio.ui.cli.net.alaux.logging.KissLogger;
 import org.apache.commons.cli.*;
 
 
@@ -37,6 +37,9 @@ public class DiosMioCli {
     // Misc opt
     private static final String OPT_MISC_SHOW_BEANS = "s";
     private static final String OPT_MISC_SHOW_BEANS_L = "show-beans";
+
+//    private static final String OPT_MISC_STATUS = "???";
+    private static final String OPT_MISC_SHOW_STATUS_L = "status";
 
     // Artifact Manager opt
     private static final String OPT_ARTIF_MNGR_ADD = "a";
@@ -127,6 +130,45 @@ public class DiosMioCli {
         }
     }
 
+    private Options createOptions() {
+
+        Options opt = new Options();
+
+        // Technical opt
+        opt.addOption(OPT_TECH_HELP, OPT_TECH_HELP_L, false, "give this help");
+
+        opt.addOption(OPT_TECH_LOG_WARN, false, "display 'warning' logs");
+        opt.addOption(OPT_TECH_LOG_INFO, false, "display 'info' logs");
+        opt.addOption(OPT_TECH_LOG_DEBUG, false, "display 'debug' logs");
+
+        opt.addOption(OptionBuilder.withLongOpt(OPT_TECH_CONFIG_FILE_L)
+                .hasArg()
+                .withArgName("file")
+                .withDescription("use alternate config file")
+                .create(OPT_TECH_CONFIG_FILE));
+
+        // Misc
+        opt.addOption(OPT_MISC_SHOW_BEANS, OPT_MISC_SHOW_BEANS_L, false, "list available beans");
+        opt.addOption(OPT_MISC_SHOW_STATUS_L, false, "show application status");
+
+        // Artifact Manager
+        opt.addOption(OptionBuilder.withLongOpt(OPT_ARTIF_MNGR_ADD_L)
+                .hasArg()
+                .withArgName("artifact")
+                .withDescription("add artifact to database")
+                .create(OPT_ARTIF_MNGR_ADD));
+        opt.addOption(OptionBuilder.withLongOpt(OPT_ARTIF_MNGR_LIST_L)
+                .withDescription("list artifacts in database")
+                .create(OPT_ARTIF_MNGR_LIST));
+        opt.addOption(OptionBuilder.withLongOpt(OPT_ARTIF_MNGR_DEL_L)
+                .hasArg()
+                .withArgName("artifactId")
+                .withDescription("delete artifact from database")
+                .create(OPT_ARTIF_MNGR_DEL));
+
+        return  opt;
+    }
+
     private void executeAction(CommandLine cmd) throws ParseException, IOException, MalformedObjectNameException, Exception {
 
         // First process log level stuff
@@ -156,6 +198,12 @@ public class DiosMioCli {
             cliMiscJmxActions.displayMBeanList();
             cliMiscJmxActions.closeJmxConnection();
 
+        } else if (cmd.hasOption(OPT_MISC_SHOW_STATUS_L)) {
+            logger.info("Option '" + OPT_MISC_SHOW_STATUS_L + "' found");
+            CliMiscJmxActions cliMiscJmxActions = new CliMiscJmxActions();
+            cliMiscJmxActions.displayStatus();
+            cliMiscJmxActions.closeJmxConnection();
+
             // Artifact Manager ***************************
         } else if (cmd.hasOption(OPT_ARTIF_MNGR_LIST)) {
             logger.info("Option '" + OPT_ARTIF_MNGR_LIST_L+ "' found");
@@ -175,44 +223,6 @@ public class DiosMioCli {
             cliArtifactManagerJmxActions.delete(cmd.getOptionValue(OPT_ARTIF_MNGR_DEL));
             cliArtifactManagerJmxActions.closeJmxConnection();
         }
-    }
-
-    private Options createOptions() {
-
-        Options opt = new Options();
-
-        // Technical opt
-        opt.addOption(OPT_TECH_HELP, OPT_TECH_HELP_L, false, "give this help");
-
-        opt.addOption(OPT_TECH_LOG_WARN, false, "display 'warning' logs");
-        opt.addOption(OPT_TECH_LOG_INFO, false, "display 'info' logs");
-        opt.addOption(OPT_TECH_LOG_DEBUG, false, "display 'debug' logs");
-
-        opt.addOption(OptionBuilder.withLongOpt(OPT_TECH_CONFIG_FILE_L)
-                .hasArg()
-                .withArgName("file")
-                .withDescription("use alternate config file")
-                .create(OPT_TECH_CONFIG_FILE));
-
-        // Misc
-        opt.addOption(OPT_MISC_SHOW_BEANS, OPT_MISC_SHOW_BEANS_L, false, "list available beans");
-
-        // Artifact Manager
-        opt.addOption(OptionBuilder.withLongOpt(OPT_ARTIF_MNGR_ADD_L)
-                .hasArg()
-                .withArgName("artifact")
-                .withDescription("add artifact to database")
-                .create(OPT_ARTIF_MNGR_ADD));
-        opt.addOption(OptionBuilder.withLongOpt(OPT_ARTIF_MNGR_LIST_L)
-                .withDescription("list artifacts in database")
-                .create(OPT_ARTIF_MNGR_LIST));
-        opt.addOption(OptionBuilder.withLongOpt(OPT_ARTIF_MNGR_DEL_L)
-                .hasArg()
-                .withArgName("artifactId")
-                .withDescription("delete artifact from database")
-                .create(OPT_ARTIF_MNGR_DEL));
-
-        return  opt;
     }
 
     /**

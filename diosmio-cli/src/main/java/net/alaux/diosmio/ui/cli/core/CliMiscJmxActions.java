@@ -1,5 +1,7 @@
 package net.alaux.diosmio.ui.cli.core;
 
+import net.alaux.diosmio.core.service.ArtifactManager;
+
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 import java.io.IOException;
@@ -28,5 +30,23 @@ public class CliMiscJmxActions extends CliJmxActions {
                 System.out.println(name.toString().replaceFirst(DM_DOMAIN_NAME + ":name=", ""));
             }
         }
+    }
+
+    public void displayStatus() throws Exception {
+
+        // Check artifactManager
+        ArtifactManager artifactManager = getServiceBean(ArtifactManager.class);
+        if (artifactManager == null) {
+            System.out.println("Artifact manager: null");
+
+        } else {
+            System.out.println("Artifact Manager: " + (artifactManager.getStatus() ? "OK" : "ERROR"));
+        }
+
+
+
+
+
+
     }
 }

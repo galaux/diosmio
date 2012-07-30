@@ -31,6 +31,11 @@ public class SimpleFileDao implements FileDao {
         }
     }
 
+    public boolean getStatus() {
+        return (storageDirectory != null) && (storageDirectory.exists()) && (storageDirectory.canRead())
+                && (storageDirectory.isDirectory());
+    }
+
     /**
      *
      * @param internPath

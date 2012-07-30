@@ -35,16 +35,23 @@
         </dependency>
 
         <dependency>
-            <groupId>me.prettyprint</groupId>
-            <artifactId>hector-core</artifactId>
-            <version>1.0-5</version>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.1.4.Final</version>
         </dependency>
 
-        <dependency>
-            <groupId>me.prettyprint</groupId>
-            <artifactId>hector-object-mapper</artifactId>
-            <version>3.0-04</version>
-        </dependency>
+        <!--For Cassandra Support-->
+        <!--<dependency>-->
+            <!--<groupId>me.prettyprint</groupId>-->
+            <!--<artifactId>hector-core</artifactId>-->
+            <!--<version>1.0-5</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>me.prettyprint</groupId>-->
+            <!--<artifactId>hector-object-mapper</artifactId>-->
+            <!--<version>3.0-04</version>-->
+        <!--</dependency>-->
 
         <!--
             Core utilities used by other modules.

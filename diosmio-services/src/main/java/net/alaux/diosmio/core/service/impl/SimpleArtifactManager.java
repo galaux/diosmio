@@ -1,13 +1,14 @@
 package net.alaux.diosmio.core.service.impl;
 
 import net.alaux.diosmio.core.entity.Artifact;
-import net.alaux.diosmio.core.entity.impl.JavaWar;
-import net.alaux.diosmio.core.persistence.dao.db.DatabaseDao;
+import net.alaux.diosmio.core.persistence.dao.db.impl.ArtifactDao;
 import net.alaux.diosmio.core.persistence.dao.file.FileDao;
 import net.alaux.diosmio.core.service.ArtifactManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.UUID;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,31 +20,53 @@ import java.util.UUID;
 public class SimpleArtifactManager implements ArtifactManager {
 
     @Autowired
-    private DatabaseDao dbDao;
+    private ArtifactDao artifactDao;
 
     @Autowired
     private FileDao fileDao;
 
-    public Artifact create(String internPath, byte[] content) throws Exception {
+    public Logger logger = LoggerFactory.getLogger(SimpleArtifactManager.class);
 
-        Artifact artifact = new JavaWar(internPath, "/");
-        artifact = dbDao.create(artifact);
+    public boolean getStatus() {
+        return (artifactDao != null)
+                && (artifactDao.getStatus())
+                && (fileDao != null)
+                && (fileDao.getStatus());
+    }
+
+    public boolean getDbDaoStatus() {
+        return artifactDao.getStatus();
+    }
+
+    public boolean getFileDaoStatus() {
+        return fileDao.getStatus();
+    }
+
+    public Artifact create(String internPath, byte[] content) throws Exception {
+        System.out.println("create");
+
+        Artifact artifact = new Artifact(internPath, "/");
+        artifactDao.create(artifact);
 
         fileDao.create(internPath, content);
 
         return artifact;
     }
 
-    public Artifact get(UUID id) {
-        return dbDao.get(id);
+    public Artifact get(Long id) {
+        System.out.println("get()");
+        return artifactDao.get(id);
     }
 
-    public Artifact[] getAll() {
-        return new Artifact[0];  //To change body of implemented methods use File | Settings | File Templates.
+    public List<Artifact> getAll() {
+        System.out.println("getAll()");
+        return artifactDao.getAll();
     }
 
-    public boolean delete(UUID id) throws Exception {
-//        dbDao.delete(id);
+    public boolean delete(Long id) throws Exception {
+        System.out.println("delete()");
+        // TODO
+//        artifactDao.delete(id);
         return false;
     }
 }

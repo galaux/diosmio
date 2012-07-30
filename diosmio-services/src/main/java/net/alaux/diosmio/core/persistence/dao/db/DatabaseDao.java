@@ -2,6 +2,7 @@ package net.alaux.diosmio.core.persistence.dao.db;
 
 import net.alaux.diosmio.core.entity.Artifact;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -13,11 +14,15 @@ import java.util.UUID;
  */
 public interface DatabaseDao {
 
-    public Artifact create(Artifact artifact);
+    public boolean getStatus();
 
-    public Artifact get(UUID id);
+    public void create(Artifact artifact);
+
+    public Artifact get(Long id);
+
+    public List<Artifact> getAll();
 
     public Artifact update(Artifact artifact);
 
-    public boolean delete(UUID id);
+    public boolean delete(Artifact artifact);
 }

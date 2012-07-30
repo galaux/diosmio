@@ -4,6 +4,8 @@ import java.io.File;
 
 public interface FileDao {
 
+    public boolean getStatus();
+
 	void create(String internPath, byte[] content) throws Exception;
 
 	File get(String internPath);

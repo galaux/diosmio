@@ -9,6 +9,7 @@ import javax.management.InstanceNotFoundException;
 import javax.management.MalformedObjectNameException;
 import java.io.*;
 import java.util.Arrays;
+import java.util.List;
 
 public class CliArtifactManagerJmxActions extends CliJmxActions {
 
@@ -41,11 +42,10 @@ public class CliArtifactManagerJmxActions extends CliJmxActions {
 
         ArtifactManager artifactManager = getServiceBean(ArtifactManager.class);
 
-        Artifact[] artifacts = artifactManager.getAll();
+        List<Artifact> artifacts = artifactManager.getAll();
 
-        Arrays.sort(artifacts);
         for (Artifact artifact : artifacts) {
-            System.out.println(((JavaWar) artifact).getId() + " " + ((JavaWar) artifact).getName());
+            System.out.println(artifact.getId() + " " + artifact.getName());
         }
     }
 

@@ -1,4 +1,4 @@
-package net.alaux.diosmio.ui.cli.core;
+package net.alaux.diosmio.ui.cli.net.alaux.logging;
 
 import java.io.*;
 
