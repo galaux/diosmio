@@ -12,6 +12,8 @@ General technical overview
         diosmio-cli
             A CLI to invoke the services run by the diosmio webapp
 
+Needs the H2 jar in the tomcat lib dir
+
 
 TODO
     - We directly use Hibernate. Use JPa abstraction on top of Hibernate as explained here

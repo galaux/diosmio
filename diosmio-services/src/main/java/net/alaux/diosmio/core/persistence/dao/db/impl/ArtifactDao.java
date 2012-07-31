@@ -7,8 +7,12 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 
 import javax.annotation.PreDestroy;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -24,13 +28,6 @@ public class ArtifactDao implements DatabaseDao {
     private SessionFactory sessionFactory;
 
     public Logger logger = LoggerFactory.getLogger(ArtifactDao.class);
-
-    @PreDestroy
-    protected void tearDown() throws Exception {
-        if ( sessionFactory != null ) {
-            sessionFactory.close();
-        }
-    }
 
     public boolean getStatus() {
         return sessionFactory != null;

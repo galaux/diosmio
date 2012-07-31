@@ -20,8 +20,7 @@
     <!--<util:properties id="serviceProperties" location="file:${diosmio-conf-file}"/>-->
 
     <bean id="fileDao" class="net.alaux.diosmio.core.persistence.dao.file.impl.SimpleFileDao"/>
-    <!--<bean id="dbDao" class="net.alaux.diosmio.core.persistence.dao.db.impl.CassandraEmDao"/>-->
-    <bean id="javaWarDao" class="net.alaux.diosmio.core.persistence.dao.db.impl.ArtifactDao"/>
+    <bean id="artifactDao" class="net.alaux.diosmio.core.persistence.dao.db.impl.ArtifactDao"/>
     <bean id="artifactManager" class="net.alaux.diosmio.core.service.impl.SimpleArtifactManager"/>
 
     <!-- this bean must not be lazily initialized if the exporting is to happen -->
@@ -34,9 +33,20 @@
     </bean>
 
     <!-- Hibernate -->
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-        <property name="url" value="jdbc:h2:${server.persistence.hibernate.h2.dbfilename};DB_CLOSE_DELAY=-1;MVCC=TRUE"/>
+    <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">-->
+        <!--<property name="url" value="jdbc:h2:${server.persistence.hibernate.h2.dbfilename}"/>-->
+        <!--<property name="driverClass" value="org.h2.Driver" />-->
+    <!--</bean>-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <property name="jdbcUrl" value="jdbc:h2:${server.persistence.hibernate.h2.dbfilename}"/>
         <property name="driverClass" value="org.h2.Driver" />
+
+        <property name="minPoolSize" value="5" />
+        <property name="maxPoolSize" value="20" />
+        <property name="maxStatements" value="50" />
+        <property name="idleConnectionTestPeriod" value="3000" />
+        <property name="loginTimeout" value="300" />
     </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -46,14 +56,13 @@
                 <!-- would like to know all the properties supported here -->
                 <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
                 <prop key="connection.driver_class">org.h2.Driver</prop>
-                <!--<prop key="connection.url">jdbc:h2:/tmp/victory;DB_CLOSE_DELAY=-1;MVCC=TRUE</prop>-->
                 <prop key="connection.username">sa</prop>
                 <prop key="connection.password"></prop>
-                <prop key="connection.pool_size">1</prop>
-                <!--<prop key="dialect">org.hibernate.dialect.H2Dialect</prop>-->
-                <prop key="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</prop>
+                <!--<prop key="connection.pool_size">1</prop>-->
+                <!--<prop key="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</prop>-->
                 <prop key="show_sql">true</prop>
                 <prop key="hibernate.hbm2ddl.auto">${server.persistence.hibernate.hbm2ddl.auto}</prop>
+                <prop key="hibernate.connection.release_mode">on_close</prop>
             </props>
         </property>
 
