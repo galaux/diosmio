@@ -55,7 +55,7 @@ public class ArtifactDao implements DatabaseDao {
      */
     public Artifact get(Long id) {
 
-        System.out.println("get()");
+        System.out.println("get(" + id + ")");
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -106,11 +106,15 @@ public class ArtifactDao implements DatabaseDao {
      * @param artifact
      * @return
      */
-    public boolean delete(Artifact artifact) {
+    public void delete(Artifact artifact) {
 
         System.out.println("delete()");
 
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.delete(artifact);
+        session.getTransaction().commit();
+        session.close();
     }
 
 

@@ -58,8 +58,6 @@
                 <prop key="connection.driver_class">org.h2.Driver</prop>
                 <prop key="connection.username">sa</prop>
                 <prop key="connection.password"></prop>
-                <!--<prop key="connection.pool_size">1</prop>-->
-                <!--<prop key="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</prop>-->
                 <prop key="show_sql">true</prop>
                 <prop key="hibernate.hbm2ddl.auto">${server.persistence.hibernate.hbm2ddl.auto}</prop>
                 <prop key="hibernate.connection.release_mode">on_close</prop>

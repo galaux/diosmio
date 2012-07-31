@@ -110,7 +110,6 @@ public class CassandraEmDao implements DatabaseDao {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public boolean delete(Artifact artifact) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    public void delete(Artifact artifact) {
     }
 }

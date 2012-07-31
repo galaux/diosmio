@@ -4,6 +4,7 @@ import net.alaux.diosmio.core.entity.Artifact;
 import net.alaux.diosmio.core.persistence.dao.db.impl.ArtifactDao;
 import net.alaux.diosmio.core.persistence.dao.file.FileDao;
 import net.alaux.diosmio.core.service.ArtifactManager;
+import net.alaux.diosmio.server.common.AppProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class SimpleArtifactManager implements ArtifactManager {
 
     @Autowired
     private FileDao fileDao;
+
+    @Autowired
+    AppProperties appProperties;
 
     public Logger logger = LoggerFactory.getLogger(SimpleArtifactManager.class);
 
@@ -63,10 +67,9 @@ public class SimpleArtifactManager implements ArtifactManager {
         return artifactDao.getAll();
     }
 
-    public boolean delete(Long id) throws Exception {
+    public void delete(Artifact artifact) throws Exception {
         System.out.println("delete()");
-        // TODO
-//        artifactDao.delete(id);
-        return false;
+        fileDao.delete(artifact.getRelativePath() + appProperties.FILE_SEPARATOR + artifact.getName());
+        artifactDao.delete(artifact);
     }
 }

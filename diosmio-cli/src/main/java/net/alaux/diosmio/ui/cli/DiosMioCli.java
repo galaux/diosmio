@@ -31,28 +31,31 @@ public class DiosMioCli {
     private static final String OPT_TECH_LOG_INFO = "vv";
     private static final String OPT_TECH_LOG_DEBUG = "vvv";
 
-    public static final String OPT_TECH_CONFIG_FILE_L = "config-file";
+    public static final String OPT_TECH_CONFIG_FILE_L = "conf";
     public static final String OPT_TECH_CONFIG_FILE = "c";
 
     // Misc opt
-    private static final String OPT_MISC_SHOW_BEANS = "s";
-    private static final String OPT_MISC_SHOW_BEANS_L = "show-beans";
+//    private static final String OPT_MISC_SHOW_BEANS = "s";
+    private static final String OPT_MISC_LIST_BEANS_L = "lsbeans";
 
 //    private static final String OPT_MISC_STATUS = "???";
     private static final String OPT_MISC_SHOW_STATUS_L = "status";
 
     // Artifact Manager opt
-    private static final String OPT_ARTIF_MNGR_ADD = "a";
-    private static final String OPT_ARTIF_MNGR_ADD_L = "add-artifact";
+//    private static final String OPT_ARTIF_MNGR_ADD = "a";
+    private static final String OPT_ARTIF_MNGR_ADD_L = "add";
 
-    private static final String OPT_ARTIF_MNGR_LIST = "l";
-    private static final String OPT_ARTIF_MNGR_LIST_L = "list-artifacts";
+    //    private static final String OPT_ARTIF_MNGR_LIST = "l";
+    private static final String OPT_ARTIF_MNGR_LIST_L = "ls";
 
-    private static final String OPT_ARTIF_MNGR_DEL = "d";
-    private static final String OPT_ARTIF_MNGR_DEL_L = "delete-artifact";
+    private static final String OPT_ARTIF_MNGR_GET_L = "get";
+
+//    private static final String OPT_ARTIF_MNGR_DEL = "d";
+    private static final String OPT_ARTIF_MNGR_DEL_L = "rm";
 
     private static KissLogger logger;
 
+    // TODO Get this value from config file
     private static final String DIOSMIOCLI_LOG_PATH = "/tmp/diosmio-cli.log";
 
     private static final String DEFAULT_CONF_PATH = "diosmio-cli.conf";
@@ -124,9 +127,11 @@ public class DiosMioCli {
             System.err.println(e.getMessage());
             logger.error(e.getMessage());
         } finally {
-            logger.info("I'm done!");
-            logger.info("----------------------");
-            logger.close();
+            if (logger != null) {
+                logger.info("I'm done!");
+                logger.info("----------------------");
+                logger.close();
+            }
         }
     }
 
@@ -141,30 +146,40 @@ public class DiosMioCli {
         opt.addOption(OPT_TECH_LOG_INFO, false, "display 'info' logs");
         opt.addOption(OPT_TECH_LOG_DEBUG, false, "display 'debug' logs");
 
-        opt.addOption(OptionBuilder.withLongOpt(OPT_TECH_CONFIG_FILE_L)
-                .hasArg()
+        opt.addOption(OptionBuilder.hasArg()
                 .withArgName("file")
                 .withDescription("use alternate config file")
+                .withLongOpt(OPT_TECH_CONFIG_FILE_L)
                 .create(OPT_TECH_CONFIG_FILE));
 
         // Misc
-        opt.addOption(OPT_MISC_SHOW_BEANS, OPT_MISC_SHOW_BEANS_L, false, "list available beans");
+        opt.addOption(OPT_MISC_LIST_BEANS_L, false, "list available beans");
         opt.addOption(OPT_MISC_SHOW_STATUS_L, false, "show application status");
 
         // Artifact Manager
-        opt.addOption(OptionBuilder.withLongOpt(OPT_ARTIF_MNGR_ADD_L)
-                .hasArg()
+        opt.addOption(OptionBuilder.hasArg()
                 .withArgName("artifact")
                 .withDescription("add artifact to database")
-                .create(OPT_ARTIF_MNGR_ADD));
-        opt.addOption(OptionBuilder.withLongOpt(OPT_ARTIF_MNGR_LIST_L)
-                .withDescription("list artifacts in database")
-                .create(OPT_ARTIF_MNGR_LIST));
-        opt.addOption(OptionBuilder.withLongOpt(OPT_ARTIF_MNGR_DEL_L)
-                .hasArg()
+                .withLongOpt(OPT_ARTIF_MNGR_ADD_L)
+                .create());
+
+        opt.addOption(OptionBuilder.hasArg()
                 .withArgName("artifactId")
+                .withType(Long.class)
+                .withDescription("list artifacts in database")
+                .withLongOpt(OPT_ARTIF_MNGR_GET_L)
+                .create());
+
+        opt.addOption(OptionBuilder.withDescription("show an artifact")
+                .withLongOpt(OPT_ARTIF_MNGR_LIST_L)
+                .create());
+
+        opt.addOption(OptionBuilder.hasArg()
+                .withArgName("artifactId")
+                .withType(Long.class)
                 .withDescription("delete artifact from database")
-                .create(OPT_ARTIF_MNGR_DEL));
+                .withLongOpt(OPT_ARTIF_MNGR_DEL_L)
+                .create());
 
         return  opt;
     }
@@ -192,8 +207,8 @@ public class DiosMioCli {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("diosmio-cli <option> [...]", this.options);
 
-        } else if (cmd.hasOption(OPT_MISC_SHOW_BEANS)) {
-            logger.info("Option '" + OPT_MISC_SHOW_BEANS_L + "' found");
+        } else if (cmd.hasOption(OPT_MISC_LIST_BEANS_L)) {
+            logger.info("Option '" + OPT_MISC_LIST_BEANS_L + "' found");
             CliMiscJmxActions cliMiscJmxActions = new CliMiscJmxActions();
             cliMiscJmxActions.displayMBeanList();
             cliMiscJmxActions.closeJmxConnection();
@@ -205,22 +220,28 @@ public class DiosMioCli {
             cliMiscJmxActions.closeJmxConnection();
 
             // Artifact Manager ***************************
-        } else if (cmd.hasOption(OPT_ARTIF_MNGR_LIST)) {
+        } else if (cmd.hasOption(OPT_ARTIF_MNGR_LIST_L)) {
             logger.info("Option '" + OPT_ARTIF_MNGR_LIST_L+ "' found");
             CliArtifactManagerJmxActions cliArtifactManagerJmxActions = new CliArtifactManagerJmxActions();
-            cliArtifactManagerJmxActions.getAll();
+            cliArtifactManagerJmxActions.listAllArtifacts();
             cliArtifactManagerJmxActions.closeJmxConnection();
 
-        } else if (cmd.hasOption(OPT_ARTIF_MNGR_ADD)) {
-            logger.info("Option '" + OPT_ARTIF_MNGR_ADD_L + "' found with value '" + cmd.getOptionValue(OPT_ARTIF_MNGR_ADD) + "'");
+        } else if (cmd.hasOption(OPT_ARTIF_MNGR_GET_L)) {
+            logger.info("Option '" + OPT_ARTIF_MNGR_GET_L + "' found with value '" + cmd.getOptionValue(OPT_ARTIF_MNGR_GET_L) + "'");
             CliArtifactManagerJmxActions cliArtifactManagerJmxActions = new CliArtifactManagerJmxActions();
-            cliArtifactManagerJmxActions.create(cmd.getOptionValue(OPT_ARTIF_MNGR_ADD));
+            cliArtifactManagerJmxActions.showArtifact(new Long(cmd.getOptionValue(OPT_ARTIF_MNGR_GET_L)));
             cliArtifactManagerJmxActions.closeJmxConnection();
 
-        } else if (cmd.hasOption(OPT_ARTIF_MNGR_DEL)) {
-            logger.info("Option '" + OPT_ARTIF_MNGR_DEL_L + "' found with value '" + cmd.getOptionValue(OPT_ARTIF_MNGR_DEL) + "'");
+        } else if (cmd.hasOption(OPT_ARTIF_MNGR_ADD_L)) {
+            logger.info("Option '" + OPT_ARTIF_MNGR_ADD_L + "' found with value '" + cmd.getOptionValue(OPT_ARTIF_MNGR_ADD_L) + "'");
             CliArtifactManagerJmxActions cliArtifactManagerJmxActions = new CliArtifactManagerJmxActions();
-            cliArtifactManagerJmxActions.delete(cmd.getOptionValue(OPT_ARTIF_MNGR_DEL));
+            cliArtifactManagerJmxActions.create(cmd.getOptionValue(OPT_ARTIF_MNGR_ADD_L));
+            cliArtifactManagerJmxActions.closeJmxConnection();
+
+        } else if (cmd.hasOption(OPT_ARTIF_MNGR_DEL_L)) {
+            logger.info("Option '" + OPT_ARTIF_MNGR_DEL_L + "' found with value '" + cmd.getOptionValue(OPT_ARTIF_MNGR_DEL_L) + "'");
+            CliArtifactManagerJmxActions cliArtifactManagerJmxActions = new CliArtifactManagerJmxActions();
+            cliArtifactManagerJmxActions.delete(new Long(cmd.getOptionValue(OPT_ARTIF_MNGR_DEL_L)));
             cliArtifactManagerJmxActions.closeJmxConnection();
         }
     }

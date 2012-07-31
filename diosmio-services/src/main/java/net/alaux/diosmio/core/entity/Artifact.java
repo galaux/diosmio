@@ -62,4 +62,8 @@ public class Artifact implements Serializable {
         this.name = name;
         this.relativePath = relativePath;
     }
+
+    public String toString() {
+        return id + "\t" + name + "\t" + relativePath;
+    }
 }

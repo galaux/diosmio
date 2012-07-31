@@ -24,5 +24,5 @@ public interface DatabaseDao {
 
     public Artifact update(Artifact artifact);
 
-    public boolean delete(Artifact artifact);
+    public void delete(Artifact artifact);
 }

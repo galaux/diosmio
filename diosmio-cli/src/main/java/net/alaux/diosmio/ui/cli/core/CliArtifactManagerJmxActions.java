@@ -38,34 +38,47 @@ public class CliArtifactManagerJmxActions extends CliJmxActions {
         artifactManager.create(artifactFile.getName(), bos.toByteArray());
     }
 
-    public void getAll() throws IOException, InstanceNotFoundException, MalformedObjectNameException {
+    public void showArtifact(Long id) throws IOException, InstanceNotFoundException, MalformedObjectNameException {
+
+        ArtifactManager artifactManager = getServiceBean(ArtifactManager.class);
+        Artifact artifact = artifactManager.get(id);
+        if (artifact != null) {
+            System.out.println(artifact);
+        } else {
+            System.out.println("Artifact not found");
+        }
+    }
+
+    public void listAllArtifacts() throws IOException, InstanceNotFoundException, MalformedObjectNameException {
 
         ArtifactManager artifactManager = getServiceBean(ArtifactManager.class);
 
         List<Artifact> artifacts = artifactManager.getAll();
 
         for (Artifact artifact : artifacts) {
-            System.out.println(artifact.getId() + " " + artifact.getName());
+            System.out.println(artifact);
         }
     }
 
     /**
-     * For now, let's just identify a file based on its filename
-     * @param arg
-     * @return
+     *
+     * @param id
      * @throws IOException
      * @throws InstanceNotFoundException
      * @throws MalformedObjectNameException
+     * @throws Exception
      */
     // TODO handle "Exception" as BusinessExceptin
-    public void delete(String arg) throws IOException, InstanceNotFoundException, MalformedObjectNameException, Exception  {
+    public void delete(Long id) throws IOException, InstanceNotFoundException, MalformedObjectNameException, Exception  {
 
-        FileDao artifactManager = getServiceBean(FileDao.class);
+        ArtifactManager artifactManager = getServiceBean(ArtifactManager.class);
+        Artifact artifact = artifactManager.get(id);
 
-        if (artifactManager.delete(arg)) {
+        if (artifact == null) {
+            System.out.println("Cannot find artifact");
+        } else {
+            artifactManager.delete(artifact);
             System.out.println("Artifact deleted");
-        }   else {
-            System.out.println("Could not delete artifact");
         }
     }
 }

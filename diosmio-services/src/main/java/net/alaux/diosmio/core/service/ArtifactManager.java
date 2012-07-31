@@ -25,5 +25,5 @@ public interface ArtifactManager {
 
     List<Artifact> getAll();
 
-    boolean delete(Long id) throws Exception;
+    void delete(Artifact artifact) throws Exception;
 }
