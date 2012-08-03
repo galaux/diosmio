@@ -1,14 +1,14 @@
 package net.alaux.diosmio.ui.cli.core;
 
-import net.alaux.diosmio.core.entity.Artifact;
-import net.alaux.diosmio.core.entity.impl.JavaWar;
-import net.alaux.diosmio.core.persistence.dao.file.FileDao;
-import net.alaux.diosmio.core.service.ArtifactManager;
+import net.alaux.diosmio.services.core.ArtifactManager;
+import net.alaux.diosmio.services.entity.Artifact;
 
 import javax.management.InstanceNotFoundException;
 import javax.management.MalformedObjectNameException;
-import java.io.*;
-import java.util.Arrays;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 
 public class CliArtifactManagerJmxActions extends CliJmxActions {

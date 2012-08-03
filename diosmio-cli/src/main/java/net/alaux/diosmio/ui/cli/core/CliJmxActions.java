@@ -1,6 +1,6 @@
 package net.alaux.diosmio.ui.cli.core;
 
-import net.alaux.diosmio.core.service.ArtifactManager;
+import net.alaux.diosmio.services.core.ArtifactManager;
 import net.alaux.diosmio.ui.cli.ClientListener;
 import net.alaux.diosmio.ui.cli.DiosMioCli;
 

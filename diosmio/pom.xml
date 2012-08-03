@@ -17,12 +17,7 @@
 
     <dependencies>
 
-        <dependency>
-            <groupId>net.alaux.diosmio</groupId>
-            <artifactId>diosmio-server-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
+        <!--Internal dependencies-->
         <dependency>
             <groupId>net.alaux.diosmio</groupId>
             <artifactId>diosmio-services</artifactId>
@@ -34,6 +29,9 @@
             <artifactId>diosmio-cli</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
+
+        <!--External dependencies-->
 
         <!-- Hibernate -->
         <dependency>
