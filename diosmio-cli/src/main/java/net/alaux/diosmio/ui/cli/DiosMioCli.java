@@ -153,8 +153,12 @@ public class DiosMioCli {
                 .create(OPT_TECH_CONFIG_FILE));
 
         // Misc
-        opt.addOption(OPT_MISC_LIST_BEANS_L, false, "list available beans");
-        opt.addOption(OPT_MISC_SHOW_STATUS_L, false, "show application status");
+        opt.addOption(OptionBuilder.withDescription("list available beans")
+                .withLongOpt(OPT_MISC_LIST_BEANS_L)
+                .create());
+        opt.addOption(OptionBuilder.withDescription("show application status")
+                .withLongOpt(OPT_MISC_SHOW_STATUS_L)
+                .create());
 
         // Artifact Manager
         opt.addOption(OptionBuilder.hasArg()
