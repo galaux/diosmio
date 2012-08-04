@@ -13,8 +13,9 @@ EXT_LIBS=${COMMONS_CLI_JAR}
 
 # Internal libs
 DM_SERVICES_JAR=${ABS_LIB_DIR}/diosmio-services-${DM_VERSION}.jar
+DM_SERVER_COMMON_JAR=${ABS_LIB_DIR}/diosmio-server-common-${DM_VERSION}.jar
 DM_CLI_JAR=${ABS_LIB_DIR}/diosmio-cli-${DM_VERSION}.jar
 
-DM_CLI_MAIN=net.alaux.diosmio.ui.cli.DiosMioCli
+DM_CLI_MAIN=net.alaux.diosmio.ui.cli.Main
 
-java -cp ${EXT_LIBS}:${DM_SERVICES_JAR}:${DM_CLI_JAR} ${DM_CLI_MAIN} $@
+java -cp ${EXT_LIBS}:${DM_SERVICES_JAR}:${DM_SERVER_COMMON_JAR}:${DM_CLI_JAR} ${DM_CLI_MAIN} $@

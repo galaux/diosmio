@@ -1,8 +1,7 @@
-package net.alaux.diosmio.ui.cli.core;
+package net.alaux.diosmio.ui.cli.jmxcli.actions;
 
 import net.alaux.diosmio.services.core.ArtifactManager;
-import net.alaux.diosmio.ui.cli.ClientListener;
-import net.alaux.diosmio.ui.cli.DiosMioCli;
+import net.alaux.diosmio.ui.cli.jmxcli.ClientListener;
 
 import javax.management.*;
 import javax.management.remote.JMXConnector;
@@ -19,17 +18,21 @@ import java.io.IOException;
  */
 public class CliJmxActions {
 
-    private static final String JMX_URL = DiosMioCli.getProperty("cli.rmi.url");
-    static final String DM_DOMAIN_NAME = DiosMioCli.getProperty("common.domain_name");
-
     private static final String BEAN_ARTIFACT_MANAGER_NAME= "artifactManager";
+
+    private String jmxUrl;
+    protected String domainName;
 
     JMXServiceURL url;
     JMXConnector jmxc;
     MBeanServerConnection mbsc;
 
-    public CliJmxActions() throws IOException {
-        url = new JMXServiceURL(JMX_URL);
+    public CliJmxActions(String jmxUrl, String domainName) throws IOException {
+
+        this.jmxUrl = jmxUrl;
+        this.domainName = domainName;
+
+        url = new JMXServiceURL(jmxUrl);
         jmxc = JMXConnectorFactory.connect(url, null);
         mbsc = jmxc.getMBeanServerConnection();
     }
@@ -42,7 +45,7 @@ public class CliJmxActions {
 
         T mbean = null;
         if (clazz == ArtifactManager.class) {
-            ObjectName mbeanName = new ObjectName(DM_DOMAIN_NAME + ":name=" + BEAN_ARTIFACT_MANAGER_NAME);
+            ObjectName mbeanName = new ObjectName(this.domainName + ":name=" + BEAN_ARTIFACT_MANAGER_NAME);
             mbean =  JMX.newMBeanProxy(mbsc, mbeanName, clazz, true);
             ClientListener listener = new ClientListener();
             mbsc.addNotificationListener(mbeanName, listener, null, null);

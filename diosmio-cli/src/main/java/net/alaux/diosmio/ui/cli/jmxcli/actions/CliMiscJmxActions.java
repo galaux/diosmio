@@ -1,4 +1,4 @@
-package net.alaux.diosmio.ui.cli.core;
+package net.alaux.diosmio.ui.cli.jmxcli.actions;
 
 import net.alaux.diosmio.services.core.ArtifactManager;
 
@@ -17,8 +17,8 @@ import java.util.TreeSet;
  */
 public class CliMiscJmxActions extends CliJmxActions {
 
-    public CliMiscJmxActions() throws IOException{
-        super();
+    public CliMiscJmxActions(String jmxUrl, String domainName) throws IOException{
+        super(jmxUrl, domainName);
     }
 
     public void displayMBeanList() throws IOException, MalformedObjectNameException {
@@ -26,8 +26,8 @@ public class CliMiscJmxActions extends CliJmxActions {
         Set<ObjectName> names = new TreeSet<ObjectName>(mbsc.queryNames(null, null));
 
         for (ObjectName name : names) {
-            if (name.toString().startsWith(DM_DOMAIN_NAME)) {
-                System.out.println(name.toString().replaceFirst(DM_DOMAIN_NAME + ":name=", ""));
+            if (name.toString().startsWith(this.domainName)) {
+                System.out.println(name.toString().replaceFirst(this.domainName + ":name=", ""));
             }
         }
     }
@@ -42,11 +42,5 @@ public class CliMiscJmxActions extends CliJmxActions {
         } else {
             System.out.println("Artifact Manager: " + (artifactManager.getStatus() ? "OK" : "ERROR"));
         }
-
-
-
-
-
-
     }
 }
