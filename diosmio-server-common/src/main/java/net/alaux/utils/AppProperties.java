@@ -1,4 +1,4 @@
-package net.alaux.diosmio.common;
+package net.alaux.utils;
 
 import org.springframework.beans.factory.annotation.Value;
 
@@ -26,4 +26,13 @@ public class AppProperties {
 
 
     public static final String FILE_SEPARATOR   = System.getProperty("file.separator");
+
+
+//    // Exceptions
+//    @Value("${file_already_exists}")
+//    public String errFileAlreadyExists;
+//
+//    @Value("${storage_dir_not_accessible}")
+//    public String errStorageDirNotAccessible;
+
 }

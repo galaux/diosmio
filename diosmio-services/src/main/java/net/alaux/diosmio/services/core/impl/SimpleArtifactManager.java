@@ -1,6 +1,7 @@
 package net.alaux.diosmio.services.core.impl;
 
-import net.alaux.diosmio.common.AppProperties;
+import net.alaux.utils.AppException;
+import net.alaux.utils.AppProperties;
 import net.alaux.diosmio.services.core.ArtifactManager;
 import net.alaux.diosmio.services.dao.db.impl.ArtifactDao;
 import net.alaux.diosmio.services.dao.file.FileDao;
@@ -9,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -46,8 +48,8 @@ public class SimpleArtifactManager implements ArtifactManager {
         return fileDao.getStatus();
     }
 
-    public Artifact create(String internPath, byte[] content) throws Exception {
-        logger.info("create");
+    public Artifact create(String internPath, byte[] content) throws AppException, IOException {
+        logger.info("create()");
 
         Artifact artifact = new Artifact(internPath, "/");
         artifactDao.create(artifact);
@@ -67,7 +69,7 @@ public class SimpleArtifactManager implements ArtifactManager {
         return artifactDao.getAll();
     }
 
-    public void delete(Artifact artifact) throws Exception {
+    public void delete(Artifact artifact) throws AppException {
         logger.info("delete()");
         fileDao.delete(artifact.getRelativePath() + appProperties.FILE_SEPARATOR + artifact.getName());
         artifactDao.delete(artifact);

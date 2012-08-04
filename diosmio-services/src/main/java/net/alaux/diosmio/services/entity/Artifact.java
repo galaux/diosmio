@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.UUID;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,7 +16,7 @@ import java.util.UUID;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table( name = "ARTIFACT" )
+@Table(name = "ARTIFACT")
 public class Artifact implements Serializable {
 
     @Id

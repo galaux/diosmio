@@ -1,18 +1,20 @@
 package net.alaux.diosmio.services.core;
 
 import net.alaux.diosmio.services.entity.Artifact;
+import net.alaux.utils.AppException;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ArtifactManager {
 
     public boolean getStatus();
 
-    Artifact create(String internPath, byte[] content) throws Exception;
+    public Artifact create(String internPath, byte[] content) throws AppException, IOException;
 
     Artifact get(Long id);
 
     List<Artifact> getAll();
 
-    void delete(Artifact artifact) throws Exception;
+    public void delete(Artifact artifact) throws AppException;
 }

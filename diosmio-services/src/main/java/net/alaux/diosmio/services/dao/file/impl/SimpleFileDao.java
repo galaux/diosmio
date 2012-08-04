@@ -1,8 +1,9 @@
 package net.alaux.diosmio.services.dao.file.impl;
 
 
-
-import net.alaux.diosmio.common.AppProperties;
+import net.alaux.utils.AppException;
+import net.alaux.utils.AppProperties;
+import net.alaux.diosmio.services.AppMessages;
 import net.alaux.diosmio.services.dao.file.FileDao;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -23,13 +24,21 @@ public class SimpleFileDao implements FileDao {
 
     public Log logger = LogFactory.getLog(SimpleFileDao.class);
 
+    @Autowired
+    private AppMessages diosMioMessage;
+
     @PostConstruct
-    public void init() throws IOException {
+    public void init() throws AppException {
 
         storageDirectory = new java.io.File(appProps.storageDirPath);
-        if (storageDirectory == null || !storageDirectory.exists() || !storageDirectory.canRead()
+        if (storageDirectory == null
+                || !storageDirectory.exists()
+                || !storageDirectory.canRead()
                 || !storageDirectory.isDirectory()) {
-            throw new IOException("error.storage_dir_not_accessible");
+            throw new AppException(
+                    diosMioMessage.get("error.storage_dir_not_accessible",
+                            appProps.storageDirPath)
+            );
         }
     }
 
@@ -42,14 +51,18 @@ public class SimpleFileDao implements FileDao {
      *
      * @param internPath
      * @param content
-     * @throws Exception
+     * @throws net.alaux.utils.AppException
+     * @throws IOException
      */
-    public void create(String internPath, byte[] content) throws Exception {
+    public void create(String internPath, byte[] content) throws AppException, IOException {
 
         java.io.File file = new java.io.File(appProps.storageDirPath + appProps.FILE_SEPARATOR + internPath);
 
         if (file == null || file.exists()) {
-            throw new Exception("error.file_already_exists");
+            throw new AppException(
+                    diosMioMessage.get("error.file_already_exists",
+                            appProps.storageDirPath + appProps.FILE_SEPARATOR + internPath)
+            );
         }
 
         // TODO handle internPath = dir + filename
@@ -75,14 +88,17 @@ public class SimpleFileDao implements FileDao {
      *
      * @param internPath
      * @return
-     * @throws IOException
+     * @throws net.alaux.utils.AppException
      */
-    public boolean delete(String internPath) throws IOException {
+    public boolean delete(String internPath) throws AppException {
 
         java.io.File file = new java.io.File(appProps.storageDirPath + appProps.FILE_SEPARATOR + internPath);
 
         if (file == null || !file.exists() || !file.canWrite()) {
-            throw new IOException("error.file_not_readable");
+            throw new AppException(
+                    diosMioMessage.get("error.file_not_readable",
+                            appProps.storageDirPath + appProps.FILE_SEPARATOR + internPath)
+            );
         }
 
         return file.delete();

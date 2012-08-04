@@ -15,7 +15,18 @@
     <context:component-scan base-package="net.alaux.diosmio"/>
     <context:property-placeholder location="file:${diosmio-conf-file}"/>
 
-    <bean id="appProps" class="net.alaux.diosmio.common.AppProperties"/>
+    <bean id="appProps" class="net.alaux.utils.AppProperties"/>
+
+    <bean id="diosMioMessage" class="net.alaux.diosmio.services.AppMessages">
+        <property name="messageSource">
+            <!--Injected here to prevent it from beeing used elsewhere-->
+            <bean class="org.springframework.context.support.ResourceBundleMessageSource">
+                <property name="basename">
+                    <value>messages/messages</value>
+                </property>
+            </bean>
+        </property>
+    </bean>
 
     <!--<util:properties id="serviceProperties" location="file:${diosmio-conf-file}"/>-->
 
@@ -34,8 +45,8 @@
 
     <!-- Hibernate -->
     <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">-->
-        <!--<property name="url" value="jdbc:h2:${server.persistence.hibernate.h2.dbfilename}"/>-->
-        <!--<property name="driverClass" value="org.h2.Driver" />-->
+    <!--<property name="url" value="jdbc:h2:${server.persistence.hibernate.h2.dbfilename}"/>-->
+    <!--<property name="driverClass" value="org.h2.Driver" />-->
     <!--</bean>-->
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
