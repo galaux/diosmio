@@ -15,8 +15,20 @@ import java.util.List;
  */
 public class CassandraEmDao implements DatabaseDao {
 
-//    @Autowired
-//    AppProperties appProps;
+//    @Value("${server.persistence.cassandra.cluster.name}")
+//    public String cassandraClusterName;
+//
+//    @Value("${server.persistence.cassandra.cluster.host}")
+//    public String cassandraClusterHost;
+//
+//    @Value("${server.persistence.cassandra.cluster.port}")
+//    public String cassandraClusterPort;
+//
+//    @Value("${server.persistence.cassandra.keyspace}")
+//    public String cassandraClusterKeyspace;
+//
+//    @Value("${server.persistence.cassandra.replication_factor}")
+//    public String cassandraClusterReplicationFactor;
 //
 //    private Cluster cluster;
 //    private KeyspaceDefinition keyspaceDef;

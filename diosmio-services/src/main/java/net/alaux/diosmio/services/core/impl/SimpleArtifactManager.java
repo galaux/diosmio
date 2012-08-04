@@ -1,7 +1,6 @@
 package net.alaux.diosmio.services.core.impl;
 
 import net.alaux.utils.AppException;
-import net.alaux.utils.AppProperties;
 import net.alaux.diosmio.services.core.ArtifactManager;
 import net.alaux.diosmio.services.dao.db.impl.ArtifactDao;
 import net.alaux.diosmio.services.dao.file.FileDao;
@@ -28,8 +27,7 @@ public class SimpleArtifactManager implements ArtifactManager {
     @Autowired
     private FileDao fileDao;
 
-    @Autowired
-    AppProperties appProperties;
+    public static final String FILE_SEPARATOR   = System.getProperty("file.separator");
 
     public Log logger = LogFactory.getLog(SimpleArtifactManager.class);
 
@@ -51,7 +49,7 @@ public class SimpleArtifactManager implements ArtifactManager {
     public Artifact create(String internPath, byte[] content) throws AppException, IOException {
         logger.info("create()");
 
-        Artifact artifact = new Artifact(internPath, "/");
+        Artifact artifact = new Artifact(internPath, FILE_SEPARATOR);
         artifactDao.create(artifact);
 
         fileDao.create(internPath, content);
@@ -71,7 +69,7 @@ public class SimpleArtifactManager implements ArtifactManager {
 
     public void delete(Artifact artifact) throws AppException {
         logger.info("delete()");
-        fileDao.delete(artifact.getRelativePath() + appProperties.FILE_SEPARATOR + artifact.getName());
+        fileDao.delete(artifact.getRelativePath() + FILE_SEPARATOR + artifact.getName());
         artifactDao.delete(artifact);
     }
 }
