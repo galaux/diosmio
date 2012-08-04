@@ -5,8 +5,8 @@ import net.alaux.diosmio.ui.cli.core.CliMiscJmxActions;
 import net.alaux.diosmio.ui.cli.net.alaux.logging.KissLogger;
 import org.apache.commons.cli.*;
 
-
-import javax.management.*;
+import javax.management.InstanceNotFoundException;
+import javax.management.MalformedObjectNameException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
