@@ -2,6 +2,7 @@ package net.alaux.diosmio.ui.cli.core;
 
 import net.alaux.diosmio.services.core.ArtifactManager;
 import net.alaux.diosmio.services.entity.Artifact;
+import net.alaux.diosmio.ui.cli.DiosMioCli;
 
 import javax.management.InstanceNotFoundException;
 import javax.management.MalformedObjectNameException;
@@ -51,13 +52,21 @@ public class CliArtifactManagerJmxActions extends CliJmxActions {
 
     public void listAllArtifacts() throws IOException, InstanceNotFoundException, MalformedObjectNameException {
 
+        DiosMioCli.logger.info("listAllArtifacts");
+        DiosMioCli.logger.info("Getting service bean");
+
         ArtifactManager artifactManager = getServiceBean(ArtifactManager.class);
 
+        DiosMioCli.logger.info("invoking 'artifactManager.getAll'");
+
         List<Artifact> artifacts = artifactManager.getAll();
+
+        DiosMioCli.logger.info("Displaying result");
 
         for (Artifact artifact : artifacts) {
             System.out.println(artifact);
         }
+        DiosMioCli.logger.info("Done.");
     }
 
     /**

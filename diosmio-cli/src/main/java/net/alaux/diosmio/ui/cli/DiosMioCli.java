@@ -53,7 +53,7 @@ public class DiosMioCli {
 //    private static final String OPT_ARTIF_MNGR_DEL = "d";
     private static final String OPT_ARTIF_MNGR_DEL_L = "rm";
 
-    private static KissLogger logger;
+    public static KissLogger logger;
 
     // TODO Get this value from config file
     private static final String DIOSMIOCLI_LOG_PATH = "/tmp/diosmio-cli.log";
@@ -125,11 +125,11 @@ public class DiosMioCli {
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
-            logger.error(e.getMessage());
+            if (logger != null) {
+                logger.error(e.getMessage());
+            }
         } finally {
             if (logger != null) {
-                logger.info("I'm done!");
-                logger.info("----------------------");
                 logger.close();
             }
         }
