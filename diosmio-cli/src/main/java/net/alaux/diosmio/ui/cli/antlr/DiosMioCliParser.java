@@ -1,4 +1,4 @@
-// $ANTLR 3.4 src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g 2012-08-09 11:05:09
+// $ANTLR 3.4 src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g 2012-08-09 11:44:23
 
 package net.alaux.diosmio.ui.cli.antlr;
 
@@ -464,7 +464,7 @@ public TreeAdaptor getTreeAdaptor() {
             if ( state.backtracking==0 ) stream_filepath.add(filepath10.getTree());
 
             // AST REWRITE
-            // elements: filepath, ADD, element
+            // elements: ADD, filepath, element
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -531,7 +531,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "getElement"
-    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:57:1: getElement : GET element id -> ^( GET element id ) ;
+    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:57:1: getElement : GET element ( id )? -> ^( GET element ( id )? ) ;
     public final DiosMioCliParser.getElement_return getElement() throws RecognitionException {
         DiosMioCliParser.getElement_return retval = new DiosMioCliParser.getElement_return();
         retval.start = input.LT(1);
@@ -550,8 +550,8 @@ public TreeAdaptor getTreeAdaptor() {
         RewriteRuleSubtreeStream stream_id=new RewriteRuleSubtreeStream(adaptor,"rule id");
         RewriteRuleSubtreeStream stream_element=new RewriteRuleSubtreeStream(adaptor,"rule element");
         try {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:58:5: ( GET element id -> ^( GET element id ) )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:58:7: GET element id
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:58:5: ( GET element ( id )? -> ^( GET element ( id )? ) )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:58:7: GET element ( id )?
             {
             GET11=(Token)match(input,GET,FOLLOW_GET_in_getElement341); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_GET.add(GET11);
@@ -564,15 +564,32 @@ public TreeAdaptor getTreeAdaptor() {
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_element.add(element12.getTree());
 
-            pushFollow(FOLLOW_id_in_getElement345);
-            id13=id();
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:58:19: ( id )?
+            int alt2=2;
+            int LA2_0 = input.LA(1);
 
-            state._fsp--;
-            if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_id.add(id13.getTree());
+            if ( (LA2_0==NUMBER) ) {
+                alt2=1;
+            }
+            switch (alt2) {
+                case 1 :
+                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:58:19: id
+                    {
+                    pushFollow(FOLLOW_id_in_getElement345);
+                    id13=id();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) stream_id.add(id13.getTree());
+
+                    }
+                    break;
+
+            }
+
 
             // AST REWRITE
-            // elements: GET, id, element
+            // elements: GET, element, id
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -584,9 +601,9 @@ public TreeAdaptor getTreeAdaptor() {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 59:9: -> ^( GET element id )
+            // 59:9: -> ^( GET element ( id )? )
             {
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:59:12: ^( GET element id )
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:59:12: ^( GET element ( id )? )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(
@@ -595,7 +612,12 @@ public TreeAdaptor getTreeAdaptor() {
 
                 adaptor.addChild(root_1, stream_element.nextTree());
 
-                adaptor.addChild(root_1, stream_id.nextTree());
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:59:26: ( id )?
+                if ( stream_id.hasNext() ) {
+                    adaptor.addChild(root_1, stream_id.nextTree());
+
+                }
+                stream_id.reset();
 
                 adaptor.addChild(root_0, root_1);
                 }
@@ -661,18 +683,18 @@ public TreeAdaptor getTreeAdaptor() {
             // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:63:5: ( DELETE element id -> ^( DELETE element id ) )
             // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:63:7: DELETE element id
             {
-            DELETE14=(Token)match(input,DELETE,FOLLOW_DELETE_in_deleteElement380); if (state.failed) return retval; 
+            DELETE14=(Token)match(input,DELETE,FOLLOW_DELETE_in_deleteElement382); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_DELETE.add(DELETE14);
 
 
-            pushFollow(FOLLOW_element_in_deleteElement382);
+            pushFollow(FOLLOW_element_in_deleteElement384);
             element15=element();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_element.add(element15.getTree());
 
-            pushFollow(FOLLOW_id_in_deleteElement384);
+            pushFollow(FOLLOW_id_in_deleteElement386);
             id16=id();
 
             state._fsp--;
@@ -680,7 +702,7 @@ public TreeAdaptor getTreeAdaptor() {
             if ( state.backtracking==0 ) stream_id.add(id16.getTree());
 
             // AST REWRITE
-            // elements: id, element, DELETE
+            // elements: element, DELETE, id
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -835,7 +857,7 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            NUMBER18=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_id445); if (state.failed) return retval;
+            NUMBER18=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_id447); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             NUMBER18_tree = 
             (CommonTree)adaptor.create(NUMBER18)
@@ -895,7 +917,7 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            FILEPATH19=(Token)match(input,FILEPATH,FOLLOW_FILEPATH_in_filepath458); if (state.failed) return retval;
+            FILEPATH19=(Token)match(input,FILEPATH,FOLLOW_FILEPATH_in_filepath460); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             FILEPATH19_tree = 
             (CommonTree)adaptor.create(FILEPATH19)
@@ -944,12 +966,12 @@ public TreeAdaptor getTreeAdaptor() {
     public static final BitSet FOLLOW_element_in_addElement304 = new BitSet(new long[]{0x0000000000000200L});
     public static final BitSet FOLLOW_filepath_in_addElement306 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_GET_in_getElement341 = new BitSet(new long[]{0x0000000000000060L});
-    public static final BitSet FOLLOW_element_in_getElement343 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_element_in_getElement343 = new BitSet(new long[]{0x0000000000002002L});
     public static final BitSet FOLLOW_id_in_getElement345 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DELETE_in_deleteElement380 = new BitSet(new long[]{0x0000000000000060L});
-    public static final BitSet FOLLOW_element_in_deleteElement382 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_id_in_deleteElement384 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NUMBER_in_id445 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FILEPATH_in_filepath458 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DELETE_in_deleteElement382 = new BitSet(new long[]{0x0000000000000060L});
+    public static final BitSet FOLLOW_element_in_deleteElement384 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_id_in_deleteElement386 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NUMBER_in_id447 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FILEPATH_in_filepath460 = new BitSet(new long[]{0x0000000000000002L});
 
 }

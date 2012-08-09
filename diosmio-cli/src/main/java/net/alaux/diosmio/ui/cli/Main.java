@@ -165,8 +165,8 @@ public class Main {
             System.out.println("Invalid query");
         }
 
-        String element;
-        Long id;
+        String element = null;
+        Long id = null;
 
         if (tree != null) {
             // TODO use business exception in 'throws'
@@ -192,13 +192,23 @@ public class Main {
 
                 case DiosMioCliParser.GET:
                     element = tree.getChild(0).toString();
-                    id = new Long(tree.getChild(1).toString());
+                    if (tree.getChildCount() > 1) {
+                        id = new Long(tree.getChild(1).toString());
+                    }
 
                     if (ELEMENT_ARTIFACT.compareTo(element) == 0) {
-                        diosMioCli.showArtifact(id);
+                        if (id == null) {
+                            diosMioCli.listAllArtifacts();
+                        } else {
+                            diosMioCli.showArtifact(id);
+                        }
 
                     } else if (ELEMENT_CONFIG.compareTo(element) == 0) {
-                        System.out.println("get(" + element + ", " + id + ")");
+                        if (id == null) {
+                            System.out.println("getAll(" + element + ")");
+                        } else {
+                            System.out.println("get(" + element + ", " + id + ")");
+                        }
 
                     } else {
                         throw new Exception("Unknown element '" + element + "'");

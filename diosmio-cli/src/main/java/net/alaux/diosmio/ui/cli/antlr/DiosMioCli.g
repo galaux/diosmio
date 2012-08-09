@@ -55,8 +55,8 @@ addElement
     ;
 
 getElement
-    : GET element id
-        -> ^(GET element id)
+    : GET element id?
+        -> ^(GET element id?)
     ;
 
 deleteElement
