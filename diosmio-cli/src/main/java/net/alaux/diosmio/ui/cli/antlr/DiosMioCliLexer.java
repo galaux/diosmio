@@ -1,4 +1,4 @@
-// $ANTLR 3.4 src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g 2012-08-09 11:44:23
+// $ANTLR 3.4 src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g 2012-08-09 13:07:16
 
 package net.alaux.diosmio.ui.cli.antlr;
 
@@ -325,17 +325,17 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = FILEPATH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:87:10: ( ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' )+ )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:87:12: ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' )+
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:87:10: ( ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' )+ )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:87:12: ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' )+
             {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:87:12: ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' )+
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:87:12: ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' )+
             int cnt3=0;
             loop3:
             do {
                 int alt3=2;
                 int LA3_0 = input.LA(1);
 
-                if ( ((LA3_0 >= '.' && LA3_0 <= '/')||(LA3_0 >= 'A' && LA3_0 <= 'Z')||(LA3_0 >= 'a' && LA3_0 <= 'z')) ) {
+                if ( ((LA3_0 >= '-' && LA3_0 <= '/')||(LA3_0 >= 'A' && LA3_0 <= 'Z')||(LA3_0 >= 'a' && LA3_0 <= 'z')) ) {
                     alt3=1;
                 }
 
@@ -344,7 +344,7 @@ public class DiosMioCliLexer extends Lexer {
             	case 1 :
             	    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:
             	    {
-            	    if ( (input.LA(1) >= '.' && input.LA(1) <= '/')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
+            	    if ( (input.LA(1) >= '-' && input.LA(1) <= '/')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
             	        input.consume();
             	    }
             	    else {
@@ -392,7 +392,7 @@ public class DiosMioCliLexer extends Lexer {
                 if ( (LA4_9=='d') ) {
                     int LA4_15 = input.LA(4);
 
-                    if ( ((LA4_15 >= '.' && LA4_15 <= '/')||(LA4_15 >= 'A' && LA4_15 <= 'Z')||(LA4_15 >= 'a' && LA4_15 <= 'z')) ) {
+                    if ( ((LA4_15 >= '-' && LA4_15 <= '/')||(LA4_15 >= 'A' && LA4_15 <= 'Z')||(LA4_15 >= 'a' && LA4_15 <= 'z')) ) {
                         alt4=9;
                     }
                     else {
@@ -426,7 +426,7 @@ public class DiosMioCliLexer extends Lexer {
                                     if ( (LA4_34=='t') ) {
                                         int LA4_37 = input.LA(9);
 
-                                        if ( ((LA4_37 >= '.' && LA4_37 <= '/')||(LA4_37 >= 'A' && LA4_37 <= 'Z')||(LA4_37 >= 'a' && LA4_37 <= 'z')) ) {
+                                        if ( ((LA4_37 >= '-' && LA4_37 <= '/')||(LA4_37 >= 'A' && LA4_37 <= 'Z')||(LA4_37 >= 'a' && LA4_37 <= 'z')) ) {
                                             alt4=9;
                                         }
                                         else {
@@ -483,7 +483,7 @@ public class DiosMioCliLexer extends Lexer {
                             if ( (LA4_28=='g') ) {
                                 int LA4_32 = input.LA(7);
 
-                                if ( ((LA4_32 >= '.' && LA4_32 <= '/')||(LA4_32 >= 'A' && LA4_32 <= 'Z')||(LA4_32 >= 'a' && LA4_32 <= 'z')) ) {
+                                if ( ((LA4_32 >= '-' && LA4_32 <= '/')||(LA4_32 >= 'A' && LA4_32 <= 'Z')||(LA4_32 >= 'a' && LA4_32 <= 'z')) ) {
                                     alt4=9;
                                 }
                                 else {
@@ -530,7 +530,7 @@ public class DiosMioCliLexer extends Lexer {
                             if ( (LA4_29=='e') ) {
                                 int LA4_33 = input.LA(7);
 
-                                if ( ((LA4_33 >= '.' && LA4_33 <= '/')||(LA4_33 >= 'A' && LA4_33 <= 'Z')||(LA4_33 >= 'a' && LA4_33 <= 'z')) ) {
+                                if ( ((LA4_33 >= '-' && LA4_33 <= '/')||(LA4_33 >= 'A' && LA4_33 <= 'Z')||(LA4_33 >= 'a' && LA4_33 <= 'z')) ) {
                                     alt4=9;
                                 }
                                 else {
@@ -568,7 +568,7 @@ public class DiosMioCliLexer extends Lexer {
                 if ( (LA4_13=='t') ) {
                     int LA4_19 = input.LA(4);
 
-                    if ( ((LA4_19 >= '.' && LA4_19 <= '/')||(LA4_19 >= 'A' && LA4_19 <= 'Z')||(LA4_19 >= 'a' && LA4_19 <= 'z')) ) {
+                    if ( ((LA4_19 >= '-' && LA4_19 <= '/')||(LA4_19 >= 'A' && LA4_19 <= 'Z')||(LA4_19 >= 'a' && LA4_19 <= 'z')) ) {
                         alt4=9;
                     }
                     else {
@@ -597,7 +597,7 @@ public class DiosMioCliLexer extends Lexer {
                     if ( (LA4_20=='p') ) {
                         int LA4_26 = input.LA(5);
 
-                        if ( ((LA4_26 >= '.' && LA4_26 <= '/')||(LA4_26 >= 'A' && LA4_26 <= 'Z')||(LA4_26 >= 'a' && LA4_26 <= 'z')) ) {
+                        if ( ((LA4_26 >= '-' && LA4_26 <= '/')||(LA4_26 >= 'A' && LA4_26 <= 'Z')||(LA4_26 >= 'a' && LA4_26 <= 'z')) ) {
                             alt4=9;
                         }
                         else {
@@ -640,6 +640,7 @@ public class DiosMioCliLexer extends Lexer {
             alt4=8;
             }
             break;
+        case '-':
         case '.':
         case '/':
         case 'A':

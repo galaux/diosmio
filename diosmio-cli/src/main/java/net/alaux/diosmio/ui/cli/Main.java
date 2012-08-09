@@ -48,12 +48,19 @@ public class Main {
 
     public static final String PROMPT = "DiosMioCLI> ";
 
-    public static final String LINE_SEPARATOR = System.getProperty("line.separator");
+    public static final String LINE_SEP = System.getProperty("line.separator");
 
     private static final String usage =
-            "ACTION ELEMENT [ id | file ]" + LINE_SEPARATOR +
-                    "\tACTION can be one of [ add | get | delete ]" + LINE_SEPARATOR +
-                    "\tELEMENT can be one of [ artifact | config ]";
+            APP_NAME + " v" + APP_VERSION + LINE_SEP +
+                    "\tadd [ artifact | config ] file" + LINE_SEP +
+                    "\t\tadd specified element to database" + LINE_SEP +
+                    "\tget [ artifact | config ] id" + LINE_SEP +
+                    "\t\tretrieve specified element and display it" + LINE_SEP +
+                    "\tget [ artifact | config ]" + LINE_SEP +
+                    "\t\tlist all elements" + LINE_SEP +
+                    "\tdelete [ artifact | config ] id" + LINE_SEP +
+                    "\t\tdelete specified element";
+
     public static final String ELEMENT_CONFIG = "config";
     public static final String ELEMENT_ARTIFACT = "artifact";
 
@@ -183,7 +190,7 @@ public class Main {
                         diosMioCli.createArtifact(filePath);
 
                     } else if (ELEMENT_CONFIG.compareTo(element) == 0) {
-                        System.out.println("add(" + element + ", " + filePath + ")");
+                        System.out.println("TO BE IMPLEMENTED: add(" + element + ", " + filePath + ")");
 
                     } else {
                         throw new Exception("Unknown element '" + element + "'");
@@ -205,9 +212,9 @@ public class Main {
 
                     } else if (ELEMENT_CONFIG.compareTo(element) == 0) {
                         if (id == null) {
-                            System.out.println("getAll(" + element + ")");
+                            System.out.println("TO BE IMPLEMENTED: getAll(" + element + ")");
                         } else {
-                            System.out.println("get(" + element + ", " + id + ")");
+                            System.out.println("TO BE IMPLEMENTED: get(" + element + ", " + id + ")");
                         }
 
                     } else {

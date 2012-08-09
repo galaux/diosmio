@@ -84,4 +84,4 @@ WHITESPACE : ( '\t' | ' ' | '\r' | '\n'| '\u000C' )+    { $channel = HIDDEN; } ;
 
 fragment DIGIT  : '0'..'9' ;
 
-FILEPATH : ( 'a'..'z' | 'A'..'Z' | '/' | '.' )+;
+FILEPATH : ( 'a'..'z' | 'A'..'Z' | '/' | '.' | '-' )+;

@@ -1,4 +1,4 @@
-// $ANTLR 3.4 src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g 2012-08-09 11:44:23
+// $ANTLR 3.4 src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g 2012-08-09 13:07:15
 
 package net.alaux.diosmio.ui.cli.antlr;
 
@@ -464,7 +464,7 @@ public TreeAdaptor getTreeAdaptor() {
             if ( state.backtracking==0 ) stream_filepath.add(filepath10.getTree());
 
             // AST REWRITE
-            // elements: ADD, filepath, element
+            // elements: element, ADD, filepath
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -589,7 +589,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             // AST REWRITE
-            // elements: GET, element, id
+            // elements: element, id, GET
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -702,7 +702,7 @@ public TreeAdaptor getTreeAdaptor() {
             if ( state.backtracking==0 ) stream_id.add(id16.getTree());
 
             // AST REWRITE
-            // elements: element, DELETE, id
+            // elements: DELETE, id, element
             // token labels: 
             // rule labels: retval
             // token list labels: 
