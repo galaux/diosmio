@@ -1,4 +1,4 @@
-// $ANTLR 3.4 src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g 2012-08-09 13:07:16
+// $ANTLR 3.4 src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g 2012-08-09 16:14:47
 
 package net.alaux.diosmio.ui.cli.antlr;
 
@@ -23,6 +23,12 @@ public class DiosMioCliLexer extends Lexer {
     public static final int NUMBER=13;
     public static final int WHITESPACE=14;
 
+        public void reportError(RecognitionException e) {
+            String errorMessage = "Syntax error at position " + e.charPositionInLine + ": " + this.getErrorMessage(e, this.getTokenNames());
+            throw new RuntimeException(errorMessage);
+        }
+
+
     // delegates
     // delegators
     public Lexer[] getDelegates() {
@@ -43,8 +49,8 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = ADD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:6:5: ( 'add' )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:6:7: 'add'
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:12:5: ( 'add' )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:12:7: 'add'
             {
             match("add"); 
 
@@ -66,8 +72,8 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = ARTIFACT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:7:10: ( 'artifact' )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:7:12: 'artifact'
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:13:10: ( 'artifact' )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:13:12: 'artifact'
             {
             match("artifact"); 
 
@@ -89,8 +95,8 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = CONFIG;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:8:8: ( 'config' )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:8:10: 'config'
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:14:8: ( 'config' )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:14:10: 'config'
             {
             match("config"); 
 
@@ -112,8 +118,8 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = DELETE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:9:8: ( 'delete' )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:9:10: 'delete'
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:15:8: ( 'delete' )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:15:10: 'delete'
             {
             match("delete"); 
 
@@ -135,8 +141,8 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = GET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:10:5: ( 'get' )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:10:7: 'get'
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:16:5: ( 'get' )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:16:7: 'get'
             {
             match("get"); 
 
@@ -158,8 +164,8 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = HELP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:11:6: ( 'help' )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:11:8: 'help'
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:17:6: ( 'help' )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:17:8: 'help'
             {
             match("help"); 
 
@@ -181,10 +187,10 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = NUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:81:9: ( ( DIGIT )+ )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:81:11: ( DIGIT )+
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:97:9: ( ( DIGIT )+ )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:97:11: ( DIGIT )+
             {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:81:11: ( DIGIT )+
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:97:11: ( DIGIT )+
             int cnt1=0;
             loop1:
             do {
@@ -239,10 +245,10 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:83:12: ( ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+ )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:83:14: ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:99:12: ( ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+ )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:99:14: ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+
             {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:83:14: ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:99:14: ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+
             int cnt2=0;
             loop2:
             do {
@@ -297,7 +303,7 @@ public class DiosMioCliLexer extends Lexer {
     // $ANTLR start "DIGIT"
     public final void mDIGIT() throws RecognitionException {
         try {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:85:17: ( '0' .. '9' )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:101:17: ( '0' .. '9' )
             // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
@@ -325,10 +331,10 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = FILEPATH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:87:10: ( ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' )+ )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:87:12: ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' )+
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:103:10: ( ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' )+ )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:103:12: ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' )+
             {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:87:12: ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' )+
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:103:12: ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' )+
             int cnt3=0;
             loop3:
             do {

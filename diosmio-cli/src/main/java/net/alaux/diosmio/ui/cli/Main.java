@@ -125,16 +125,16 @@ public class Main {
             out.flush();
 
             while((line = reader.readLine(PROMPT)) != null) {
-                handleQuery(line, diosMioConnectedCli);
-                out.flush();
+                try {
+                    handleQuery(line, diosMioConnectedCli);
+                    out.flush();
 
-                // If we input the special word then we will mask
-                // the next line.
-//            if ((trigger != null) && (line.compareTo(trigger) == 0)) {
-//                line = reader.readLine("password> ", mask);
-//            }
-                if (line.equalsIgnoreCase("quit") || line.equalsIgnoreCase("exit")) {
-                    break;
+                    if (line.equalsIgnoreCase("quit") || line.equalsIgnoreCase("exit")) {
+                        break;
+                    }
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                    // On error, continue...
                 }
             }
 

@@ -27,6 +27,22 @@ package net.alaux.diosmio.ui.cli.antlr;
 package net.alaux.diosmio.ui.cli.antlr;
 }
 
+@parser::members
+{
+    public void reportError(RecognitionException e) {
+        String errorMessage = "Syntax error at position " + e.charPositionInLine + ": " + this.getErrorMessage(e, this.getTokenNames());
+        throw new RuntimeException(errorMessage);
+    }
+}
+
+@lexer::members
+{
+    public void reportError(RecognitionException e) {
+        String errorMessage = "Syntax error at position " + e.charPositionInLine + ": " + this.getErrorMessage(e, this.getTokenNames());
+        throw new RuntimeException(errorMessage);
+    }
+}
+
 /*------------------------------------------------------------------
  * PARSER RULES
  *------------------------------------------------------------------*/
