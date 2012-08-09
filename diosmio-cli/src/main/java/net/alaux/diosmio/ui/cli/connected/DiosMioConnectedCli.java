@@ -22,17 +22,36 @@ import java.util.List;
  */
 public class DiosMioConnectedCli implements DiosMioCli {
 
+    private String url;
+    private String domain;
+
     private DiosMioJmxConnection diosMioJmxConnection;
 
     private ArtifactManager artifactManager;
 
-    public DiosMioConnectedCli(DiosMioJmxConnection diosMioJmxConnection) throws IOException, MalformedObjectNameException, InstanceNotFoundException {
-        this.diosMioJmxConnection = diosMioJmxConnection;
+    public DiosMioConnectedCli(String url, String domain) throws IOException, MalformedObjectNameException, InstanceNotFoundException {
+
+        this.url = url;
+        this.domain = domain;
+    }
+
+    public void close() throws IOException {
+        if (diosMioJmxConnection != null) {
+            diosMioJmxConnection.closeJmxConnection();
+        }
+    }
+
+    private DiosMioJmxConnection getJmxConnection() throws IOException {
+        if (diosMioJmxConnection == null) {
+            diosMioJmxConnection = new DiosMioJmxConnection(url, domain);
+        }
+
+        return diosMioJmxConnection;
     }
 
     public ArtifactManager getArtifactManager() throws MalformedObjectNameException, InstanceNotFoundException, IOException {
         if (artifactManager == null) {
-            artifactManager = diosMioJmxConnection.getServiceBean(ArtifactManager.class);
+            artifactManager = getJmxConnection().getServiceBean(ArtifactManager.class);
         }
         return artifactManager;
     }

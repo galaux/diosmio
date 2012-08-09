@@ -4,7 +4,6 @@ import jline.*;
 import net.alaux.diosmio.ui.cli.antlr.DiosMioCliLexer;
 import net.alaux.diosmio.ui.cli.antlr.DiosMioCliParser;
 import net.alaux.diosmio.ui.cli.connected.DiosMioConnectedCli;
-import net.alaux.diosmio.ui.cli.jmxcli.DiosMioJmxConnection;
 import net.alaux.diosmio.ui.cli.net.alaux.logging.KissLogger;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -106,18 +105,15 @@ public class Main {
 
             Properties properties = getApplicationProperties(cmd.getOptionValue(OPT_TECH_CONFIG_FILE), DEFAULT_CONF_PATH);
 
-            DiosMioJmxConnection diosMioJmxConnection = new DiosMioJmxConnection(properties.getProperty("cli.rmi.url"),
-                    properties.getProperty("common.domain_name"));
-
-            DiosMioConnectedCli diosMioConnectedCli = new DiosMioConnectedCli(diosMioJmxConnection);
+            DiosMioConnectedCli diosMioConnectedCli = new DiosMioConnectedCli(properties.getProperty("server.rmi.url"),
+                    properties.getProperty("server.rmi.domain_name"));
 
             ConsoleReader reader = new ConsoleReader();
             reader.setBellEnabled(false);
-            reader.setDebug(new PrintWriter(new FileWriter("writer.debug", true)));
+            reader.setDebug(new PrintWriter(new FileWriter(properties.getProperty("completion.debug_file"), true)));
+            reader.setHistory(new History(new File(properties.getProperty("completion.history_file"))));
 
-            Completor completor = getCompletor();
-
-            reader.addCompletor(completor);
+            reader.addCompletor(getCompletor());
 
             String line;
             PrintWriter out = new PrintWriter(System.out);
@@ -126,19 +122,20 @@ public class Main {
 
             while((line = reader.readLine(PROMPT)) != null) {
                 try {
-                    handleQuery(line, diosMioConnectedCli);
-                    out.flush();
-
                     if (line.equalsIgnoreCase("quit") || line.equalsIgnoreCase("exit")) {
                         break;
                     }
+
+                    handleQuery(line, diosMioConnectedCli);
+                    out.flush();
+
                 } catch (Exception e) {
                     System.err.println(e.getMessage());
                     // On error, continue...
                 }
             }
 
-            diosMioJmxConnection.closeJmxConnection();
+            diosMioConnectedCli.close();
 
         } catch (Exception e) {
             System.err.println(e.getMessage());

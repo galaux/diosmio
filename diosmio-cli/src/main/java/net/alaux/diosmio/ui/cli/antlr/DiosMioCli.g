@@ -7,14 +7,14 @@ options {
 }
 
 tokens {
-    HELP        = 'help' ;
+    HELP        = 'help';
 
-    ADD         = 'add' ;
-    GET         = 'get' ;
-    DELETE      = 'delete' ;
+    ADD         = 'add';
+    GET         = 'get';
+    DELETE      = 'delete';
 
-    ARTIFACT    = 'artifact' ;
-    CONFIG      = 'config' ;
+    ARTIFACT    = 'artifact';
+    CONFIG      = 'config';
 
     NO_OP;
 }
