@@ -1,0 +1,13 @@
+ADD=4
+ARTIFACT=5
+CONFIG=6
+DELETE=7
+DIGIT=8
+GET=9
+NUMBER=10
+WHITESPACE=11
+'add'=4
+'artifact'=5
+'config'=6
+'delete'=7
+'get'=9

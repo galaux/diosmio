@@ -13,12 +13,9 @@ import java.io.IOException;
  */
 public interface DiosMioCli {
 
-    public void close();
-
-    void displayMBeanList() throws IOException, MalformedObjectNameException;
     void displayStatus() throws Exception;
     void listAllArtifacts() throws IOException, MalformedObjectNameException, InstanceNotFoundException;
     void showArtifact(Long id) throws IOException, MalformedObjectNameException, InstanceNotFoundException;
-    void create(String filePath) throws Exception, MalformedObjectNameException, InstanceNotFoundException;
-    void delete(Long id) throws Exception, MalformedObjectNameException, InstanceNotFoundException;
+    void createArtifact(String filePath) throws Exception, MalformedObjectNameException, InstanceNotFoundException;
+    void deleteArtifact(Long id) throws Exception, MalformedObjectNameException, InstanceNotFoundException;
 }

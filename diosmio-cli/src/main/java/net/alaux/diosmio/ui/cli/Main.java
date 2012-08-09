@@ -1,13 +1,19 @@
 package net.alaux.diosmio.ui.cli;
 
-import net.alaux.diosmio.ui.cli.jmxcli.DiosMioJmxCli;
+import jline.*;
+import net.alaux.diosmio.ui.cli.antlr.DiosMioCliLexer;
+import net.alaux.diosmio.ui.cli.antlr.DiosMioCliParser;
+import net.alaux.diosmio.ui.cli.connected.DiosMioConnectedCli;
+import net.alaux.diosmio.ui.cli.jmxcli.DiosMioJmxConnection;
 import net.alaux.diosmio.ui.cli.net.alaux.logging.KissLogger;
+import org.antlr.runtime.ANTLRStringStream;
+import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.tree.Tree;
 import org.apache.commons.cli.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import javax.management.InstanceNotFoundException;
+import java.io.*;
 import java.util.Properties;
 
 /**
@@ -19,7 +25,8 @@ import java.util.Properties;
  */
 public class Main {
 
-    private static final String DM_CLI_VERSION = "1.0-SNAPSHOT";
+    public static final String APP_NAME = "DiosMio CLI";
+    private static final String APP_VERSION = "1.0-SNAPSHOT";
 
     // Technical opt
     private static final String OPT_TECH_HELP = "h";
@@ -32,25 +39,6 @@ public class Main {
     public static final String OPT_TECH_CONFIG_FILE_L = "conf";
     public static final String OPT_TECH_CONFIG_FILE = "c";
 
-    // Misc opt
-//    private static final String OPT_MISC_SHOW_BEANS = "s";
-    private static final String OPT_MISC_LIST_BEANS_L = "lsbeans";
-
-    //    private static final String OPT_MISC_STATUS = "???";
-    private static final String OPT_MISC_SHOW_STATUS_L = "status";
-
-    // Artifact Manager opt
-//    private static final String OPT_ARTIF_MNGR_ADD = "a";
-    private static final String OPT_ARTIF_MNGR_ADD_L = "add";
-
-    //    private static final String OPT_ARTIF_MNGR_LIST = "l";
-    private static final String OPT_ARTIF_MNGR_LIST_L = "ls";
-
-    private static final String OPT_ARTIF_MNGR_GET_L = "get";
-
-    //    private static final String OPT_ARTIF_MNGR_DEL = "d";
-    private static final String OPT_ARTIF_MNGR_DEL_L = "rm";
-
     // TODO Get this value from config file
     private static final String DIOSMIOCLI_LOG_PATH = "/tmp/diosmio-cli.log";
 
@@ -58,7 +46,31 @@ public class Main {
     private static final String DEFAULT_CONF_PATH = "diosmio-cli.conf";
     private static String configFilePath;
 
+    public static final String PROMPT = "DiosMioCLI> ";
+
+    public static final String LINE_SEPARATOR = System.getProperty("line.separator");
+
+    private static final String usage =
+            "ACTION ELEMENT [ id | file ]" + LINE_SEPARATOR +
+                    "\tACTION can be one of [ add | get | delete ]" + LINE_SEPARATOR +
+                    "\tELEMENT can be one of [ artifact | config ]";
+    public static final String ELEMENT_CONFIG = "config";
+    public static final String ELEMENT_ARTIFACT = "artifact";
+
     KissLogger logger;
+
+    private static final String[] commands = {
+            "help",
+
+            "add artifact",
+            "show artifact",
+            "delete artifact",
+
+//            "add config",
+//            "show config",
+//            "show configs",
+//            "delete config"
+    };
 
     /**
      *
@@ -75,14 +87,51 @@ public class Main {
 
             logger = getLogger(cmd);
 
-            // Other technical opt ************************
-            Properties properties = getDiosMioProperties(cmd.getOptionValue(OPT_TECH_CONFIG_FILE), DEFAULT_CONF_PATH);
+            // TODO Apply config file parameters
 
-            DiosMioCli diosmioCli = new DiosMioJmxCli(properties.getProperty("cli.rmi.url"),
-                    properties.getProperty("common.domain_name"),
-                    logger);
+            if (cmd.hasOption(OPT_TECH_HELP)) {
+                HelpFormatter formatter = new HelpFormatter();
+                formatter.printHelp("diosmio-cli <option> [...]", options);
 
-            executeAction(diosmioCli, cmd, options, properties, logger);
+                // Normal end of application
+                System.exit(0);
+            }
+
+            Properties properties = getApplicationProperties(cmd.getOptionValue(OPT_TECH_CONFIG_FILE), DEFAULT_CONF_PATH);
+
+            DiosMioJmxConnection diosMioJmxConnection = new DiosMioJmxConnection(properties.getProperty("cli.rmi.url"),
+                    properties.getProperty("common.domain_name"));
+
+            DiosMioConnectedCli diosMioConnectedCli = new DiosMioConnectedCli(diosMioJmxConnection);
+
+            ConsoleReader reader = new ConsoleReader();
+            reader.setBellEnabled(false);
+            reader.setDebug(new PrintWriter(new FileWriter("writer.debug", true)));
+
+            Completor completor = getCompletor();
+
+            reader.addCompletor(completor);
+
+            String line;
+            PrintWriter out = new PrintWriter(System.out);
+            out.println(APP_NAME + " v" + APP_VERSION);
+            out.flush();
+
+            while((line = reader.readLine(PROMPT)) != null) {
+                handleQuery(line, diosMioConnectedCli);
+                out.flush();
+
+                // If we input the special word then we will mask
+                // the next line.
+//            if ((trigger != null) && (line.compareTo(trigger) == 0)) {
+//                line = reader.readLine("password> ", mask);
+//            }
+                if (line.equalsIgnoreCase("quit") || line.equalsIgnoreCase("exit")) {
+                    break;
+                }
+            }
+
+            diosMioJmxConnection.closeJmxConnection();
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -96,6 +145,122 @@ public class Main {
         }
     }
 
+    public void handleQuery(String query, DiosMioCli diosMioCli) throws Exception, InstanceNotFoundException {
+
+        Tree tree = null;
+
+        // TODO let this Exception go up
+        try {
+            ANTLRStringStream input = new ANTLRStringStream(query);
+
+            DiosMioCliLexer lexer = new DiosMioCliLexer(input);
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+            DiosMioCliParser parser = new DiosMioCliParser(tokens);
+
+            // start parsing...
+            tree = (Tree)(parser.parse().getTree());
+
+        } catch(RecognitionException e) {
+            System.out.println("Invalid query");
+        }
+
+        String element;
+        Long id;
+
+        if (tree != null) {
+            // TODO use business exception in 'throws'
+            switch (tree.getType()) {
+                case DiosMioCliParser.HELP:
+                    System.out.println(usage);
+                    break;
+
+                case DiosMioCliParser.ADD:
+                    element = tree.getChild(0).toString();
+                    String filePath = tree.getChild(1).toString();
+
+                    if (ELEMENT_ARTIFACT.compareTo(element) == 0) {
+                        diosMioCli.createArtifact(filePath);
+
+                    } else if (ELEMENT_CONFIG.compareTo(element) == 0) {
+                        System.out.println("add(" + element + ", " + filePath + ")");
+
+                    } else {
+                        throw new Exception("Unknown element '" + element + "'");
+                    }
+                    break;
+
+                case DiosMioCliParser.GET:
+                    element = tree.getChild(0).toString();
+                    id = new Long(tree.getChild(1).toString());
+
+                    if (ELEMENT_ARTIFACT.compareTo(element) == 0) {
+                        diosMioCli.showArtifact(id);
+
+                    } else if (ELEMENT_CONFIG.compareTo(element) == 0) {
+                        System.out.println("get(" + element + ", " + id + ")");
+
+                    } else {
+                        throw new Exception("Unknown element '" + element + "'");
+                    }
+                    break;
+
+                case DiosMioCliParser.DELETE:
+                    element = tree.getChild(0).toString();
+                    id = new Long(tree.getChild(1).toString());
+
+                    if (ELEMENT_ARTIFACT.compareTo(element) == 0) {
+                        diosMioCli.deleteArtifact(id);
+
+                    } else if (ELEMENT_CONFIG.compareTo(element) == 0) {
+                        System.out.println("delete(" + element + ", " + id + ")");
+
+                    } else {
+                        throw new Exception("Unknown element '" + element + "'");
+                    }
+                    break;
+
+                case DiosMioCliParser.NO_OP:
+                    // Nothing to do
+                    break;
+
+                default:
+                    System.out.println("Unknown action: " + tree.getType());
+                    break;
+            }
+        }
+    }
+
+    private Completor getCompletor() {
+
+        Completor helpCompletor = new SimpleCompletor("help");
+
+        Completor elementCompletor = new SimpleCompletor(new String[] {"artifact", "config"});
+
+        Completor addCompletor = new ArgumentCompletor(
+                new Completor[] {
+                        new SimpleCompletor("add"),
+                        elementCompletor,
+                        new FileNameCompletor()}
+        );
+
+        Completor getDeleteCompletor = new ArgumentCompletor(
+                new Completor[] {
+                        new SimpleCompletor(new String[] {"get", "delete"}),
+                        elementCompletor
+                }
+        );
+
+        Completor rootCompletor = new MultiCompletor(
+                new Completor[] {
+                        helpCompletor,
+                        addCompletor,
+                        getDeleteCompletor}
+        );
+
+        return rootCompletor;
+    }
+
     /**
      *
      * @param filePath
@@ -104,7 +269,7 @@ public class Main {
      * @throws java.io.IOException
      * @throws Exception
      */
-    public Properties getDiosMioProperties(String filePath, String defaultFilePath) throws IOException, Exception {
+    public Properties getApplicationProperties(String filePath, String defaultFilePath) throws IOException, Exception {
 
         InputStream is = null;
         if (filePath != null) {
@@ -148,39 +313,6 @@ public class Main {
                 .withLongOpt(OPT_TECH_CONFIG_FILE_L)
                 .create(OPT_TECH_CONFIG_FILE));
 
-        // Misc
-        opt.addOption(OptionBuilder.withDescription("list available beans")
-                .withLongOpt(OPT_MISC_LIST_BEANS_L)
-                .create());
-        opt.addOption(OptionBuilder.withDescription("show application status")
-                .withLongOpt(OPT_MISC_SHOW_STATUS_L)
-                .create());
-
-        // Artifact Manager
-        opt.addOption(OptionBuilder.hasArg()
-                .withArgName("artifact")
-                .withDescription("add artifact to database")
-                .withLongOpt(OPT_ARTIF_MNGR_ADD_L)
-                .create());
-
-        opt.addOption(OptionBuilder.hasArg()
-                .withArgName("artifactId")
-                .withType(Long.class)
-                .withDescription("list artifacts in database")
-                .withLongOpt(OPT_ARTIF_MNGR_GET_L)
-                .create());
-
-        opt.addOption(OptionBuilder.withDescription("show an artifact")
-                .withLongOpt(OPT_ARTIF_MNGR_LIST_L)
-                .create());
-
-        opt.addOption(OptionBuilder.hasArg()
-                .withArgName("artifactId")
-                .withType(Long.class)
-                .withDescription("delete artifact from database")
-                .withLongOpt(OPT_ARTIF_MNGR_DEL_L)
-                .create());
-
         return  opt;
     }
 
@@ -200,42 +332,6 @@ public class Main {
         }
 
         return result;
-    }
-
-    public void executeAction(DiosMioCli diosMioCli, CommandLine cmd, Options options, Properties properties, KissLogger logger) throws Exception {
-
-        // Misc *******************************************
-        if (cmd.hasOption(OPT_TECH_HELP)) {
-            HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("diosmio-cli <option> [...]", options);
-
-        } else if (cmd.hasOption(OPT_MISC_LIST_BEANS_L)) {
-            logger.info("Option '" + OPT_MISC_LIST_BEANS_L + "' found");
-            diosMioCli.displayMBeanList();
-
-        } else if (cmd.hasOption(OPT_MISC_SHOW_STATUS_L)) {
-            logger.info("Option '" + OPT_MISC_SHOW_STATUS_L + "' found");
-            diosMioCli.displayStatus();
-
-            // Artifact Manager ***************************
-        } else if (cmd.hasOption(OPT_ARTIF_MNGR_LIST_L)) {
-            logger.info("Option '" + OPT_ARTIF_MNGR_LIST_L+ "' found");
-            diosMioCli.listAllArtifacts();
-
-        } else if (cmd.hasOption(OPT_ARTIF_MNGR_GET_L)) {
-            logger.info("Option '" + OPT_ARTIF_MNGR_GET_L + "' found with value '" + cmd.getOptionValue(OPT_ARTIF_MNGR_GET_L) + "'");
-            diosMioCli.showArtifact(new Long(cmd.getOptionValue(OPT_ARTIF_MNGR_GET_L)));
-
-        } else if (cmd.hasOption(OPT_ARTIF_MNGR_ADD_L)) {
-            logger.info("Option '" + OPT_ARTIF_MNGR_ADD_L + "' found with value '" + cmd.getOptionValue(OPT_ARTIF_MNGR_ADD_L) + "'");
-            diosMioCli.create(cmd.getOptionValue(OPT_ARTIF_MNGR_ADD_L));
-
-        } else if (cmd.hasOption(OPT_ARTIF_MNGR_DEL_L)) {
-            logger.info("Option '" + OPT_ARTIF_MNGR_DEL_L + "' found with value '" + cmd.getOptionValue(OPT_ARTIF_MNGR_DEL_L) + "'");
-            diosMioCli.delete(new Long(cmd.getOptionValue(OPT_ARTIF_MNGR_DEL_L)));
-        }
-
-        diosMioCli.close();
     }
 
     /**

@@ -25,14 +25,10 @@ public class DiosMioJmxCli implements DiosMioCli {
         this.logger = logger;
     }
 
-
-    public void close() {
-        // Nothing to do
-    }
-
     public void displayMBeanList() throws IOException, MalformedObjectNameException {
         CliMiscJmxActions cliMiscJmxActions = new CliMiscJmxActions(jmxUrl, domainName);
         cliMiscJmxActions.displayMBeanList();
+        cliMiscJmxActions.closeJmxConnection();
     }
 
     public void displayStatus() throws Exception {
@@ -53,14 +49,14 @@ public class DiosMioJmxCli implements DiosMioCli {
         cliArtifactManagerJmxActions.closeJmxConnection();
     }
 
-    public void create(String filePath) throws Exception {
+    public void createArtifact(String filePath) throws Exception {
         // TODO Make all the check about the file in the Main.java
         CliArtifactManagerJmxActions cliArtifactManagerJmxActions = new CliArtifactManagerJmxActions(jmxUrl, domainName);
         cliArtifactManagerJmxActions.create(filePath);
         cliArtifactManagerJmxActions.closeJmxConnection();
     }
 
-    public void delete(Long id) throws Exception, MalformedObjectNameException, InstanceNotFoundException {
+    public void deleteArtifact(Long id) throws Exception, MalformedObjectNameException, InstanceNotFoundException {
         CliArtifactManagerJmxActions cliArtifactManagerJmxActions = new CliArtifactManagerJmxActions(jmxUrl, domainName);
         cliArtifactManagerJmxActions.delete(id);
         cliArtifactManagerJmxActions.closeJmxConnection();
