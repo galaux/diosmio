@@ -1,9 +1,8 @@
-package net.alaux.diosmio.ui.cli.connected;
+package net.alaux.diosmio.ui.cli.jmx;
 
 import net.alaux.diosmio.services.core.ArtifactManager;
 import net.alaux.diosmio.services.entity.Artifact;
 import net.alaux.diosmio.ui.cli.DiosMioCli;
-import net.alaux.diosmio.ui.cli.jmxcli.DiosMioJmxConnection;
 import net.alaux.utils.AppException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -25,18 +24,18 @@ import java.util.List;
  * Time: 5:35 PM
  * To change this template use File | Settings | File Templates.
  */
-public class DiosMioConnectedCli implements DiosMioCli {
+public class DiosMioJmxCli implements DiosMioCli {
 
     private static final String JSON_TAG_ARTIFACTS = "artifacts";
 
     private String url;
     private String domain;
 
-    private DiosMioJmxConnection diosMioJmxConnection;
+    private JmxConnection diosMioJmxConnection;
 
     private ArtifactManager artifactManager;
 
-    public DiosMioConnectedCli(String url, String domain) throws IOException, MalformedObjectNameException, InstanceNotFoundException {
+    public DiosMioJmxCli(String url, String domain) throws IOException, MalformedObjectNameException, InstanceNotFoundException {
 
         this.url = url;
         this.domain = domain;
@@ -48,9 +47,9 @@ public class DiosMioConnectedCli implements DiosMioCli {
         }
     }
 
-    private DiosMioJmxConnection getJmxConnection() throws IOException {
+    private JmxConnection getJmxConnection() throws IOException {
         if (diosMioJmxConnection == null) {
-            diosMioJmxConnection = new DiosMioJmxConnection(url, domain);
+            diosMioJmxConnection = new JmxConnection(url, domain);
         }
 
         return diosMioJmxConnection;

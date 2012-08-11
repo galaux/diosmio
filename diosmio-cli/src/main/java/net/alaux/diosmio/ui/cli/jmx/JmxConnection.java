@@ -1,4 +1,4 @@
-package net.alaux.diosmio.ui.cli.jmxcli;
+package net.alaux.diosmio.ui.cli.jmx;
 
 import net.alaux.diosmio.services.core.ArtifactManager;
 
@@ -15,7 +15,7 @@ import java.io.IOException;
  * Time: 12:05 AM
  * To change this template use File | Settings | File Templates.
  */
-public class DiosMioJmxConnection {
+public class JmxConnection {
 
     private static final String BEAN_ARTIFACT_MANAGER_NAME= "artifactManager";
 
@@ -26,7 +26,7 @@ public class DiosMioJmxConnection {
     JMXConnector jmxc;
     MBeanServerConnection mbsc;
 
-    public DiosMioJmxConnection(String jmxUrl, String domainName) throws IOException {
+    public JmxConnection(String jmxUrl, String domainName) throws IOException {
 
         this.jmxUrl = jmxUrl;
         this.domainName = domainName;

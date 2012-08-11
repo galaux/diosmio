@@ -3,7 +3,7 @@ package net.alaux.diosmio.ui.cli;
 import jline.*;
 import net.alaux.diosmio.ui.cli.antlr.DiosMioCliLexer;
 import net.alaux.diosmio.ui.cli.antlr.DiosMioCliParser;
-import net.alaux.diosmio.ui.cli.connected.DiosMioConnectedCli;
+import net.alaux.diosmio.ui.cli.jmx.DiosMioJmxCli;
 import net.alaux.diosmio.ui.cli.net.alaux.logging.KissLogger;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -105,7 +105,7 @@ public class Main {
 
             Properties properties = getApplicationProperties(cmd.getOptionValue(OPT_TECH_CONFIG_FILE), DEFAULT_CONF_PATH);
 
-            DiosMioConnectedCli diosMioConnectedCli = new DiosMioConnectedCli(properties.getProperty("server.rmi.url"),
+            DiosMioJmxCli diosMioConnectedCli = new DiosMioJmxCli(properties.getProperty("server.rmi.url"),
                     properties.getProperty("server.rmi.domain_name"));
 
             ConsoleReader reader = new ConsoleReader();
