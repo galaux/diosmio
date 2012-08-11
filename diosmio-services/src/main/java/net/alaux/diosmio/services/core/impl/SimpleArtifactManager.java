@@ -53,17 +53,10 @@ public class SimpleArtifactManager implements ArtifactManager {
     public Artifact create(String name, byte[] content) throws AppException, IOException {
         logger.info("create()");
 
-        // First check the "file" does not already exist on the application
-        if (fileDao.exists(name)) {
-            throw new AppException(
-                    diosMioMessage.get("error.file_already_exists", name)
-            );
-        }
-
         Artifact artifact = new Artifact(name, FILE_SEPARATOR);
         artifactDao.create(artifact);
 
-        fileDao.create(name, content);
+        fileDao.create(artifact, content);
 
         return artifact;
     }
@@ -80,7 +73,7 @@ public class SimpleArtifactManager implements ArtifactManager {
 
     public void delete(Artifact artifact) throws AppException {
         logger.info("delete()");
-        fileDao.delete(artifact.getRelativePath() + FILE_SEPARATOR + artifact.getName());
+        fileDao.delete(artifact);
         artifactDao.delete(artifact);
     }
 }

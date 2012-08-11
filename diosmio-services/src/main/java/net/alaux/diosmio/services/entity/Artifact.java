@@ -27,7 +27,7 @@ public class Artifact implements Serializable {
 
     private String name;
 
-    private String relativePath;
+    private String fsName;
 
     public Long getId() {
         return id;
@@ -45,12 +45,12 @@ public class Artifact implements Serializable {
         this.name = name;
     }
 
-    public String getRelativePath() {
-        return relativePath;
+    public String getFsName() {
+        return fsName;
     }
 
-    public void setRelativePath(String relativePath) {
-        this.relativePath = relativePath;
+    public void setFsName(String fsName) {
+        this.fsName = fsName;
     }
 
     /* The no-argument constructor, which is also a JavaBean convention,
@@ -58,17 +58,17 @@ public class Artifact implements Serializable {
     public Artifact() {
     }
 
-    public Artifact(String name, String relativePath) {
+    public Artifact(String name, String fsName) {
         this.name = name;
-        this.relativePath = relativePath;
+        this.fsName = fsName;
     }
 
     public Artifact(JSONObject jsonObject) {
         this.name = (String) jsonObject.get("name");
-        this.relativePath = (String) jsonObject.get("relativePath");
+        this.fsName = (String) jsonObject.get("fsName");
     }
 
     public String toString() {
-        return id + "\t" + name + "\t" + relativePath;
+        return id + "\t" + name + "\t" + fsName;
     }
 }

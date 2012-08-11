@@ -3,6 +3,7 @@ package net.alaux.diosmio.services.dao.file.impl;
 
 import net.alaux.diosmio.services.AppMessages;
 import net.alaux.diosmio.services.dao.file.FileDao;
+import net.alaux.diosmio.services.entity.Artifact;
 import net.alaux.utils.AppException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -29,6 +30,10 @@ public class SimpleFileDao implements FileDao {
     @Value("${server.store.directory.path}")
     public String storageDirPath;
 
+    private String getInnerPathName(Artifact artifact) {
+        return storageDirPath + FILE_SEPARATOR + artifact.getId() + "_" + artifact.getName();
+    }
+
     @PostConstruct
     public void init() throws AppException {
 
@@ -50,18 +55,18 @@ public class SimpleFileDao implements FileDao {
 
     /**
      *
-     * @param name
+     * @param artifact
      * @param content
      * @throws net.alaux.utils.AppException
      * @throws IOException
      */
-    public void create(String name, byte[] content) throws AppException, IOException {
+    public void create(Artifact artifact, byte[] content) throws AppException, IOException {
 
-        File file = new File(storageDirPath + FILE_SEPARATOR + name);
+        File file = new File(getInnerPathName(artifact));
 
         if (file == null || file.exists()) {
             throw new AppException(
-                    diosMioMessage.get("error.file_already_exists",storageDirPath + FILE_SEPARATOR + name)
+                    diosMioMessage.get("error.file_already_exists", getInnerPathName(artifact))
             );
         }
 
@@ -75,37 +80,21 @@ public class SimpleFileDao implements FileDao {
         }
     }
 
-    /**
-     *
-     * @param internPath
-     * @return
-     */
-    public File get(String internPath) {
-        return new File(internPath);
+    public File get(Artifact artifact) {
+        return new File(getInnerPathName(artifact));
     }
 
-    /**
-     *
-     * @param internPath
-     * @return
-     * @throws net.alaux.utils.AppException
-     */
-    public boolean delete(String internPath) throws AppException {
+    public boolean delete(Artifact artifact) throws AppException {
 
-        File file = new File(storageDirPath + FILE_SEPARATOR + internPath);
+        File file = new File(getInnerPathName(artifact));
 
         if (file == null || !file.exists() || !file.canWrite()) {
             throw new AppException(
-                    diosMioMessage.get("error.file_not_readable", storageDirPath + FILE_SEPARATOR + internPath)
+                    diosMioMessage.get("error.file_not_readable", getInnerPathName(artifact))
             );
         }
 
         return file.delete();
-    }
-
-    public boolean exists(String internPath) {
-        File file = new File(storageDirPath + FILE_SEPARATOR + internPath);
-        return file != null && file.exists();
     }
 
 }

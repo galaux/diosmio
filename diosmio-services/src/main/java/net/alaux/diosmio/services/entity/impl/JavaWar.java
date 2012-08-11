@@ -41,11 +41,11 @@ public class JavaWar
 //        this.name = name;
 //    }
 //
-//    public String getRelativePath() {
+//    public String getFsName() {
 //        return relativePath;
 //    }
 //
-//    public void setRelativePath(String relativePath) {
+//    public void setFsName(String relativePath) {
 //        this.relativePath = relativePath;
 //    }
 //

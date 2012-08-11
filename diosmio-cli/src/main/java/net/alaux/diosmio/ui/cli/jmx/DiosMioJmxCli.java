@@ -91,7 +91,7 @@ public class DiosMioJmxCli implements DiosMioCli {
 
     private void createArtifact(File file) throws IOException, AppException, MalformedObjectNameException, InstanceNotFoundException {
 
-        System.out.println("Creating artifact " + file.getAbsolutePath());
+        System.out.println("Creating artifact " + file.getName());
 
         FileInputStream fis = new FileInputStream(file);
 
