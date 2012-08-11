@@ -2,7 +2,6 @@ package net.alaux.diosmio.ui.cli;
 
 import javax.management.InstanceNotFoundException;
 import javax.management.MalformedObjectNameException;
-import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,7 +15,7 @@ public interface DiosMioCli {
     void displayStatus() throws Exception;
     void listAllArtifacts() throws Exception, MalformedObjectNameException, InstanceNotFoundException;
     void showArtifact(Long id) throws Exception, MalformedObjectNameException, InstanceNotFoundException;
-    void createArtifact(String filePath) throws Exception, MalformedObjectNameException, InstanceNotFoundException;
+    void createArtifact(String path) throws Exception, MalformedObjectNameException, InstanceNotFoundException;
     void deleteArtifact(Long id) throws Exception, MalformedObjectNameException, InstanceNotFoundException;
     void loadFile(String filePath) throws Exception;
     void parseFile(String filePath) throws Exception;

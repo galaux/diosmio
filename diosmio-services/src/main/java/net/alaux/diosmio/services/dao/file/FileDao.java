@@ -9,9 +9,11 @@ public interface FileDao {
 
     public boolean getStatus();
 
-    public void create(String internPath, byte[] content) throws AppException, IOException;
+    public void create(String name, byte[] content) throws AppException, IOException;
 
 	File get(String internPath);
 
 	boolean delete(String internPath) throws AppException;
+
+    boolean exists(String internPath);
 }

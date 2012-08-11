@@ -1,5 +1,6 @@
 package net.alaux.diosmio.services.core.impl;
 
+import net.alaux.diosmio.services.AppMessages;
 import net.alaux.diosmio.services.core.ArtifactManager;
 import net.alaux.diosmio.services.dao.db.impl.ArtifactDao;
 import net.alaux.diosmio.services.dao.file.FileDao;
@@ -9,7 +10,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -27,6 +27,9 @@ public class SimpleArtifactManager implements ArtifactManager {
 
     @Autowired
     private FileDao fileDao;
+
+    @Autowired
+    private AppMessages diosMioMessage;
 
     public static final String FILE_SEPARATOR   = System.getProperty("file.separator");
 
@@ -47,13 +50,20 @@ public class SimpleArtifactManager implements ArtifactManager {
         return fileDao.getStatus();
     }
 
-    public Artifact create(File file, byte[] content) throws AppException, IOException {
+    public Artifact create(String name, byte[] content) throws AppException, IOException {
         logger.info("create()");
 
-        Artifact artifact = new Artifact(file.getName(), FILE_SEPARATOR);
+        // First check the "file" does not already exist on the application
+        if (fileDao.exists(name)) {
+            throw new AppException(
+                    diosMioMessage.get("error.file_already_exists", name)
+            );
+        }
+
+        Artifact artifact = new Artifact(name, FILE_SEPARATOR);
         artifactDao.create(artifact);
 
-        fileDao.create(file.getName(), content);
+        fileDao.create(name, content);
 
         return artifact;
     }

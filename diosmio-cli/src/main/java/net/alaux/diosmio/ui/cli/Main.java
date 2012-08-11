@@ -171,7 +171,7 @@ public class Main {
 
         String element = null;
         Long id = null;
-        String filePath = null;
+        String path = null;
 
         if (tree != null) {
             // TODO use business exception in 'throws'
@@ -182,9 +182,9 @@ public class Main {
 
                 case DiosMioCliParser.ADD:
                     element = tree.getChild(0).toString();
-                    filePath = tree.getChild(1).toString();
+                    path = tree.getChild(1).toString();
 
-                    addElement(diosMioCli, element, filePath);
+                    addElement(diosMioCli, element, path);
                     break;
 
                 case DiosMioCliParser.GET:
@@ -204,13 +204,13 @@ public class Main {
                     break;
 
                 case DiosMioCliParser.LOAD:
-                    filePath = tree.getChild(0).toString();
-                    loadFile(diosMioCli, filePath);
+                    path = tree.getChild(0).toString();
+                    loadFile(diosMioCli, path);
                     break;
 
                 case DiosMioCliParser.PARSE:
-                    filePath = tree.getChild(0).toString();
-                    parseFile(diosMioCli, filePath);
+                    path = tree.getChild(0).toString();
+                    parseFile(diosMioCli, path);
                     break;
 
                 case DiosMioCliParser.NO_OP:
@@ -225,6 +225,7 @@ public class Main {
     }
 
     private void addElement(DiosMioCli diosMioCli, String element, String filePath) throws Exception {
+
         if (ELEMENT_ARTIFACT.compareTo(element) == 0) {
             diosMioCli.createArtifact(filePath);
 

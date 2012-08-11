@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class SimpleFileDao implements FileDao {
 
-    private File storageDirectory;
+    public File storageDirectory;
 
     public Log logger = LogFactory.getLog(SimpleFileDao.class);
 
@@ -32,7 +32,7 @@ public class SimpleFileDao implements FileDao {
     @PostConstruct
     public void init() throws AppException {
 
-        storageDirectory = new java.io.File(storageDirPath);
+        storageDirectory = new File(storageDirPath);
         if (storageDirectory == null
                 || !storageDirectory.exists()
                 || !storageDirectory.canRead()
@@ -50,18 +50,18 @@ public class SimpleFileDao implements FileDao {
 
     /**
      *
-     * @param internPath
+     * @param name
      * @param content
      * @throws net.alaux.utils.AppException
      * @throws IOException
      */
-    public void create(String internPath, byte[] content) throws AppException, IOException {
+    public void create(String name, byte[] content) throws AppException, IOException {
 
-        java.io.File file = new java.io.File(storageDirPath + FILE_SEPARATOR + internPath);
+        File file = new File(storageDirPath + FILE_SEPARATOR + name);
 
         if (file == null || file.exists()) {
             throw new AppException(
-                    diosMioMessage.get("error.file_already_exists",storageDirPath + FILE_SEPARATOR + internPath)
+                    diosMioMessage.get("error.file_already_exists",storageDirPath + FILE_SEPARATOR + name)
             );
         }
 
@@ -92,7 +92,7 @@ public class SimpleFileDao implements FileDao {
      */
     public boolean delete(String internPath) throws AppException {
 
-        java.io.File file = new java.io.File(storageDirPath + FILE_SEPARATOR + internPath);
+        File file = new File(storageDirPath + FILE_SEPARATOR + internPath);
 
         if (file == null || !file.exists() || !file.canWrite()) {
             throw new AppException(
@@ -101,6 +101,11 @@ public class SimpleFileDao implements FileDao {
         }
 
         return file.delete();
+    }
+
+    public boolean exists(String internPath) {
+        File file = new File(storageDirPath + FILE_SEPARATOR + internPath);
+        return file != null && file.exists();
     }
 
 }

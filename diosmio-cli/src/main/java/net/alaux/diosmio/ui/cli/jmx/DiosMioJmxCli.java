@@ -89,17 +89,10 @@ public class DiosMioJmxCli implements DiosMioCli {
         }
     }
 
-    public void createArtifact(String filePath) throws Exception, MalformedObjectNameException, InstanceNotFoundException {
-
-        File file = new File(filePath);
-        if (file == null || !file.canRead()) {
-            throw new Exception("cli.error.cannot_read_file");
-        }
-
-        createArtifact(file);
-    }
-
     private void createArtifact(File file) throws IOException, AppException, MalformedObjectNameException, InstanceNotFoundException {
+
+        System.out.println("Creating artifact " + file.getAbsolutePath());
+
         FileInputStream fis = new FileInputStream(file);
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -108,22 +101,33 @@ public class DiosMioJmxCli implements DiosMioCli {
             bos.write(buf, 0, readNum);
         }
 
-        getArtifactManager().create(file, bos.toByteArray());
+        getArtifactManager().create(file.getName(), bos.toByteArray());
     }
 
-    public void createAllArtifacts(String dirPath) throws Exception, InstanceNotFoundException {
+    public void createArtifact(String path) throws Exception {
 
-        File dir = new File(dirPath);
-        if (dir == null
-                || !dir.exists()
-                || !dir.canRead()
-                || !dir.isDirectory()) {
-            throw new Exception("error.file_not_accessible");
+        File file = new File(path);
+        if (file == null || !file.exists() || !file.canRead()) {
+            throw new Exception("cli.error.cannot_read_file");
         }
 
-        List<File> files = getFilesOfExtension(dir, "war");
-        for (File file : files) {
+        if (file.isFile()) {
             createArtifact(file);
+        } else {
+            System.out.print("Scanning for files in " + path + ".");
+            List<File> files = getFilesOfExtension(file, "war");
+            System.out.println(" Found " + files.size());
+            for (File f : files) {
+                try {
+                    createArtifact(f);
+
+                    // TODO Ugly! Do something prettier
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                    // On error, continue with other elements creation
+                }
+
+            }
         }
     }
 
