@@ -1,14 +1,15 @@
 package net.alaux.diosmio.services.core.impl;
 
-import net.alaux.utils.AppException;
 import net.alaux.diosmio.services.core.ArtifactManager;
 import net.alaux.diosmio.services.dao.db.impl.ArtifactDao;
 import net.alaux.diosmio.services.dao.file.FileDao;
 import net.alaux.diosmio.services.entity.Artifact;
+import net.alaux.utils.AppException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -46,13 +47,13 @@ public class SimpleArtifactManager implements ArtifactManager {
         return fileDao.getStatus();
     }
 
-    public Artifact create(String internPath, byte[] content) throws AppException, IOException {
+    public Artifact create(File file, byte[] content) throws AppException, IOException {
         logger.info("create()");
 
-        Artifact artifact = new Artifact(internPath, FILE_SEPARATOR);
+        Artifact artifact = new Artifact(file.getName(), FILE_SEPARATOR);
         artifactDao.create(artifact);
 
-        fileDao.create(internPath, content);
+        fileDao.create(file.getName(), content);
 
         return artifact;
     }

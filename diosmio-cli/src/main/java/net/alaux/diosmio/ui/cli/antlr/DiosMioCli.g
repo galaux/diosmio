@@ -13,6 +13,9 @@ tokens {
     GET         = 'get';
     DELETE      = 'delete';
 
+    LOAD        = 'load';
+    PARSE       = 'parse';
+
     ARTIFACT    = 'artifact';
     CONFIG      = 'config';
 
@@ -57,6 +60,8 @@ action
     | addElement
     | getElement
     | deleteElement
+    | loadFile
+    | parseFile
     | -> ^(NO_OP)
     ;
 
@@ -79,6 +84,16 @@ deleteElement
     : DELETE element id
         -> ^(DELETE element id)
      ;
+
+loadFile
+    : LOAD filepath
+        -> ^(LOAD filepath)
+    ;
+
+parseFile
+    : PARSE filepath
+        -> ^(PARSE filepath)
+    ;
 
 element
     : ( ARTIFACT | CONFIG )

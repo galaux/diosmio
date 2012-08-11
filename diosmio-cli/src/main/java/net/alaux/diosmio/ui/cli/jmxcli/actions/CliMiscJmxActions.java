@@ -1,13 +1,5 @@
 package net.alaux.diosmio.ui.cli.jmxcli.actions;
 
-import net.alaux.diosmio.services.core.ArtifactManager;
-
-import javax.management.MalformedObjectNameException;
-import javax.management.ObjectName;
-import java.io.IOException;
-import java.util.Set;
-import java.util.TreeSet;
-
 /**
  * Created with IntelliJ IDEA.
  * User: miguel
@@ -17,30 +9,30 @@ import java.util.TreeSet;
  */
 public class CliMiscJmxActions extends CliJmxActions {
 
-    public CliMiscJmxActions(String jmxUrl, String domainName) throws IOException{
-        super(jmxUrl, domainName);
-    }
-
-    public void displayMBeanList() throws IOException, MalformedObjectNameException {
-
-        Set<ObjectName> names = new TreeSet<ObjectName>(mbsc.queryNames(null, null));
-
-        for (ObjectName name : names) {
-            if (name.toString().startsWith(this.domainName)) {
-                System.out.println(name.toString().replaceFirst(this.domainName + ":name=", ""));
-            }
-        }
-    }
-
-    public void displayStatus() throws Exception {
-
-        // Check artifactManager
-        ArtifactManager artifactManager = getServiceBean(ArtifactManager.class);
-        if (artifactManager == null) {
-            System.out.println("Artifact manager: null");
-
-        } else {
-            System.out.println("Artifact Manager: " + (artifactManager.getStatus() ? "OK" : "ERROR"));
-        }
-    }
+//    public CliMiscJmxActions(String jmxUrl, String domainName) throws IOException{
+//        super(jmxUrl, domainName);
+//    }
+//
+//    public void displayMBeanList() throws IOException, MalformedObjectNameException {
+//
+//        Set<ObjectName> names = new TreeSet<ObjectName>(mbsc.queryNames(null, null));
+//
+//        for (ObjectName name : names) {
+//            if (name.toString().startsWith(this.domainName)) {
+//                System.out.println(name.toString().replaceFirst(this.domainName + ":name=", ""));
+//            }
+//        }
+//    }
+//
+//    public void displayStatus() throws Exception {
+//
+//        // Check artifactManager
+//        ArtifactManager artifactManager = getServiceBean(ArtifactManager.class);
+//        if (artifactManager == null) {
+//            System.out.println("Artifact manager: null");
+//
+//        } else {
+//            System.out.println("Artifact Manager: " + (artifactManager.getStatus() ? "OK" : "ERROR"));
+//        }
+//    }
 }

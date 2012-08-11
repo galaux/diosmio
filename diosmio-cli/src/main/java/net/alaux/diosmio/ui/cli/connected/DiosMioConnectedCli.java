@@ -4,13 +4,18 @@ import net.alaux.diosmio.services.core.ArtifactManager;
 import net.alaux.diosmio.services.entity.Artifact;
 import net.alaux.diosmio.ui.cli.DiosMioCli;
 import net.alaux.diosmio.ui.cli.jmxcli.DiosMioJmxConnection;
+import net.alaux.utils.AppException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import javax.management.InstanceNotFoundException;
 import javax.management.MalformedObjectNameException;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -21,6 +26,8 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class DiosMioConnectedCli implements DiosMioCli {
+
+    private static final String JSON_TAG_ARTIFACTS = "artifacts";
 
     private String url;
     private String domain;
@@ -85,12 +92,16 @@ public class DiosMioConnectedCli implements DiosMioCli {
 
     public void createArtifact(String filePath) throws Exception, MalformedObjectNameException, InstanceNotFoundException {
 
-        File artifactFile = new File(filePath);
-        if (artifactFile == null || !artifactFile.canRead()) {
+        File file = new File(filePath);
+        if (file == null || !file.canRead()) {
             throw new Exception("cli.error.cannot_read_file");
         }
 
-        FileInputStream fis = new FileInputStream(artifactFile);
+        createArtifact(file);
+    }
+
+    private void createArtifact(File file) throws IOException, AppException, MalformedObjectNameException, InstanceNotFoundException {
+        FileInputStream fis = new FileInputStream(file);
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         byte[] buf = new byte[1024];
@@ -98,7 +109,52 @@ public class DiosMioConnectedCli implements DiosMioCli {
             bos.write(buf, 0, readNum);
         }
 
-        getArtifactManager().create(artifactFile.getName(), bos.toByteArray());
+        getArtifactManager().create(file, bos.toByteArray());
+    }
+
+    public void createAllArtifacts(String dirPath) throws Exception, InstanceNotFoundException {
+
+        File dir = new File(dirPath);
+        if (dir == null
+                || !dir.exists()
+                || !dir.canRead()
+                || !dir.isDirectory()) {
+            throw new Exception("error.file_not_accessible");
+        }
+
+        List<File> files = getFilesOfExtension(dir, "war");
+        for (File file : files) {
+            createArtifact(file);
+        }
+    }
+
+    private List<File> getFilesOfExtension(File dir, String extension) throws Exception {
+
+        List<File> resultList = new ArrayList<File>();
+        final String fullExtension = "." + extension;
+        File[] files = dir.listFiles(new FilenameFilter() {
+            public boolean accept(File file, String s) {
+                return s.endsWith(fullExtension);
+            }
+        });
+
+        if (files != null) {
+            resultList.addAll(Arrays.asList(files));
+        }
+
+        File[] dirs = dir.listFiles(new FileFilter() {
+            public boolean accept(File file) {
+                return file.isDirectory();
+            }
+        });
+
+        if (dirs != null) {
+            for (File subDirs : dirs) {
+                resultList.addAll(getFilesOfExtension(subDirs, extension));
+            }
+        }
+
+        return resultList;
     }
 
     public void deleteArtifact(Long id) throws Exception, MalformedObjectNameException, InstanceNotFoundException {
@@ -112,4 +168,48 @@ public class DiosMioConnectedCli implements DiosMioCli {
             System.out.println("Artifact deleted");
         }
     }
+
+    public void loadFile(String filePath) throws Exception {
+
+        File file = new File(filePath);
+        if (file == null || !file.canRead()) {
+            throw new Exception("cli.error.cannot_read_file");
+        }
+
+        List<Artifact> artifacts = new ArrayList<Artifact>();
+        parseFile(file, artifacts);
+//        for (Artifact artifact : artifacts) {
+//            createArtifact();
+//        }
+    }
+
+    public void parseFile(String filePath) throws Exception {
+
+        File file = new File(filePath);
+        if (file == null || !file.canRead()) {
+            throw new Exception("cli.error.cannot_read_file");
+        }
+
+        List<Artifact> artifacts = new ArrayList<Artifact>();
+        parseFile(file, artifacts);
+        System.out.println("Found " + artifacts.size() + " artifacts");
+    }
+
+    private void parseFile(File file, List<Artifact> artifacts) throws IOException, ParseException {
+
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = (JSONObject) parser.parse(new FileReader(file));
+
+        if (jsonObject.containsKey(JSON_TAG_ARTIFACTS)) {
+            JSONArray jsonArray = (JSONArray) jsonObject.get(JSON_TAG_ARTIFACTS);
+
+            Iterator<JSONObject> iterator = jsonArray.iterator();
+            while (iterator.hasNext()) {
+                artifacts.add(new Artifact(iterator.next()));
+            }
+        }
+    }
+
+
+
 }

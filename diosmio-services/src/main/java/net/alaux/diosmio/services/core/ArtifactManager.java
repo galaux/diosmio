@@ -3,6 +3,7 @@ package net.alaux.diosmio.services.core;
 import net.alaux.diosmio.services.entity.Artifact;
 import net.alaux.utils.AppException;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface ArtifactManager {
 
     public boolean getStatus();
 
-    public Artifact create(String internPath, byte[] content) throws AppException, IOException;
+    public Artifact create(File file, byte[] content) throws AppException, IOException;
 
     Artifact get(Long id);
 

@@ -171,6 +171,7 @@ public class Main {
 
         String element = null;
         Long id = null;
+        String filePath = null;
 
         if (tree != null) {
             // TODO use business exception in 'throws'
@@ -181,17 +182,9 @@ public class Main {
 
                 case DiosMioCliParser.ADD:
                     element = tree.getChild(0).toString();
-                    String filePath = tree.getChild(1).toString();
+                    filePath = tree.getChild(1).toString();
 
-                    if (ELEMENT_ARTIFACT.compareTo(element) == 0) {
-                        diosMioCli.createArtifact(filePath);
-
-                    } else if (ELEMENT_CONFIG.compareTo(element) == 0) {
-                        System.out.println("TO BE IMPLEMENTED: add(" + element + ", " + filePath + ")");
-
-                    } else {
-                        throw new Exception("Unknown element '" + element + "'");
-                    }
+                    addElement(diosMioCli, element, filePath);
                     break;
 
                 case DiosMioCliParser.GET:
@@ -200,38 +193,24 @@ public class Main {
                         id = new Long(tree.getChild(1).toString());
                     }
 
-                    if (ELEMENT_ARTIFACT.compareTo(element) == 0) {
-                        if (id == null) {
-                            diosMioCli.listAllArtifacts();
-                        } else {
-                            diosMioCli.showArtifact(id);
-                        }
-
-                    } else if (ELEMENT_CONFIG.compareTo(element) == 0) {
-                        if (id == null) {
-                            System.out.println("TO BE IMPLEMENTED: getAll(" + element + ")");
-                        } else {
-                            System.out.println("TO BE IMPLEMENTED: get(" + element + ", " + id + ")");
-                        }
-
-                    } else {
-                        throw new Exception("Unknown element '" + element + "'");
-                    }
+                    getElement(diosMioCli, element, id);
                     break;
 
                 case DiosMioCliParser.DELETE:
                     element = tree.getChild(0).toString();
                     id = new Long(tree.getChild(1).toString());
 
-                    if (ELEMENT_ARTIFACT.compareTo(element) == 0) {
-                        diosMioCli.deleteArtifact(id);
+                    deleteElement(diosMioCli, element, id);
+                    break;
 
-                    } else if (ELEMENT_CONFIG.compareTo(element) == 0) {
-                        System.out.println("delete(" + element + ", " + id + ")");
+                case DiosMioCliParser.LOAD:
+                    filePath = tree.getChild(0).toString();
+                    loadFile(diosMioCli, filePath);
+                    break;
 
-                    } else {
-                        throw new Exception("Unknown element '" + element + "'");
-                    }
+                case DiosMioCliParser.PARSE:
+                    filePath = tree.getChild(0).toString();
+                    parseFile(diosMioCli, filePath);
                     break;
 
                 case DiosMioCliParser.NO_OP:
@@ -245,17 +224,69 @@ public class Main {
         }
     }
 
+    private void addElement(DiosMioCli diosMioCli, String element, String filePath) throws Exception {
+        if (ELEMENT_ARTIFACT.compareTo(element) == 0) {
+            diosMioCli.createArtifact(filePath);
+
+        } else if (ELEMENT_CONFIG.compareTo(element) == 0) {
+            System.out.println("TO BE IMPLEMENTED: add(" + element + ", " + filePath + ")");
+
+        } else {
+            throw new Exception("Unknown element '" + element + "'");
+        }
+    }
+
+    private void getElement(DiosMioCli diosMioCli, String element, Long id) throws Exception {
+        if (ELEMENT_ARTIFACT.compareTo(element) == 0) {
+            if (id == null) {
+                diosMioCli.listAllArtifacts();
+            } else {
+                diosMioCli.showArtifact(id);
+            }
+
+        } else if (ELEMENT_CONFIG.compareTo(element) == 0) {
+            if (id == null) {
+                System.out.println("TO BE IMPLEMENTED: getAll(" + element + ")");
+            } else {
+                System.out.println("TO BE IMPLEMENTED: get(" + element + ", " + id + ")");
+            }
+
+        } else {
+            throw new Exception("Unknown element '" + element + "'");
+        }
+    }
+
+    private void deleteElement(DiosMioCli diosMioCli, String element, Long id) throws Exception {
+        if (ELEMENT_ARTIFACT.compareTo(element) == 0) {
+            diosMioCli.deleteArtifact(id);
+
+        } else if (ELEMENT_CONFIG.compareTo(element) == 0) {
+            System.out.println("delete(" + element + ", " + id + ")");
+
+        } else {
+            throw new Exception("Unknown element '" + element + "'");
+        }
+    }
+
+    private void loadFile(DiosMioCli diosMioCli, String filepath) throws Exception {
+        diosMioCli.loadFile(filepath);
+    }
+
+    private void parseFile(DiosMioCli diosMioCli, String filepath) throws Exception {
+        diosMioCli.parseFile(filepath);
+    }
+
     private Completor getCompletor() {
 
         Completor helpCompletor = new SimpleCompletor("help");
-
         Completor elementCompletor = new SimpleCompletor(new String[] {"artifact", "config"});
+        Completor filenameCompletor = new FileNameCompletor();
 
         Completor addCompletor = new ArgumentCompletor(
                 new Completor[] {
                         new SimpleCompletor("add"),
                         elementCompletor,
-                        new FileNameCompletor()}
+                        filenameCompletor}
         );
 
         Completor getDeleteCompletor = new ArgumentCompletor(
@@ -265,11 +296,19 @@ public class Main {
                 }
         );
 
+        Completor loadParseCompletor = new ArgumentCompletor(
+                new Completor[] {
+                        new SimpleCompletor(new String[] {"load", "parse"}),
+                        filenameCompletor
+                }
+        );
+
         Completor rootCompletor = new MultiCompletor(
                 new Completor[] {
                         helpCompletor,
                         addCompletor,
-                        getDeleteCompletor}
+                        getDeleteCompletor,
+                        loadParseCompletor}
         );
 
         return rootCompletor;

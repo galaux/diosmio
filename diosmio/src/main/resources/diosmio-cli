@@ -10,8 +10,9 @@ ABS_LIB_DIR=${PWD}/${REL_SCRIPT_DIR}/../lib
 COMMONS_CLI_JAR=${ABS_LIB_DIR}/commons-cli-1.2.jar
 JLINE_JAR=${ABS_LIB_DIR}/jline-1.0.jar
 ANTLR_JAR=${ABS_LIB_DIR}/antlr-runtime-3.4.jar
+JSON_SIMPLE_JAR=${ABS_LIB_DIR}/json-simple-1.1.1.jar
 
-EXT_LIBS=${COMMONS_CLI_JAR}:${JLINE_JAR}:${ANTLR_JAR}
+EXT_LIBS=${COMMONS_CLI_JAR}:${JLINE_JAR}:${ANTLR_JAR}:${JSON_SIMPLE_JAR}
 
 # Internal libs
 DM_SERVICES_JAR=${ABS_LIB_DIR}/diosmio-services-${DM_VERSION}.jar

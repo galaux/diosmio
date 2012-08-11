@@ -1,6 +1,7 @@
 package net.alaux.diosmio.services.entity;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.json.simple.JSONObject;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -60,6 +61,11 @@ public class Artifact implements Serializable {
     public Artifact(String name, String relativePath) {
         this.name = name;
         this.relativePath = relativePath;
+    }
+
+    public Artifact(JSONObject jsonObject) {
+        this.name = (String) jsonObject.get("name");
+        this.relativePath = (String) jsonObject.get("relativePath");
     }
 
     public String toString() {
