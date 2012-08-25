@@ -1,6 +1,9 @@
 package net.alaux.diosmio.services.dao.db;
 
 import net.alaux.diosmio.services.entity.Configuration;
+import net.alaux.diosmio.services.entity.impl.HostConfig;
+
+import java.util.List;
 
 /**
  * User: miguel
@@ -8,13 +11,13 @@ import net.alaux.diosmio.services.entity.Configuration;
  */
 public interface ConfigDao {
 
-    public boolean getStatus();
+    public void create(HostConfig hostConfig);
 
-    public void create(Configuration);
+    public HostConfig read(Long id);
 
-    public Configuration read(Long id);
+    public List<Configuration>  readAll();
 
-    public void update(Configuration configuration);
+    public void update(HostConfig hostConfig);
 
-    public void delete(Configuration configuration);
+    public void delete(HostConfig hostConfig);
 }

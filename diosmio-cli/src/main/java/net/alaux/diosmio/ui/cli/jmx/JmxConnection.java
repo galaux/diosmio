@@ -1,6 +1,8 @@
 package net.alaux.diosmio.ui.cli.jmx;
 
 import net.alaux.diosmio.services.core.ArtifactManager;
+import net.alaux.diosmio.services.dao.db.ConfigDao;
+import net.alaux.diosmio.ui.cli.Main;
 
 import javax.management.*;
 import javax.management.remote.JMXConnector;
@@ -18,6 +20,7 @@ import java.io.IOException;
 public class JmxConnection {
 
     private static final String BEAN_ARTIFACT_MANAGER_NAME= "artifactManager";
+    private static final String BEAN_CONFIG_DAO_NAME= "configDao";
 
     private String jmxUrl;
     protected String domainName;
@@ -27,6 +30,8 @@ public class JmxConnection {
     MBeanServerConnection mbsc;
 
     public JmxConnection(String jmxUrl, String domainName) throws IOException {
+
+        Main.logger.info("JmxConnection.JmxConnection()");
 
         this.jmxUrl = jmxUrl;
         this.domainName = domainName;
@@ -42,14 +47,19 @@ public class JmxConnection {
 
     public  <T> T getServiceBean(Class<T> clazz) throws IOException, InstanceNotFoundException, MalformedObjectNameException {
 
-        T mbean = null;
+        ObjectName mbeanName = null;
         // TODO put BEAN_ARTIFACT_MANAGER_NAME in ArtifactManager and call general value
         if (clazz == ArtifactManager.class) {
-            ObjectName mbeanName = new ObjectName(this.domainName + ":name=" + BEAN_ARTIFACT_MANAGER_NAME);
-            mbean =  JMX.newMBeanProxy(mbsc, mbeanName, clazz, true);
-            ClientListener listener = new ClientListener();
-            mbsc.addNotificationListener(mbeanName, listener, null, null);
+            mbeanName = new ObjectName(this.domainName + ":name=" + BEAN_ARTIFACT_MANAGER_NAME);
+
+        } else if (clazz == ConfigDao.class) {
+            mbeanName = new ObjectName(this.domainName + ":name=" + BEAN_CONFIG_DAO_NAME);
         }
+
+        T mbean =  JMX.newMBeanProxy(mbsc, mbeanName, clazz, true);
+        ClientListener listener = new ClientListener();
+        mbsc.addNotificationListener(mbeanName, listener, null, null);
+
         return mbean;
     }
 }

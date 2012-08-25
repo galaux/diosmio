@@ -31,15 +31,17 @@ public class Main {
     private static final String OPT_TECH_HELP = "h";
     private static final String OPT_TECH_HELP_L = "help";
 
-    private static final String OPT_TECH_LOG_WARN = "v";
-    private static final String OPT_TECH_LOG_INFO = "vv";
-    private static final String OPT_TECH_LOG_DEBUG = "vvv";
+    private static final String OPT_TECH_LOG = "v";
+    private static final String OPT_TECH_LOG_L = "verbose";
 
-    public static final String OPT_TECH_CONFIG_FILE_L = "conf";
+    private static final String OPT_TECH_LOG_FILE = "l";
+    private static final String OPT_TECH_LOG_FILE_L = "log-file";
+
     public static final String OPT_TECH_CONFIG_FILE = "c";
+    public static final String OPT_TECH_CONFIG_FILE_L = "conf";
 
     // TODO Get this value from config file
-    private static final String DIOSMIOCLI_LOG_PATH = "/tmp/diosmio-cli.log";
+    private static final String DEFAULT_LOG_PATH = "/tmp/diosmio-cli.log";
 
 
     private static final String DEFAULT_CONF_PATH = "diosmio-cli.conf";
@@ -63,35 +65,26 @@ public class Main {
     public static final String ELEMENT_CONFIG = "config";
     public static final String ELEMENT_ARTIFACT = "artifact";
 
-    KissLogger logger;
-
-    private static final String[] commands = {
-            "help",
-
-            "add artifact",
-            "show artifact",
-            "delete artifact",
-
-//            "add config",
-//            "show config",
-//            "show configs",
-//            "delete config"
-    };
+    public static KissLogger logger;
+    public static final KissLogger.Level CLI_DEFAULT_LEVEL = KissLogger.Level.INFO;
 
     /**
      *
      */
     public Main(String[] args) {
 
+        logger = new KissLogger(CLI_DEFAULT_LEVEL);
+        logger.info(APP_NAME + " v" + APP_VERSION);
+
         try {
+
+            logger.info("Parsing CLI arguments");
             // Parse command line
             Options options = createOptions();
             CommandLineParser parser = new PosixParser();
             CommandLine cmd = parser.parse(options, args);
 
             // TODO Make some command line basic verification (ie "One OPT at least", "Only one OPT")
-
-            logger = getLogger(cmd);
 
             // TODO Apply config file parameters
 
@@ -103,7 +96,9 @@ public class Main {
                 System.exit(0);
             }
 
-            Properties properties = getApplicationProperties(cmd.getOptionValue(OPT_TECH_CONFIG_FILE), DEFAULT_CONF_PATH);
+            Properties properties = getApplicationProperties(cmd, DEFAULT_CONF_PATH);
+
+            updateLogger(logger, properties, cmd);
 
             DiosMioJmxCli diosMioConnectedCli = new DiosMioJmxCli(properties.getProperty("server.rmi.url"),
                     properties.getProperty("server.rmi.domain_name"));
@@ -121,7 +116,7 @@ public class Main {
             out.flush();
 
             while((line = reader.readLine(PROMPT)) != null) {
-                try {
+//                try {
                     if (line.equalsIgnoreCase("quit") || line.equalsIgnoreCase("exit")) {
                         break;
                     }
@@ -129,23 +124,22 @@ public class Main {
                     handleQuery(line, diosMioConnectedCli);
                     out.flush();
 
-                } catch (Exception e) {
-                    System.err.println(e.getMessage());
-                    // On error, continue...
-                }
+//                } catch (Exception e) {
+//                    System.err.println(e.getMessage());
+//                    logger.error(e.getCause().toString());
+//                    // On error, continue...
+//                }
             }
 
             diosMioConnectedCli.close();
 
         } catch (Exception e) {
-            System.err.println(e.getMessage());
-            if (logger != null) {
-                logger.error(e.getMessage());
-            }
+            System.err.println("A fatal error occurred: " + e.getMessage());
+            System.err.println("See the logs for more detail.");
+            logger.error(e);
+
         } finally {
-            if (logger != null) {
-                logger.close();
-            }
+            logger.close();
         }
     }
 
@@ -155,13 +149,19 @@ public class Main {
 
         // TODO let this Exception go up
         try {
+            logger.debug("Creating ANTLRStringStream");
             ANTLRStringStream input = new ANTLRStringStream(query);
 
+            logger.debug("Creating lexer");
             DiosMioCliLexer lexer = new DiosMioCliLexer(input);
+
+            logger.debug("Creating token");
             CommonTokenStream tokens = new CommonTokenStream(lexer);
 
+            logger.debug("Creating parser");
             DiosMioCliParser parser = new DiosMioCliParser(tokens);
 
+            logger.debug("Getting tree");
             // start parsing...
             tree = (Tree)(parser.parse().getTree());
 
@@ -169,103 +169,66 @@ public class Main {
             System.out.println("Invalid query");
         }
 
-        String element = null;
-        Long id = null;
-        String path = null;
-
         if (tree != null) {
+
             // TODO use business exception in 'throws'
             switch (tree.getType()) {
-                case DiosMioCliParser.HELP:
+                case DiosMioCliParser.CMD_HELP:
                     System.out.println(usage);
                     break;
 
-                case DiosMioCliParser.ADD:
-                    element = tree.getChild(0).toString();
-                    path = tree.getChild(1).toString();
-
-                    addElement(diosMioCli, element, path);
+                // Artifact ***************************************************
+                case DiosMioCliParser.CMD_ADD_ARTIFACT:
+                    diosMioCli.createArtifact(tree.getChild(0).toString());
                     break;
 
-                case DiosMioCliParser.GET:
-                    element = tree.getChild(0).toString();
+                case DiosMioCliParser.CMD_GET_ARTIFACT:
                     if (tree.getChildCount() > 1) {
-                        id = new Long(tree.getChild(1).toString());
+                        diosMioCli.showArtifact(new Long(tree.getChild(0).toString()));
+
+                    } else {
+                        diosMioCli.listAllArtifacts();
                     }
-
-                    getElement(diosMioCli, element, id);
                     break;
 
-                case DiosMioCliParser.DELETE:
-                    element = tree.getChild(0).toString();
-                    id = new Long(tree.getChild(1).toString());
-
-                    deleteElement(diosMioCli, element, id);
+                case DiosMioCliParser.CMD_DELETE_ARTIFACT:
+                    diosMioCli.deleteArtifact(new Long(tree.getChild(0).toString()));
                     break;
 
-                case DiosMioCliParser.LOAD:
-                    path = tree.getChild(0).toString();
-                    loadFile(diosMioCli, path);
+                // Configuration **********************************************
+                case DiosMioCliParser.CMD_ADD_CONFIG:
+                    Main.logger.info("Main.handleQuery(CMD_ADD_CONFIG)");
+                    diosMioCli.createConfiguration(tree.getChild(0).toString(),
+                            tree.getChild(1).toString(),
+                            tree.getChild(2).toString());
                     break;
 
-                case DiosMioCliParser.PARSE:
-                    path = tree.getChild(0).toString();
-                    parseFile(diosMioCli, path);
+                case DiosMioCliParser.CMD_GET_CONFIG:
+                    if (tree.getChildCount() > 1) {
+                        diosMioCli.readConfiguration(new Long(tree.getChild(0).toString()));
+                    } else {
+
+                    }
                     break;
 
-                case DiosMioCliParser.NO_OP:
+                // Misc *******************************************************
+                case DiosMioCliParser.CMD_LOAD:
+                    loadFile(diosMioCli, tree.getChild(0).toString());
+                    break;
+
+                case DiosMioCliParser.CMD_PARSE:
+                    parseFile(diosMioCli, tree.getChild(0).toString());
+                    break;
+
+                case DiosMioCliParser.CMD_NO_OP:
                     // Nothing to do
                     break;
 
                 default:
+                    // TODO throw exception?
                     System.out.println("Unknown action: " + tree.getType());
                     break;
             }
-        }
-    }
-
-    private void addElement(DiosMioCli diosMioCli, String element, String filePath) throws Exception {
-
-        if (ELEMENT_ARTIFACT.compareTo(element) == 0) {
-            diosMioCli.createArtifact(filePath);
-
-        } else if (ELEMENT_CONFIG.compareTo(element) == 0) {
-            System.out.println("TO BE IMPLEMENTED: add(" + element + ", " + filePath + ")");
-
-        } else {
-            throw new Exception("Unknown element '" + element + "'");
-        }
-    }
-
-    private void getElement(DiosMioCli diosMioCli, String element, Long id) throws Exception {
-        if (ELEMENT_ARTIFACT.compareTo(element) == 0) {
-            if (id == null) {
-                diosMioCli.listAllArtifacts();
-            } else {
-                diosMioCli.showArtifact(id);
-            }
-
-        } else if (ELEMENT_CONFIG.compareTo(element) == 0) {
-            if (id == null) {
-                System.out.println("TO BE IMPLEMENTED: getAll(" + element + ")");
-            } else {
-                System.out.println("TO BE IMPLEMENTED: get(" + element + ", " + id + ")");
-            }
-
-        } else {
-            throw new Exception("Unknown element '" + element + "'");
-        }
-    }
-
-    private void deleteElement(DiosMioCli diosMioCli, String element, Long id) throws Exception {
-        if (ELEMENT_ARTIFACT.compareTo(element) == 0) {
-            diosMioCli.deleteArtifact(id);
-
-        } else if (ELEMENT_CONFIG.compareTo(element) == 0) {
-            System.out.println("delete(" + element + ", " + id + ")");
-
-        } else {
-            throw new Exception("Unknown element '" + element + "'");
         }
     }
 
@@ -317,26 +280,29 @@ public class Main {
 
     /**
      *
-     * @param filePath
      * @param defaultFilePath
      * @return
      * @throws java.io.IOException
      * @throws Exception
      */
-    public Properties getApplicationProperties(String filePath, String defaultFilePath) throws IOException, Exception {
+    public Properties getApplicationProperties(CommandLine cmd, String defaultFilePath) throws IOException, Exception {
+
+        logger.info("Retrieving properties");
 
         InputStream is = null;
-        if (filePath != null) {
-            File f = new File(filePath);
+
+        if (cmd.hasOption(OPT_TECH_CONFIG_FILE)) {
+            File f = new File(cmd.getOptionValue(OPT_TECH_CONFIG_FILE));
             if (f.exists() && f.canRead()) {
+                logger.info("Using argument provided configuration file '" + f.getAbsolutePath() + "'");
                 is = new FileInputStream(f);
             } else {
-                logger.error("Cannot access specified configuration file (" + filePath + ")");
+                logger.error("Cannot access argument specified configuration file '" + f.getAbsolutePath() + "'");
             }
         }
 
         if (is == null) {
-            logger.info("Falling back to default configuration file (" + defaultFilePath + ")");
+            logger.info("Using default configuration file '" + defaultFilePath + "'");
             is = ClassLoader.getSystemClassLoader().getResourceAsStream(defaultFilePath);
         }
 
@@ -357,9 +323,18 @@ public class Main {
         // Technical opt
         opt.addOption(OPT_TECH_HELP, OPT_TECH_HELP_L, false, "give this help");
 
-        opt.addOption(OPT_TECH_LOG_WARN, false, "display 'warning' logs");
-        opt.addOption(OPT_TECH_LOG_INFO, false, "display 'info' logs");
-        opt.addOption(OPT_TECH_LOG_DEBUG, false, "display 'debug' logs");
+        opt.addOption(OptionBuilder.hasArg()
+                .hasOptionalArg()
+                .withArgName("[level]")
+                .withDescription("set verbosity at specified level (" + CLI_DEFAULT_LEVEL + " if no level is provided)")
+                .withLongOpt(OPT_TECH_LOG_L)
+                .create(OPT_TECH_LOG));
+
+        opt.addOption(OptionBuilder.hasArg()
+                .withArgName("file")
+                .withDescription("use alternate log file")
+                .withLongOpt(OPT_TECH_LOG_FILE_L)
+                .create(OPT_TECH_LOG_FILE));
 
         opt.addOption(OptionBuilder.hasArg()
                 .withArgName("file")
@@ -370,22 +345,76 @@ public class Main {
         return  opt;
     }
 
-    private KissLogger getLogger(CommandLine cmd) {
+    private void updateLogger(KissLogger targetLogger, Properties properties, CommandLine cmd) {
 
-        KissLogger result = null;
+        logger.info("Updating logger to reflect CLI or internal config");
 
-        // First process log level stuff
-        if (cmd.hasOption(OPT_TECH_LOG_WARN)) {
-            result = new KissLogger(KissLogger.Level.WARNING, DIOSMIOCLI_LOG_PATH);
-        } else if (cmd.hasOption(OPT_TECH_LOG_INFO)) {
-            result = new KissLogger(KissLogger.Level.INFO, DIOSMIOCLI_LOG_PATH);
-        } else if (cmd.hasOption(OPT_TECH_LOG_DEBUG)) {
-            result = new KissLogger(KissLogger.Level.DEBUG, DIOSMIOCLI_LOG_PATH);
-        } else {
-            result = new KissLogger(KissLogger.Level.SHUT_UP, DIOSMIOCLI_LOG_PATH);
+        File logFile = null;
+
+        // First, let's see if user provided CLI argument related to log file
+        if (cmd.hasOption(OPT_TECH_LOG_FILE)) {
+            logFile = new File(cmd.getOptionValue(OPT_TECH_LOG_FILE));
+            if ((logFile.exists() && !logFile.canWrite()) ||
+                    (!logFile.exists() && !logFile.getParentFile().canWrite())) {
+                logger.error("Cannot write to argument specified log file '" + logFile.getAbsolutePath() + "'");
+                logFile = null;
+            } else {
+                logger.info("Found the following log file path given by argument '" + logFile.getAbsolutePath() + "'");
+            }
         }
 
-        return result;
+        // No logFile! Let's see what config file says
+        if (logFile == null) {
+            String filePath = properties.getProperty("log.file");
+            if (filePath == null) {
+                logger.error("Cannot find any log file path in config file");
+                logFile = null;
+            } else {
+                logFile = new File(filePath);
+                if ((logFile == null) ||
+                        (logFile.exists() && !logFile.canWrite()) ||
+                        (!logFile.exists() && !logFile.getParentFile().canWrite())) {
+                    logger.error("Cannot write to config specified log file '" + logFile.getAbsolutePath() + "'");
+                    logFile = null;
+                } else {
+                    logger.info("Found the following log file path given in config file '" + logFile.getAbsolutePath() + "'");
+                }
+            }
+        }
+
+        if (logFile == null || !targetLogger.setDestination(logFile)) {
+            logger.error("Still using console as error output. You should fix your config.");
+        } else {
+            logger.info("Switched log destination to " + logFile.getAbsolutePath());
+        }
+
+        // Now let's see if user provided arguments about the log level
+        KissLogger.Level logLevel = null;
+
+        if (cmd.hasOption(OPT_TECH_LOG)) {
+            logLevel = KissLogger.Level.getLevel(cmd.getOptionValue(OPT_TECH_LOG));
+            if (logLevel == null) {
+                logger.error("Incorrect log level specified as argument: '" + cmd.getOptionValue(OPT_TECH_LOG) + "'");
+            } else {
+                logger.info("Found the following log level passed as argument '" + logLevel.name() + "'");
+            }
+        }
+
+        // No loglevel. Let's see what config file says
+        if (logLevel == null) {
+            logLevel = KissLogger.Level.getLevel(properties.getProperty("log.level"));
+
+            if (logLevel == null) {
+                logger.error("No valid log level specified in config file.");
+            } else {
+                logger.info("Found the following log level in config file '" + logLevel.name() + "'");
+            }
+        }
+
+        if (logLevel != null) {
+            logger.info("Switching log level to " + logLevel);
+            logger.setLevel(logLevel);
+        }
     }
 
     /**

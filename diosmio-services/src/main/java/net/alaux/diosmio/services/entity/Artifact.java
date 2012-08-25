@@ -10,11 +10,8 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * Created with IntelliJ IDEA.
  * User: miguel
  * Date: 7/26/12
- * Time: 10:25 PM
- * To change this template use File | Settings | File Templates.
  */
 @Entity
 @Table(name = "ARTIFACT")
@@ -27,6 +24,8 @@ public class Artifact implements Serializable {
 
     private String name;
 
+    // Not used anymore
+    // TODO Get rid of this property
     private String fsName;
 
     public Long getId() {

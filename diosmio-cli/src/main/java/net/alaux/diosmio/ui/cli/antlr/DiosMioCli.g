@@ -7,19 +7,20 @@ options {
 }
 
 tokens {
-    HELP        = 'help';
+    CMD_HELP;
 
-    ADD         = 'add';
-    GET         = 'get';
-    DELETE      = 'delete';
+    CMD_ADD_ARTIFACT;
+    CMD_GET_ARTIFACT;
+    CMD_DELETE_ARTIFACT;
 
-    LOAD        = 'load';
-    PARSE       = 'parse';
+    CMD_ADD_CONFIG;
+    CMD_GET_CONFIG;
+    CMD_DELETE_CONFIG;
 
-    ARTIFACT    = 'artifact';
-    CONFIG      = 'config';
+    CMD_LOAD;
+    CMD_PARSE;
 
-    NO_OP;
+    CMD_NO_OP;
 }
 
 @header {
@@ -46,9 +47,9 @@ package net.alaux.diosmio.ui.cli.antlr;
     }
 }
 
-/*------------------------------------------------------------------
- * PARSER RULES
- *------------------------------------------------------------------*/
+/* ***************************************************************** *
+ *                          PARSER RULES                             *
+ * ***************************************************************** */
 
 parse
     : action EOF
@@ -57,46 +58,63 @@ parse
 
 action
     : help
-    | addElement
-    | getElement
-    | deleteElement
+    | addArtifact
+    | getArtifact
+    | deleteArtifact
+    | addConfig
+    | getConfig
+    | deleteConfig
     | loadFile
     | parseFile
-    | -> ^(NO_OP)
+    | -> ^(CMD_NO_OP)
     ;
 
 help
     : HELP
-        -> ^(HELP)
+        -> ^(CMD_HELP)
     ;
 
-addElement
-    : ADD element filepath
-        -> ^(ADD element filepath)
+// Artifacts ********************************************************
+addArtifact
+    : ADD ARTIFACT filepath
+        -> ^(CMD_ADD_ARTIFACT filepath)
     ;
 
-getElement
-    : GET element id?
-        -> ^(GET element id?)
+getArtifact
+    : GET ARTIFACT id?
+        -> ^(CMD_GET_ARTIFACT id?)
     ;
 
-deleteElement
-    : DELETE element id
-        -> ^(DELETE element id)
+deleteArtifact
+    : DELETE ARTIFACT id
+        -> ^(CMD_DELETE_ARTIFACT id)
      ;
 
+// Configurations ***************************************************
+addConfig
+    : ADD CONFIG hostname sshPort sshUser
+        -> ^(CMD_ADD_CONFIG hostname sshPort sshUser)
+    ;
+
+getConfig
+    : GET CONFIG id?
+        -> ^(CMD_GET_CONFIG id?)
+    ;
+
+deleteConfig
+    : DELETE CONFIG id
+        -> ^(CMD_DELETE_CONFIG id)
+     ;
+
+// Misc *************************************************************
 loadFile
     : LOAD filepath
-        -> ^(LOAD filepath)
+        -> ^(CMD_LOAD filepath)
     ;
 
 parseFile
     : PARSE filepath
         -> ^(PARSE filepath)
-    ;
-
-element
-    : ( ARTIFACT | CONFIG )
     ;
 
 id
@@ -105,9 +123,26 @@ id
 
 filepath : FILEPATH;
 
-/*------------------------------------------------------------------
- * LEXER RULES
- *------------------------------------------------------------------*/
+hostname : WORD;
+
+sshPort : NUMBER;
+
+sshUser : WORD;
+
+/* ***************************************************************** *
+ *                          LEXER RULES                              *
+ * ***************************************************************** */
+
+HELP        : 'help';
+ADD         : 'add';
+GET         : 'get';
+DELETE      : 'delete';
+
+LOAD        : 'load';
+PARSE       : 'parse';
+
+ARTIFACT    : 'artifact';
+CONFIG      : 'config';
 
 NUMBER  : (DIGIT)+ ;
 
@@ -115,4 +150,8 @@ WHITESPACE : ( '\t' | ' ' | '\r' | '\n'| '\u000C' )+    { $channel = HIDDEN; } ;
 
 fragment DIGIT  : '0'..'9' ;
 
+// TODO get a better "word" definition
+WORD : ( 'a'..'z' | 'A'..'Z' )+;
+
+// TODO get a better "filepath" definition
 FILEPATH : ( 'a'..'z' | 'A'..'Z' | '/' | '.' | '-' )+;

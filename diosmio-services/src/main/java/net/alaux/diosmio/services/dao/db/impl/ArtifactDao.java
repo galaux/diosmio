@@ -24,6 +24,7 @@ public class ArtifactDao implements DatabaseDao {
 
     public Log logger = LogFactory.getLog(ArtifactDao.class);
 
+    // Do we really need this? TODO Remove?
     public boolean getStatus() {
         return sessionFactory != null;
     }

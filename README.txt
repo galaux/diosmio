@@ -43,3 +43,7 @@ To regenerate the ANTLR classes:
 
 Jars needed to generate Antlr Parser and Compiler
     export ANTLR_JARS=/home/miguel/.m2/repository/org/antlr/antlr/3.4/antlr-3.4.jar:/home/miguel/.m2/repository/org/antlr/antlr-runtime/3.4/antlr-runtime-3.4.jar:/home/miguel/.m2/repository/org/antlr/ST4/4.0.4/ST4-4.0.4.jar
+
+To see the content of the H2 database:
+    java -jar ../tools/tomcat-7.0.28/lib/h2-1.3.168.jar
+    Login with empty login and empty password

@@ -1,4 +1,4 @@
-// $ANTLR 3.4 src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g 2012-08-10 17:23:26
+// $ANTLR 3.4 src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g 2012-08-12 14:24:41
 
 package net.alaux.diosmio.ui.cli.antlr;
 
@@ -13,17 +13,27 @@ public class DiosMioCliLexer extends Lexer {
     public static final int EOF=-1;
     public static final int ADD=4;
     public static final int ARTIFACT=5;
-    public static final int CONFIG=6;
-    public static final int DELETE=7;
-    public static final int DIGIT=8;
-    public static final int FILEPATH=9;
-    public static final int GET=10;
-    public static final int HELP=11;
-    public static final int LOAD=12;
-    public static final int NO_OP=13;
-    public static final int NUMBER=14;
-    public static final int PARSE=15;
-    public static final int WHITESPACE=16;
+    public static final int CMD_ADD_ARTIFACT=6;
+    public static final int CMD_ADD_CONFIG=7;
+    public static final int CMD_DELETE_ARTIFACT=8;
+    public static final int CMD_DELETE_CONFIG=9;
+    public static final int CMD_GET_ARTIFACT=10;
+    public static final int CMD_GET_CONFIG=11;
+    public static final int CMD_HELP=12;
+    public static final int CMD_LOAD=13;
+    public static final int CMD_NO_OP=14;
+    public static final int CMD_PARSE=15;
+    public static final int CONFIG=16;
+    public static final int DELETE=17;
+    public static final int DIGIT=18;
+    public static final int FILEPATH=19;
+    public static final int GET=20;
+    public static final int HELP=21;
+    public static final int LOAD=22;
+    public static final int NUMBER=23;
+    public static final int PARSE=24;
+    public static final int WHITESPACE=25;
+    public static final int WORD=26;
 
         public void reportError(RecognitionException e) {
             String errorMessage = "Syntax error at position " + e.charPositionInLine + ": " + this.getErrorMessage(e, this.getTokenNames());
@@ -46,128 +56,13 @@ public class DiosMioCliLexer extends Lexer {
     }
     public String getGrammarFileName() { return "src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g"; }
 
-    // $ANTLR start "ADD"
-    public final void mADD() throws RecognitionException {
-        try {
-            int _type = ADD;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:12:5: ( 'add' )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:12:7: 'add'
-            {
-            match("add"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "ADD"
-
-    // $ANTLR start "ARTIFACT"
-    public final void mARTIFACT() throws RecognitionException {
-        try {
-            int _type = ARTIFACT;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:13:10: ( 'artifact' )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:13:12: 'artifact'
-            {
-            match("artifact"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "ARTIFACT"
-
-    // $ANTLR start "CONFIG"
-    public final void mCONFIG() throws RecognitionException {
-        try {
-            int _type = CONFIG;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:14:8: ( 'config' )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:14:10: 'config'
-            {
-            match("config"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "CONFIG"
-
-    // $ANTLR start "DELETE"
-    public final void mDELETE() throws RecognitionException {
-        try {
-            int _type = DELETE;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:15:8: ( 'delete' )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:15:10: 'delete'
-            {
-            match("delete"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "DELETE"
-
-    // $ANTLR start "GET"
-    public final void mGET() throws RecognitionException {
-        try {
-            int _type = GET;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:16:5: ( 'get' )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:16:7: 'get'
-            {
-            match("get"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "GET"
-
     // $ANTLR start "HELP"
     public final void mHELP() throws RecognitionException {
         try {
             int _type = HELP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:17:6: ( 'help' )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:17:8: 'help'
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:139:13: ( 'help' )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:139:15: 'help'
             {
             match("help"); 
 
@@ -184,13 +79,82 @@ public class DiosMioCliLexer extends Lexer {
     }
     // $ANTLR end "HELP"
 
+    // $ANTLR start "ADD"
+    public final void mADD() throws RecognitionException {
+        try {
+            int _type = ADD;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:140:13: ( 'add' )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:140:15: 'add'
+            {
+            match("add"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "ADD"
+
+    // $ANTLR start "GET"
+    public final void mGET() throws RecognitionException {
+        try {
+            int _type = GET;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:141:13: ( 'get' )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:141:15: 'get'
+            {
+            match("get"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "GET"
+
+    // $ANTLR start "DELETE"
+    public final void mDELETE() throws RecognitionException {
+        try {
+            int _type = DELETE;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:142:13: ( 'delete' )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:142:15: 'delete'
+            {
+            match("delete"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "DELETE"
+
     // $ANTLR start "LOAD"
     public final void mLOAD() throws RecognitionException {
         try {
             int _type = LOAD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:18:6: ( 'load' )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:18:8: 'load'
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:144:13: ( 'load' )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:144:15: 'load'
             {
             match("load"); 
 
@@ -212,8 +176,8 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = PARSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:19:7: ( 'parse' )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:19:9: 'parse'
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:145:13: ( 'parse' )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:145:15: 'parse'
             {
             match("parse"); 
 
@@ -230,15 +194,61 @@ public class DiosMioCliLexer extends Lexer {
     }
     // $ANTLR end "PARSE"
 
+    // $ANTLR start "ARTIFACT"
+    public final void mARTIFACT() throws RecognitionException {
+        try {
+            int _type = ARTIFACT;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:147:13: ( 'artifact' )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:147:15: 'artifact'
+            {
+            match("artifact"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "ARTIFACT"
+
+    // $ANTLR start "CONFIG"
+    public final void mCONFIG() throws RecognitionException {
+        try {
+            int _type = CONFIG;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:148:13: ( 'config' )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:148:15: 'config'
+            {
+            match("config"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "CONFIG"
+
     // $ANTLR start "NUMBER"
     public final void mNUMBER() throws RecognitionException {
         try {
             int _type = NUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:112:9: ( ( DIGIT )+ )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:112:11: ( DIGIT )+
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:150:9: ( ( DIGIT )+ )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:150:11: ( DIGIT )+
             {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:112:11: ( DIGIT )+
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:150:11: ( DIGIT )+
             int cnt1=0;
             loop1:
             do {
@@ -293,10 +303,10 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:114:12: ( ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+ )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:114:14: ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:152:12: ( ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+ )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:152:14: ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+
             {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:114:14: ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:152:14: ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+
             int cnt2=0;
             loop2:
             do {
@@ -351,7 +361,7 @@ public class DiosMioCliLexer extends Lexer {
     // $ANTLR start "DIGIT"
     public final void mDIGIT() throws RecognitionException {
         try {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:116:17: ( '0' .. '9' )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:154:17: ( '0' .. '9' )
             // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
@@ -374,22 +384,22 @@ public class DiosMioCliLexer extends Lexer {
     }
     // $ANTLR end "DIGIT"
 
-    // $ANTLR start "FILEPATH"
-    public final void mFILEPATH() throws RecognitionException {
+    // $ANTLR start "WORD"
+    public final void mWORD() throws RecognitionException {
         try {
-            int _type = FILEPATH;
+            int _type = WORD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:118:10: ( ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' )+ )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:118:12: ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' )+
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:157:6: ( ( 'a' .. 'z' | 'A' .. 'Z' )+ )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:157:8: ( 'a' .. 'z' | 'A' .. 'Z' )+
             {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:118:12: ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' )+
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:157:8: ( 'a' .. 'z' | 'A' .. 'Z' )+
             int cnt3=0;
             loop3:
             do {
                 int alt3=2;
                 int LA3_0 = input.LA(1);
 
-                if ( ((LA3_0 >= '-' && LA3_0 <= '/')||(LA3_0 >= 'A' && LA3_0 <= 'Z')||(LA3_0 >= 'a' && LA3_0 <= 'z')) ) {
+                if ( ((LA3_0 >= 'A' && LA3_0 <= 'Z')||(LA3_0 >= 'a' && LA3_0 <= 'z')) ) {
                     alt3=1;
                 }
 
@@ -398,7 +408,7 @@ public class DiosMioCliLexer extends Lexer {
             	case 1 :
             	    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:
             	    {
-            	    if ( (input.LA(1) >= '-' && input.LA(1) <= '/')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
+            	    if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
             	        input.consume();
             	    }
             	    else {
@@ -430,430 +440,97 @@ public class DiosMioCliLexer extends Lexer {
         	// do for sure before leaving
         }
     }
+    // $ANTLR end "WORD"
+
+    // $ANTLR start "FILEPATH"
+    public final void mFILEPATH() throws RecognitionException {
+        try {
+            int _type = FILEPATH;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:160:10: ( ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' )+ )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:160:12: ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' )+
+            {
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:160:12: ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' )+
+            int cnt4=0;
+            loop4:
+            do {
+                int alt4=2;
+                int LA4_0 = input.LA(1);
+
+                if ( ((LA4_0 >= '-' && LA4_0 <= '/')||(LA4_0 >= 'A' && LA4_0 <= 'Z')||(LA4_0 >= 'a' && LA4_0 <= 'z')) ) {
+                    alt4=1;
+                }
+
+
+                switch (alt4) {
+            	case 1 :
+            	    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:
+            	    {
+            	    if ( (input.LA(1) >= '-' && input.LA(1) <= '/')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
+            	        input.consume();
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt4 >= 1 ) break loop4;
+                        EarlyExitException eee =
+                            new EarlyExitException(4, input);
+                        throw eee;
+                }
+                cnt4++;
+            } while (true);
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
     // $ANTLR end "FILEPATH"
 
     public void mTokens() throws RecognitionException {
-        // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:8: ( ADD | ARTIFACT | CONFIG | DELETE | GET | HELP | LOAD | PARSE | NUMBER | WHITESPACE | FILEPATH )
-        int alt4=11;
-        switch ( input.LA(1) ) {
-        case 'a':
-            {
-            switch ( input.LA(2) ) {
-            case 'd':
-                {
-                int LA4_11 = input.LA(3);
-
-                if ( (LA4_11=='d') ) {
-                    int LA4_19 = input.LA(4);
-
-                    if ( ((LA4_19 >= '-' && LA4_19 <= '/')||(LA4_19 >= 'A' && LA4_19 <= 'Z')||(LA4_19 >= 'a' && LA4_19 <= 'z')) ) {
-                        alt4=11;
-                    }
-                    else {
-                        alt4=1;
-                    }
-                }
-                else {
-                    alt4=11;
-                }
-                }
-                break;
-            case 'r':
-                {
-                int LA4_12 = input.LA(3);
-
-                if ( (LA4_12=='t') ) {
-                    int LA4_20 = input.LA(4);
-
-                    if ( (LA4_20=='i') ) {
-                        int LA4_28 = input.LA(5);
-
-                        if ( (LA4_28=='f') ) {
-                            int LA4_35 = input.LA(6);
-
-                            if ( (LA4_35=='a') ) {
-                                int LA4_41 = input.LA(7);
-
-                                if ( (LA4_41=='c') ) {
-                                    int LA4_45 = input.LA(8);
-
-                                    if ( (LA4_45=='t') ) {
-                                        int LA4_48 = input.LA(9);
-
-                                        if ( ((LA4_48 >= '-' && LA4_48 <= '/')||(LA4_48 >= 'A' && LA4_48 <= 'Z')||(LA4_48 >= 'a' && LA4_48 <= 'z')) ) {
-                                            alt4=11;
-                                        }
-                                        else {
-                                            alt4=2;
-                                        }
-                                    }
-                                    else {
-                                        alt4=11;
-                                    }
-                                }
-                                else {
-                                    alt4=11;
-                                }
-                            }
-                            else {
-                                alt4=11;
-                            }
-                        }
-                        else {
-                            alt4=11;
-                        }
-                    }
-                    else {
-                        alt4=11;
-                    }
-                }
-                else {
-                    alt4=11;
-                }
-                }
-                break;
-            default:
-                alt4=11;
-            }
-
-            }
-            break;
-        case 'c':
-            {
-            int LA4_2 = input.LA(2);
-
-            if ( (LA4_2=='o') ) {
-                int LA4_13 = input.LA(3);
-
-                if ( (LA4_13=='n') ) {
-                    int LA4_21 = input.LA(4);
-
-                    if ( (LA4_21=='f') ) {
-                        int LA4_29 = input.LA(5);
-
-                        if ( (LA4_29=='i') ) {
-                            int LA4_36 = input.LA(6);
-
-                            if ( (LA4_36=='g') ) {
-                                int LA4_42 = input.LA(7);
-
-                                if ( ((LA4_42 >= '-' && LA4_42 <= '/')||(LA4_42 >= 'A' && LA4_42 <= 'Z')||(LA4_42 >= 'a' && LA4_42 <= 'z')) ) {
-                                    alt4=11;
-                                }
-                                else {
-                                    alt4=3;
-                                }
-                            }
-                            else {
-                                alt4=11;
-                            }
-                        }
-                        else {
-                            alt4=11;
-                        }
-                    }
-                    else {
-                        alt4=11;
-                    }
-                }
-                else {
-                    alt4=11;
-                }
-            }
-            else {
-                alt4=11;
-            }
-            }
-            break;
-        case 'd':
-            {
-            int LA4_3 = input.LA(2);
-
-            if ( (LA4_3=='e') ) {
-                int LA4_14 = input.LA(3);
-
-                if ( (LA4_14=='l') ) {
-                    int LA4_22 = input.LA(4);
-
-                    if ( (LA4_22=='e') ) {
-                        int LA4_30 = input.LA(5);
-
-                        if ( (LA4_30=='t') ) {
-                            int LA4_37 = input.LA(6);
-
-                            if ( (LA4_37=='e') ) {
-                                int LA4_43 = input.LA(7);
-
-                                if ( ((LA4_43 >= '-' && LA4_43 <= '/')||(LA4_43 >= 'A' && LA4_43 <= 'Z')||(LA4_43 >= 'a' && LA4_43 <= 'z')) ) {
-                                    alt4=11;
-                                }
-                                else {
-                                    alt4=4;
-                                }
-                            }
-                            else {
-                                alt4=11;
-                            }
-                        }
-                        else {
-                            alt4=11;
-                        }
-                    }
-                    else {
-                        alt4=11;
-                    }
-                }
-                else {
-                    alt4=11;
-                }
-            }
-            else {
-                alt4=11;
-            }
-            }
-            break;
-        case 'g':
-            {
-            int LA4_4 = input.LA(2);
-
-            if ( (LA4_4=='e') ) {
-                int LA4_15 = input.LA(3);
-
-                if ( (LA4_15=='t') ) {
-                    int LA4_23 = input.LA(4);
-
-                    if ( ((LA4_23 >= '-' && LA4_23 <= '/')||(LA4_23 >= 'A' && LA4_23 <= 'Z')||(LA4_23 >= 'a' && LA4_23 <= 'z')) ) {
-                        alt4=11;
-                    }
-                    else {
-                        alt4=5;
-                    }
-                }
-                else {
-                    alt4=11;
-                }
-            }
-            else {
-                alt4=11;
-            }
-            }
-            break;
-        case 'h':
-            {
-            int LA4_5 = input.LA(2);
-
-            if ( (LA4_5=='e') ) {
-                int LA4_16 = input.LA(3);
-
-                if ( (LA4_16=='l') ) {
-                    int LA4_24 = input.LA(4);
-
-                    if ( (LA4_24=='p') ) {
-                        int LA4_32 = input.LA(5);
-
-                        if ( ((LA4_32 >= '-' && LA4_32 <= '/')||(LA4_32 >= 'A' && LA4_32 <= 'Z')||(LA4_32 >= 'a' && LA4_32 <= 'z')) ) {
-                            alt4=11;
-                        }
-                        else {
-                            alt4=6;
-                        }
-                    }
-                    else {
-                        alt4=11;
-                    }
-                }
-                else {
-                    alt4=11;
-                }
-            }
-            else {
-                alt4=11;
-            }
-            }
-            break;
-        case 'l':
-            {
-            int LA4_6 = input.LA(2);
-
-            if ( (LA4_6=='o') ) {
-                int LA4_17 = input.LA(3);
-
-                if ( (LA4_17=='a') ) {
-                    int LA4_25 = input.LA(4);
-
-                    if ( (LA4_25=='d') ) {
-                        int LA4_33 = input.LA(5);
-
-                        if ( ((LA4_33 >= '-' && LA4_33 <= '/')||(LA4_33 >= 'A' && LA4_33 <= 'Z')||(LA4_33 >= 'a' && LA4_33 <= 'z')) ) {
-                            alt4=11;
-                        }
-                        else {
-                            alt4=7;
-                        }
-                    }
-                    else {
-                        alt4=11;
-                    }
-                }
-                else {
-                    alt4=11;
-                }
-            }
-            else {
-                alt4=11;
-            }
-            }
-            break;
-        case 'p':
-            {
-            int LA4_7 = input.LA(2);
-
-            if ( (LA4_7=='a') ) {
-                int LA4_18 = input.LA(3);
-
-                if ( (LA4_18=='r') ) {
-                    int LA4_26 = input.LA(4);
-
-                    if ( (LA4_26=='s') ) {
-                        int LA4_34 = input.LA(5);
-
-                        if ( (LA4_34=='e') ) {
-                            int LA4_40 = input.LA(6);
-
-                            if ( ((LA4_40 >= '-' && LA4_40 <= '/')||(LA4_40 >= 'A' && LA4_40 <= 'Z')||(LA4_40 >= 'a' && LA4_40 <= 'z')) ) {
-                                alt4=11;
-                            }
-                            else {
-                                alt4=8;
-                            }
-                        }
-                        else {
-                            alt4=11;
-                        }
-                    }
-                    else {
-                        alt4=11;
-                    }
-                }
-                else {
-                    alt4=11;
-                }
-            }
-            else {
-                alt4=11;
-            }
-            }
-            break;
-        case '0':
-        case '1':
-        case '2':
-        case '3':
-        case '4':
-        case '5':
-        case '6':
-        case '7':
-        case '8':
-        case '9':
-            {
-            alt4=9;
-            }
-            break;
-        case '\t':
-        case '\n':
-        case '\f':
-        case '\r':
-        case ' ':
-            {
-            alt4=10;
-            }
-            break;
-        case '-':
-        case '.':
-        case '/':
-        case 'A':
-        case 'B':
-        case 'C':
-        case 'D':
-        case 'E':
-        case 'F':
-        case 'G':
-        case 'H':
-        case 'I':
-        case 'J':
-        case 'K':
-        case 'L':
-        case 'M':
-        case 'N':
-        case 'O':
-        case 'P':
-        case 'Q':
-        case 'R':
-        case 'S':
-        case 'T':
-        case 'U':
-        case 'V':
-        case 'W':
-        case 'X':
-        case 'Y':
-        case 'Z':
-        case 'b':
-        case 'e':
-        case 'f':
-        case 'i':
-        case 'j':
-        case 'k':
-        case 'm':
-        case 'n':
-        case 'o':
-        case 'q':
-        case 'r':
-        case 's':
-        case 't':
-        case 'u':
-        case 'v':
-        case 'w':
-        case 'x':
-        case 'y':
-        case 'z':
-            {
-            alt4=11;
-            }
-            break;
-        default:
-            NoViableAltException nvae =
-                new NoViableAltException("", 4, 0, input);
-
-            throw nvae;
-
-        }
-
-        switch (alt4) {
+        // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:8: ( HELP | ADD | GET | DELETE | LOAD | PARSE | ARTIFACT | CONFIG | NUMBER | WHITESPACE | WORD | FILEPATH )
+        int alt5=12;
+        alt5 = dfa5.predict(input);
+        switch (alt5) {
             case 1 :
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:10: ADD
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:10: HELP
+                {
+                mHELP(); 
+
+
+                }
+                break;
+            case 2 :
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:15: ADD
                 {
                 mADD(); 
 
 
                 }
                 break;
-            case 2 :
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:14: ARTIFACT
-                {
-                mARTIFACT(); 
-
-
-                }
-                break;
             case 3 :
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:23: CONFIG
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:19: GET
                 {
-                mCONFIG(); 
+                mGET(); 
 
 
                 }
                 break;
             case 4 :
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:30: DELETE
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:23: DELETE
                 {
                 mDELETE(); 
 
@@ -861,33 +538,33 @@ public class DiosMioCliLexer extends Lexer {
                 }
                 break;
             case 5 :
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:37: GET
-                {
-                mGET(); 
-
-
-                }
-                break;
-            case 6 :
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:41: HELP
-                {
-                mHELP(); 
-
-
-                }
-                break;
-            case 7 :
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:46: LOAD
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:30: LOAD
                 {
                 mLOAD(); 
 
 
                 }
                 break;
-            case 8 :
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:51: PARSE
+            case 6 :
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:35: PARSE
                 {
                 mPARSE(); 
+
+
+                }
+                break;
+            case 7 :
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:41: ARTIFACT
+                {
+                mARTIFACT(); 
+
+
+                }
+                break;
+            case 8 :
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:50: CONFIG
+                {
+                mCONFIG(); 
 
 
                 }
@@ -909,7 +586,15 @@ public class DiosMioCliLexer extends Lexer {
                 }
                 break;
             case 11 :
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:75: FILEPATH
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:75: WORD
+                {
+                mWORD(); 
+
+
+                }
+                break;
+            case 12 :
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:1:80: FILEPATH
                 {
                 mFILEPATH(); 
 
@@ -922,6 +607,117 @@ public class DiosMioCliLexer extends Lexer {
     }
 
 
+    protected DFA5 dfa5 = new DFA5(this);
+    static final String DFA5_eotS =
+        "\1\uffff\7\15\2\uffff\1\15\1\uffff\1\15\1\uffff\10\15\1\36\1\15"+
+        "\1\40\4\15\1\45\1\uffff\1\15\1\uffff\1\15\1\50\2\15\1\uffff\2\15"+
+        "\1\uffff\1\55\2\15\1\60\1\uffff\1\61\1\15\2\uffff\1\63\1\uffff";
+    static final String DFA5_eofS =
+        "\64\uffff";
+    static final String DFA5_minS =
+        "\1\11\7\55\2\uffff\1\55\1\uffff\1\55\1\uffff\20\55\1\uffff\1\55"+
+        "\1\uffff\4\55\1\uffff\2\55\1\uffff\4\55\1\uffff\2\55\2\uffff\1\55"+
+        "\1\uffff";
+    static final String DFA5_maxS =
+        "\10\172\2\uffff\1\172\1\uffff\1\172\1\uffff\20\172\1\uffff\1\172"+
+        "\1\uffff\4\172\1\uffff\2\172\1\uffff\4\172\1\uffff\2\172\2\uffff"+
+        "\1\172\1\uffff";
+    static final String DFA5_acceptS =
+        "\10\uffff\1\11\1\12\1\uffff\1\14\1\uffff\1\13\20\uffff\1\2\1\uffff"+
+        "\1\3\4\uffff\1\1\2\uffff\1\5\4\uffff\1\6\2\uffff\1\4\1\10\1\uffff"+
+        "\1\7";
+    static final String DFA5_specialS =
+        "\64\uffff}>";
+    static final String[] DFA5_transitionS = {
+            "\2\11\1\uffff\2\11\22\uffff\1\11\14\uffff\3\13\12\10\7\uffff"+
+            "\32\12\6\uffff\1\2\1\12\1\7\1\4\2\12\1\3\1\1\3\12\1\5\3\12\1"+
+            "\6\12\12",
+            "\3\13\21\uffff\32\12\6\uffff\4\12\1\14\25\12",
+            "\3\13\21\uffff\32\12\6\uffff\3\12\1\16\15\12\1\17\10\12",
+            "\3\13\21\uffff\32\12\6\uffff\4\12\1\20\25\12",
+            "\3\13\21\uffff\32\12\6\uffff\4\12\1\21\25\12",
+            "\3\13\21\uffff\32\12\6\uffff\16\12\1\22\13\12",
+            "\3\13\21\uffff\32\12\6\uffff\1\23\31\12",
+            "\3\13\21\uffff\32\12\6\uffff\16\12\1\24\13\12",
+            "",
+            "",
+            "\3\13\21\uffff\32\12\6\uffff\32\12",
+            "",
+            "\3\13\21\uffff\32\12\6\uffff\13\12\1\25\16\12",
+            "",
+            "\3\13\21\uffff\32\12\6\uffff\3\12\1\26\26\12",
+            "\3\13\21\uffff\32\12\6\uffff\23\12\1\27\6\12",
+            "\3\13\21\uffff\32\12\6\uffff\23\12\1\30\6\12",
+            "\3\13\21\uffff\32\12\6\uffff\13\12\1\31\16\12",
+            "\3\13\21\uffff\32\12\6\uffff\1\32\31\12",
+            "\3\13\21\uffff\32\12\6\uffff\21\12\1\33\10\12",
+            "\3\13\21\uffff\32\12\6\uffff\15\12\1\34\14\12",
+            "\3\13\21\uffff\32\12\6\uffff\17\12\1\35\12\12",
+            "\3\13\21\uffff\32\12\6\uffff\32\12",
+            "\3\13\21\uffff\32\12\6\uffff\10\12\1\37\21\12",
+            "\3\13\21\uffff\32\12\6\uffff\32\12",
+            "\3\13\21\uffff\32\12\6\uffff\4\12\1\41\25\12",
+            "\3\13\21\uffff\32\12\6\uffff\3\12\1\42\26\12",
+            "\3\13\21\uffff\32\12\6\uffff\22\12\1\43\7\12",
+            "\3\13\21\uffff\32\12\6\uffff\5\12\1\44\24\12",
+            "\3\13\21\uffff\32\12\6\uffff\32\12",
+            "",
+            "\3\13\21\uffff\32\12\6\uffff\5\12\1\46\24\12",
+            "",
+            "\3\13\21\uffff\32\12\6\uffff\23\12\1\47\6\12",
+            "\3\13\21\uffff\32\12\6\uffff\32\12",
+            "\3\13\21\uffff\32\12\6\uffff\4\12\1\51\25\12",
+            "\3\13\21\uffff\32\12\6\uffff\10\12\1\52\21\12",
+            "",
+            "\3\13\21\uffff\32\12\6\uffff\1\53\31\12",
+            "\3\13\21\uffff\32\12\6\uffff\4\12\1\54\25\12",
+            "",
+            "\3\13\21\uffff\32\12\6\uffff\32\12",
+            "\3\13\21\uffff\32\12\6\uffff\6\12\1\56\23\12",
+            "\3\13\21\uffff\32\12\6\uffff\2\12\1\57\27\12",
+            "\3\13\21\uffff\32\12\6\uffff\32\12",
+            "",
+            "\3\13\21\uffff\32\12\6\uffff\32\12",
+            "\3\13\21\uffff\32\12\6\uffff\23\12\1\62\6\12",
+            "",
+            "",
+            "\3\13\21\uffff\32\12\6\uffff\32\12",
+            ""
+    };
+
+    static final short[] DFA5_eot = DFA.unpackEncodedString(DFA5_eotS);
+    static final short[] DFA5_eof = DFA.unpackEncodedString(DFA5_eofS);
+    static final char[] DFA5_min = DFA.unpackEncodedStringToUnsignedChars(DFA5_minS);
+    static final char[] DFA5_max = DFA.unpackEncodedStringToUnsignedChars(DFA5_maxS);
+    static final short[] DFA5_accept = DFA.unpackEncodedString(DFA5_acceptS);
+    static final short[] DFA5_special = DFA.unpackEncodedString(DFA5_specialS);
+    static final short[][] DFA5_transition;
+
+    static {
+        int numStates = DFA5_transitionS.length;
+        DFA5_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA5_transition[i] = DFA.unpackEncodedString(DFA5_transitionS[i]);
+        }
+    }
+
+    class DFA5 extends DFA {
+
+        public DFA5(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 5;
+            this.eot = DFA5_eot;
+            this.eof = DFA5_eof;
+            this.min = DFA5_min;
+            this.max = DFA5_max;
+            this.accept = DFA5_accept;
+            this.special = DFA5_special;
+            this.transition = DFA5_transition;
+        }
+        public String getDescription() {
+            return "1:1: Tokens : ( HELP | ADD | GET | DELETE | LOAD | PARSE | ARTIFACT | CONFIG | NUMBER | WHITESPACE | WORD | FILEPATH );";
+        }
+    }
  
 
 }

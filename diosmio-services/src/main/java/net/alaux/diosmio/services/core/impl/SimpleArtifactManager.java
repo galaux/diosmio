@@ -14,11 +14,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
  * User: miguel
  * Date: 7/26/12
- * Time: 10:44 PM
- * To change this template use File | Settings | File Templates.
  */
 public class SimpleArtifactManager implements ArtifactManager {
 
@@ -53,6 +50,10 @@ public class SimpleArtifactManager implements ArtifactManager {
     public Artifact create(String name, byte[] content) throws AppException, IOException {
         logger.info("create()");
 
+        /*
+         TODO some sort of transaction: if "fileDao.create(artifact, content);" fails
+         then remove the Artifact from the artifactDao too!
+          */
         Artifact artifact = new Artifact(name, FILE_SEPARATOR);
         artifactDao.create(artifact);
 

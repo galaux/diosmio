@@ -1,9 +1,6 @@
 package net.alaux.diosmio.ui.cli.net.alaux.logging;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,8 +14,10 @@ import java.util.Date;
  */
 public class KissLogger {
 
-    private FileOutputStream fos = null;
-    private PrintStream out = System.out;
+    // TODO Handle "SHUT UP"
+
+    private FileOutputStream fileOutputStream = null;
+    private PrintStream printStream = System.out;
 
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
@@ -34,6 +33,17 @@ public class KissLogger {
         public int getValue() {
             return value;
         }
+
+        public static Level getLevel(String str) {
+            if (str != null) {
+                for (KissLogger.Level l : KissLogger.Level.values()) {
+                    if (l.name().compareTo(str) == 0) {
+                        return l;
+                    }
+                }
+            }
+            return null;
+        }
     }
 
     private Level level;
@@ -46,36 +56,56 @@ public class KissLogger {
         this.level = level;
     }
 
+    public boolean setDestination(File destination) {
+
+        PrintStream ps;
+        FileOutputStream fos;
+
+
+        try {
+            fos = new FileOutputStream(destination, true);
+        } catch (FileNotFoundException e) {
+            return false;
+        }
+
+        ps = new PrintStream(fos);
+        if (ps == null || ps.checkError()) {
+            return false;
+        }
+
+        this.printStream.flush();
+
+        this.fileOutputStream = fos;
+        this.printStream = ps;
+        return true;
+    }
+
+    // Constructors *****************************
     public KissLogger(Level level) {
         this.level = level;
     }
-
-    public KissLogger(Level level, String logPath) {
-        this.level = level;
-        try {
-            fos = new FileOutputStream(logPath, true);
-            out = new PrintStream(fos);
-            // FIXME See how to close this
-        } catch (FileNotFoundException e) {
-            // Nothing to do. Let's fall back to default
-        }
-    }
+    // /Constructors *****************************
 
     public void close() {
 
         info("----------------------");
-        if (fos != null) {
+        if (fileOutputStream != null) {
             try {
-                out.flush();
-                out.close();
-                fos.flush();
-                fos.close();
+                printStream.flush();
+                printStream.close();
+                fileOutputStream.flush();
+                fileOutputStream.close();
             } catch (IOException e) {
                 // Nothing to do
             }
         }
     }
 
+
+    public void error(Exception e) {
+        error("The following exception was thrown:");
+        e.printStackTrace(this.printStream);
+    }
 
     public void error(String mess) {
         printAtLevel(mess, Level.ERROR);
@@ -95,7 +125,7 @@ public class KissLogger {
 
     public void printAtLevel(String mess, Level l) {
         if (l.getValue() <= level.getValue()) {
-            out.println(dateFormat.format(new Date()) + " " + l.name() + " - " + mess);
+            printStream.println(dateFormat.format(new Date()) + " " + l.name() + " - " + mess);
         }
     }
 }

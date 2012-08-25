@@ -1,7 +1,10 @@
 package net.alaux.diosmio.ui.cli.jmx;
 
 import net.alaux.diosmio.services.core.ArtifactManager;
+import net.alaux.diosmio.services.dao.db.ConfigDao;
 import net.alaux.diosmio.services.entity.Artifact;
+import net.alaux.diosmio.services.entity.Configuration;
+import net.alaux.diosmio.services.entity.impl.HostConfig;
 import net.alaux.diosmio.ui.cli.DiosMioCli;
 import net.alaux.utils.AppException;
 import org.json.simple.JSONArray;
@@ -35,16 +38,12 @@ public class DiosMioJmxCli implements DiosMioCli {
 
     private ArtifactManager artifactManager;
 
+    private ConfigDao configDao;
+
     public DiosMioJmxCli(String url, String domain) throws IOException, MalformedObjectNameException, InstanceNotFoundException {
 
         this.url = url;
         this.domain = domain;
-    }
-
-    public void close() throws IOException {
-        if (diosMioJmxConnection != null) {
-            diosMioJmxConnection.closeJmxConnection();
-        }
     }
 
     private JmxConnection getJmxConnection() throws IOException {
@@ -62,13 +61,28 @@ public class DiosMioJmxCli implements DiosMioCli {
         return artifactManager;
     }
 
-//    public void displayMBeanList() throws IOException, MalformedObjectNameException {
+    public ConfigDao getConfigDao() throws IOException, MalformedObjectNameException, InstanceNotFoundException {
+        if (configDao == null) {
+            configDao = getJmxConnection().getServiceBean(ConfigDao.class);
+        }
+        return configDao;
+    }
+
+    public void close() throws IOException {
+        if (diosMioJmxConnection != null) {
+            diosMioJmxConnection.closeJmxConnection();
+        }
+    }
+
+    //    public void displayMBeanList() throws IOException, MalformedObjectNameException {
 //        //To change body of implemented methods use File | Settings | File Templates.
 //    }
 
     public void displayStatus() throws Exception {
         System.out.println(getArtifactManager().getStatus());
     }
+
+    // Artifact ***************************************************************
 
     public void listAllArtifacts() throws IOException, MalformedObjectNameException, InstanceNotFoundException {
 
@@ -172,6 +186,33 @@ public class DiosMioJmxCli implements DiosMioCli {
         }
     }
 
+
+    // Configuration **********************************************************
+
+    public void createConfiguration(String hostname, String sshPort, String sshUser) throws MalformedObjectNameException, InstanceNotFoundException, IOException {
+
+        HostConfig hostConfig = new HostConfig(hostname, sshPort, sshUser);
+
+        getConfigDao().create(hostConfig);
+    }
+
+    public void readConfiguration(Long id) throws MalformedObjectNameException, InstanceNotFoundException, IOException {
+        HostConfig hostConfig = getConfigDao().read(id);
+        System.out.println(hostConfig);
+    }
+
+    public void listAllConfigurations() throws MalformedObjectNameException, InstanceNotFoundException, IOException {
+
+        List<Configuration> configurations = getConfigDao().readAll();
+
+        for (Configuration configuration : configurations) {
+            System.out.println(((HostConfig)configuration).toString());
+        }
+    }
+
+
+    // Automatic loading ******************************************************
+
     public void loadFile(String filePath) throws Exception {
 
         File file = new File(filePath);
@@ -212,7 +253,4 @@ public class DiosMioJmxCli implements DiosMioCli {
             }
         }
     }
-
-
-
 }
