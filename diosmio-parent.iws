@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11055f3a-e59e-4ad0-b709-e7a910f7136c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/diosmio-cli/src/test/java/net/alaux/diosmio/ui/cli/logging/KissLoggerTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/net/alaux/logging/KissLogger.java" afterPath="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/logging/KissLogger.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diosmio-cli/diosmio-cli.iml" afterPath="$PROJECT_DIR$/diosmio-cli/diosmio-cli.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diosmio-cli/pom.xml" afterPath="$PROJECT_DIR$/diosmio-cli/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/Main.java" afterPath="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diosmio-parent.iws" afterPath="$PROJECT_DIR$/diosmio-parent.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/logging/KissLogger.java" afterPath="$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/logging/KissLogger.java" />
     </list>
     <ignored path="diosmio-parent.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -239,7 +234,7 @@
       <file leaf-file-name="KissLogger.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/logging/KissLogger.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="39" selection-start="1637" selection-end="1637" vertical-scroll-proportion="0.70149255">
+            <state line="93" column="4" selection-start="2826" selection-end="2826" vertical-scroll-proportion="-0.6300768">
               <folding />
             </state>
           </provider>
@@ -1343,7 +1338,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20955883" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25587606" sideWeight="0.67129135" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32870865" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32870865" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Aspects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1574,7 +1569,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/diosmio-cli/src/main/java/net/alaux/diosmio/ui/cli/logging/KissLogger.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="39" selection-start="1637" selection-end="1637" vertical-scroll-proportion="0.70149255">
+        <state line="93" column="4" selection-start="2826" selection-end="2826" vertical-scroll-proportion="-0.6300768">
           <folding />
         </state>
       </provider>

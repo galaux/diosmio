@@ -6,11 +6,25 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created with IntelliJ IDEA.
- * User: miguel
- * Date: 7/9/12
- * Time: 11:29 PM
- * To change this template use File | Settings | File Templates.
+ * Simple logger for Java
+ *
+ * This very simple logger tries to "Keep It Simple Stupid" while also trying to bring some nice features such as:
+ *
+ *   - runtime customizable output format
+ *      Just use kissLogger.setDateFormat(customDateFormat);
+ *
+ *   - runtime log level changing
+ *      Just use kissLogger.setLevel(newLevel);
+ *
+ *   - logging to temporary buffer (useful on these part of an application where you do not know YET where you will log)
+ *      Just instantiate a logger with no PrintStream
+ *        KissLogger logger = new KissLogger(Level.INFO);
+ *      Then after you parsed you CLI arguments or config file:
+ *        logger.switchDestination(logFilePrintStream);
+ *
+ *      Temporary logs will then be written to the new PrintStream
+ *
+ * @Author: Guillaume ALAUX <guillaume at alaux dot net>
  */
 public class KissLogger {
 
@@ -40,25 +54,46 @@ public class KissLogger {
     }
 
 
+    /** Temporary OutputStream to hold data while definitive destination is not yet known */
     private ByteArrayOutputStream tempOutputStream = null;
+    /** PrintStream to which logs are written */
     private PrintStream printStream = null;
 
+    /** DateFormat used to display log lines */
     private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    /** LogLevel at which this logger should print */
     private Level level;
 
+
     // Constructors
+
+    /**
+     * Constructs a logger that logs to a temporary OutputStream.
+     *
+     * The content of this temporary OutputStream is then written to a new one when using switchDestination()
+     *
+     * @param level     level at which print
+     */
     public KissLogger(Level level) {
         this.tempOutputStream = new ByteArrayOutputStream();
         this.printStream = new PrintStream(tempOutputStream);
         this.level = level;
     }
 
+    /**
+     * Constructs a logger that logs to a a PrintStream
+     *
+     * @param stream    the PrintStream to which log
+     * @param level     level at which print
+     */
     public KissLogger(PrintStream stream, Level level) {
         this.printStream = stream;
         this.level = level;
     }
 
+
     // Getters and setters
+
     public Level getLevel() {
         return level;
     }
@@ -75,7 +110,14 @@ public class KissLogger {
         this.dateFormat = dateFormat;
     }
 
+
     // Loging methods
+
+    /**
+     * Logs the stack trace of an Exception
+     *
+     * @param e    the exception that owns the stack trace to print
+     */
     public void error(Exception e) {
         error("The following exception was thrown:");
         e.printStackTrace(this.printStream);
@@ -97,13 +139,27 @@ public class KissLogger {
         printAtLevel(mess, Level.DEBUG);
     }
 
+    /**
+     * Print an message at the specified level
+     *
+     * @param mess  the message to print
+     * @param l     the level at which the message should be printed
+     */
     public void printAtLevel(String mess, Level l) {
         if (l.getValue() <= level.getValue()) {
             printStream.println(dateFormat.format(new Date()) + " " + l.name() + " - " + mess);
         }
     }
 
+
     // Other methods
+
+    /**
+     * Switch the destination of the log
+     *
+     * @param destination   new destination to which log output will be written
+     * @return              whether switch was successful (depends on the destination stream being OK)
+     */
     public boolean switchDestination(PrintStream destination) {
 
         // First, check the future PrintStream & Al. are OK
@@ -121,6 +177,9 @@ public class KissLogger {
         return true;
     }
 
+    /**
+     * Close the print stream
+     */
     public void close() {
         printStream.close();
     }
