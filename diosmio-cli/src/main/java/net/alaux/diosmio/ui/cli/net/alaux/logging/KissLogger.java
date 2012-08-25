@@ -61,7 +61,6 @@ public class KissLogger {
         PrintStream ps;
         FileOutputStream fos;
 
-
         try {
             fos = new FileOutputStream(destination, true);
         } catch (FileNotFoundException e) {
@@ -82,6 +81,14 @@ public class KissLogger {
 
     // Constructors *****************************
     public KissLogger(Level level) {
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+
+        your_function(object, ps);
+
+        String content = baos.toString(charsetName);
+
         this.level = level;
     }
     // /Constructors *****************************

@@ -66,7 +66,7 @@ public class Main {
     public static final String ELEMENT_ARTIFACT = "artifact";
 
     public static KissLogger logger;
-    public static final KissLogger.Level CLI_DEFAULT_LEVEL = KissLogger.Level.INFO;
+    public static final KissLogger.Level CLI_DEFAULT_LEVEL = KissLogger.Level.ERROR;
 
     /**
      *
@@ -84,7 +84,7 @@ public class Main {
             CommandLineParser parser = new PosixParser();
             CommandLine cmd = parser.parse(options, args);
 
-            // TODO Make some command line basic verification (ie "One OPT at least", "Only one OPT")
+            // TODO Make some command line basic verification (ie "One OPT at least", "Only one OPT") #ABC
 
             // TODO Apply config file parameters
 
@@ -117,12 +117,12 @@ public class Main {
 
             while((line = reader.readLine(PROMPT)) != null) {
 //                try {
-                    if (line.equalsIgnoreCase("quit") || line.equalsIgnoreCase("exit")) {
-                        break;
-                    }
+                if (line.equalsIgnoreCase("quit") || line.equalsIgnoreCase("exit")) {
+                    break;
+                }
 
-                    handleQuery(line, diosMioConnectedCli);
-                    out.flush();
+                handleQuery(line, diosMioConnectedCli);
+                out.flush();
 
 //                } catch (Exception e) {
 //                    System.err.println(e.getMessage());
@@ -347,6 +347,8 @@ public class Main {
 
     private void updateLogger(KissLogger targetLogger, Properties properties, CommandLine cmd) {
 
+        // TODO handle this in a more simple manner: one try catch?
+
         logger.info("Updating logger to reflect CLI or internal config");
 
         File logFile = null;
@@ -354,12 +356,16 @@ public class Main {
         // First, let's see if user provided CLI argument related to log file
         if (cmd.hasOption(OPT_TECH_LOG_FILE)) {
             logFile = new File(cmd.getOptionValue(OPT_TECH_LOG_FILE));
-            if ((logFile.exists() && !logFile.canWrite()) ||
-                    (!logFile.exists() && !logFile.getParentFile().canWrite())) {
-                logger.error("Cannot write to argument specified log file '" + logFile.getAbsolutePath() + "'");
-                logFile = null;
+            if (logFile == null) {
+                // TODO Should be checked earlier (see #ABC)
+                logger.error("Bad file specified as argument for log file");
             } else {
-                logger.info("Found the following log file path given by argument '" + logFile.getAbsolutePath() + "'");
+                if (logFile.exists() && !logFile.canWrite()) {
+                    logger.error("Cannot write to argument specified log file '" + "logFile.getAbsolutePath()" + "'");
+                    logFile = null;
+                } else {
+                    logger.info("Found the following log file path given by argument '" + logFile.getAbsolutePath() + "'");
+                }
             }
         }
 
