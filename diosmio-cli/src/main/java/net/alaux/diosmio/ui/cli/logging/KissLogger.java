@@ -1,4 +1,4 @@
-package net.alaux.diosmio.ui.cli.net.alaux.logging;
+package net.alaux.diosmio.ui.cli.logging;
 
 import java.io.*;
 import java.text.DateFormat;
@@ -13,13 +13,6 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 public class KissLogger {
-
-    // TODO Handle "SHUT UP"
-
-    private FileOutputStream fileOutputStream = null;
-    private PrintStream printStream = System.out;
-
-    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
     public enum Level {
         SHUT_UP(-1), ERROR(0), WARNING(1), INFO(2), DEBUG(3);
@@ -46,8 +39,26 @@ public class KissLogger {
         }
     }
 
+
+    private ByteArrayOutputStream tempOutputStream = null;
+    private PrintStream printStream = null;
+
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private Level level;
 
+    // Constructors
+    public KissLogger(Level level) {
+        this.tempOutputStream = new ByteArrayOutputStream();
+        this.printStream = new PrintStream(tempOutputStream);
+        this.level = level;
+    }
+
+    public KissLogger(PrintStream stream, Level level) {
+        this.printStream = stream;
+        this.level = level;
+    }
+
+    // Getters and setters
     public Level getLevel() {
         return level;
     }
@@ -56,59 +67,15 @@ public class KissLogger {
         this.level = level;
     }
 
-    public boolean setDestination(File destination) {
-
-        PrintStream ps;
-        FileOutputStream fos;
-
-        try {
-            fos = new FileOutputStream(destination, true);
-        } catch (FileNotFoundException e) {
-            return false;
-        }
-
-        ps = new PrintStream(fos);
-        if (ps == null || ps.checkError()) {
-            return false;
-        }
-
-        this.printStream.flush();
-
-        this.fileOutputStream = fos;
-        this.printStream = ps;
-        return true;
+    public DateFormat getDateFormat() {
+        return dateFormat;
     }
 
-    // Constructors *****************************
-    public KissLogger(Level level) {
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        PrintStream ps = new PrintStream(baos);
-
-        your_function(object, ps);
-
-        String content = baos.toString(charsetName);
-
-        this.level = level;
-    }
-    // /Constructors *****************************
-
-    public void close() {
-
-        info("----------------------");
-        if (fileOutputStream != null) {
-            try {
-                printStream.flush();
-                printStream.close();
-                fileOutputStream.flush();
-                fileOutputStream.close();
-            } catch (IOException e) {
-                // Nothing to do
-            }
-        }
+    public void setDateFormat(DateFormat dateFormat) {
+        this.dateFormat = dateFormat;
     }
 
-
+    // Loging methods
     public void error(Exception e) {
         error("The following exception was thrown:");
         e.printStackTrace(this.printStream);
@@ -134,5 +101,27 @@ public class KissLogger {
         if (l.getValue() <= level.getValue()) {
             printStream.println(dateFormat.format(new Date()) + " " + l.name() + " - " + mess);
         }
+    }
+
+    // Other methods
+    public boolean switchDestination(PrintStream destination) {
+
+        // First, check the future PrintStream & Al. are OK
+        if (destination == null || destination.checkError()) {
+            return false;
+        }
+
+        // OK then, let's write data held in the temporary stream to the new one
+        if (tempOutputStream != null) {
+            destination.print(tempOutputStream.toString());
+        }
+
+        // Finally, let's make the switch
+        this.printStream = destination;
+        return true;
+    }
+
+    public void close() {
+        printStream.close();
     }
 }

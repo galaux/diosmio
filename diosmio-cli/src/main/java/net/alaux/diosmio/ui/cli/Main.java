@@ -4,7 +4,7 @@ import jline.*;
 import net.alaux.diosmio.ui.cli.antlr.DiosMioCliLexer;
 import net.alaux.diosmio.ui.cli.antlr.DiosMioCliParser;
 import net.alaux.diosmio.ui.cli.jmx.DiosMioJmxCli;
-import net.alaux.diosmio.ui.cli.net.alaux.logging.KissLogger;
+import net.alaux.diosmio.ui.cli.logging.KissLogger;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
@@ -66,7 +66,7 @@ public class Main {
     public static final String ELEMENT_ARTIFACT = "artifact";
 
     public static KissLogger logger;
-    public static final KissLogger.Level CLI_DEFAULT_LEVEL = KissLogger.Level.ERROR;
+    public static final KissLogger.Level CLI_DEFAULT_LEVEL = KissLogger.Level.DEBUG;
 
     /**
      *
@@ -139,8 +139,10 @@ public class Main {
             logger.error(e);
 
         } finally {
+            logger.info("Done.\n");
             logger.close();
         }
+
     }
 
     public void handleQuery(String query, DiosMioCli diosMioCli) throws Exception, InstanceNotFoundException {
@@ -388,10 +390,17 @@ public class Main {
             }
         }
 
-        if (logFile == null || !targetLogger.setDestination(logFile)) {
-            logger.error("Still using console as error output. You should fix your config.");
-        } else {
-            logger.info("Switched log destination to " + logFile.getAbsolutePath());
+        PrintStream printStream;
+        try {
+            printStream = new PrintStream(new FileOutputStream(logFile, true));
+
+            if (printStream != null && !printStream.checkError() && targetLogger.switchDestination(printStream)) {
+                logger.info("Switched log destination to " + logFile.getAbsolutePath());
+            } else {
+                logger.error("Still using console as error output. You should fix your config.");
+            }
+        } catch (FileNotFoundException e) {
+             // Nothing to do
         }
 
         // Now let's see if user provided arguments about the log level
