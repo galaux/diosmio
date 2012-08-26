@@ -53,13 +53,6 @@ public class KissLogger {
         }
     }
 
-
-//    private static final KissLogger instance = new KissLogger(Level.ERROR);
-//
-//    public static KissLogger getInstance() {
-//        return instance;
-//    }
-
     /** Temporary OutputStream to hold data while definitive destination is not yet known */
     private ByteArrayOutputStream tempOutputStream = null;
     /** PrintStream to which logs are written */
@@ -168,17 +161,17 @@ public class KissLogger {
      */
     public boolean switchDestination(PrintStream destination) {
 
-        // First, check the future PrintStream & Al. are OK
+        // First, check the future PrintStream is OK
         if (destination == null || destination.checkError()) {
             return false;
         }
 
-        // OK then, let's write data held in the temporary stream to the new one
+        // write data held in the temporary stream to the new one
         if (tempOutputStream != null) {
             destination.print(tempOutputStream.toString());
         }
 
-        // Finally, let's make the switch
+        // make the switch
         this.printStream = destination;
         return true;
     }

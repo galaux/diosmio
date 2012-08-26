@@ -41,8 +41,6 @@ public class Main {
     public static final String OPT_TECH_CONFIG_FILE = "c";
     public static final String OPT_TECH_CONFIG_FILE_L = "conf";
 
-//    private static final String DEFAULT_LOG_PATH = "/tmp/diosmio-cli.log";
-
     private static final String DEFAULT_CONF_PATH = "diosmio-cli.conf";
 
     public static final String PROMPT = "DiosMioCLI> ";
