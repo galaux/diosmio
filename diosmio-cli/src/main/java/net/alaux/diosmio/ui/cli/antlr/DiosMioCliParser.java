@@ -64,7 +64,7 @@ public TreeAdaptor getTreeAdaptor() {
     return adaptor;
 }
     public String[] getTokenNames() { return DiosMioCliParser.tokenNames; }
-    public String getGrammarFileName() { return "src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g"; }
+    public String getGrammarFileName() { return "src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g"; }
 
 
         public void reportError(RecognitionException e) {
@@ -81,7 +81,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "parse"
-    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:63:1: parse : action EOF -> action ;
+    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:63:1: parse : action EOF -> action ;
     public final DiosMioCliParser.parse_return parse() throws RecognitionException {
         DiosMioCliParser.parse_return retval = new DiosMioCliParser.parse_return();
         retval.start = input.LT(1);
@@ -97,8 +97,8 @@ public TreeAdaptor getTreeAdaptor() {
         RewriteRuleTokenStream stream_EOF=new RewriteRuleTokenStream(adaptor,"token EOF");
         RewriteRuleSubtreeStream stream_action=new RewriteRuleSubtreeStream(adaptor,"rule action");
         try {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:64:5: ( action EOF -> action )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:64:7: action EOF
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:64:5: ( action EOF -> action )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:64:7: action EOF
             {
             pushFollow(FOLLOW_action_in_parse162);
             action1=action();
@@ -167,7 +167,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "action"
-    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:68:1: action : ( help | addArtifact | getArtifact | deleteArtifact | addConfig | getConfig | deleteConfig | loadFile | parseFile | -> ^( CMD_NO_OP ) );
+    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:68:1: action : ( help | addArtifact | getArtifact | deleteArtifact | addConfig | getConfig | deleteConfig | loadFile | parseFile | -> ^( CMD_NO_OP ) );
     public final DiosMioCliParser.action_return action() throws RecognitionException {
         DiosMioCliParser.action_return retval = new DiosMioCliParser.action_return();
         retval.start = input.LT(1);
@@ -196,7 +196,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
         try {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:69:5: ( help | addArtifact | getArtifact | deleteArtifact | addConfig | getConfig | deleteConfig | loadFile | parseFile | -> ^( CMD_NO_OP ) )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:69:5: ( help | addArtifact | getArtifact | deleteArtifact | addConfig | getConfig | deleteConfig | loadFile | parseFile | -> ^( CMD_NO_OP ) )
             int alt1=10;
             switch ( input.LA(1) ) {
             case HELP:
@@ -290,7 +290,7 @@ public TreeAdaptor getTreeAdaptor() {
 
             switch (alt1) {
                 case 1 :
-                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:69:7: help
+                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:69:7: help
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -305,7 +305,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:70:7: addArtifact
+                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:70:7: addArtifact
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -320,7 +320,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 3 :
-                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:71:7: getArtifact
+                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:71:7: getArtifact
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -335,7 +335,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 4 :
-                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:72:7: deleteArtifact
+                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:72:7: deleteArtifact
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -350,7 +350,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 5 :
-                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:73:7: addConfig
+                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:73:7: addConfig
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -365,7 +365,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 6 :
-                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:74:7: getConfig
+                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:74:7: getConfig
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -380,7 +380,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 7 :
-                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:75:7: deleteConfig
+                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:75:7: deleteConfig
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -395,7 +395,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 8 :
-                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:76:7: loadFile
+                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:76:7: loadFile
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -410,7 +410,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 9 :
-                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:77:7: parseFile
+                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:77:7: parseFile
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -425,7 +425,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 10 :
-                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:78:7: 
+                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:78:7:
                     {
                     // AST REWRITE
                     // elements: 
@@ -442,7 +442,7 @@ public TreeAdaptor getTreeAdaptor() {
                     root_0 = (CommonTree)adaptor.nil();
                     // 78:7: -> ^( CMD_NO_OP )
                     {
-                        // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:78:10: ^( CMD_NO_OP )
+                        // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:78:10: ^( CMD_NO_OP )
                         {
                         CommonTree root_1 = (CommonTree)adaptor.nil();
                         root_1 = (CommonTree)adaptor.becomeRoot(
@@ -493,7 +493,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "help"
-    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:81:1: help : HELP -> ^( CMD_HELP ) ;
+    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:81:1: help : HELP -> ^( CMD_HELP ) ;
     public final DiosMioCliParser.help_return help() throws RecognitionException {
         DiosMioCliParser.help_return retval = new DiosMioCliParser.help_return();
         retval.start = input.LT(1);
@@ -507,8 +507,8 @@ public TreeAdaptor getTreeAdaptor() {
         RewriteRuleTokenStream stream_HELP=new RewriteRuleTokenStream(adaptor,"token HELP");
 
         try {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:82:5: ( HELP -> ^( CMD_HELP ) )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:82:7: HELP
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:82:5: ( HELP -> ^( CMD_HELP ) )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:82:7: HELP
             {
             HELP12=(Token)match(input,HELP,FOLLOW_HELP_in_help286); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_HELP.add(HELP12);
@@ -529,7 +529,7 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (CommonTree)adaptor.nil();
             // 83:9: -> ^( CMD_HELP )
             {
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:83:12: ^( CMD_HELP )
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:83:12: ^( CMD_HELP )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(
@@ -578,7 +578,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "addArtifact"
-    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:87:1: addArtifact : ADD ARTIFACT filepath -> ^( CMD_ADD_ARTIFACT filepath ) ;
+    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:87:1: addArtifact : ADD ARTIFACT filepath -> ^( CMD_ADD_ARTIFACT filepath ) ;
     public final DiosMioCliParser.addArtifact_return addArtifact() throws RecognitionException {
         DiosMioCliParser.addArtifact_return retval = new DiosMioCliParser.addArtifact_return();
         retval.start = input.LT(1);
@@ -597,8 +597,8 @@ public TreeAdaptor getTreeAdaptor() {
         RewriteRuleTokenStream stream_ARTIFACT=new RewriteRuleTokenStream(adaptor,"token ARTIFACT");
         RewriteRuleSubtreeStream stream_filepath=new RewriteRuleSubtreeStream(adaptor,"rule filepath");
         try {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:88:5: ( ADD ARTIFACT filepath -> ^( CMD_ADD_ARTIFACT filepath ) )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:88:7: ADD ARTIFACT filepath
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:88:5: ( ADD ARTIFACT filepath -> ^( CMD_ADD_ARTIFACT filepath ) )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:88:7: ADD ARTIFACT filepath
             {
             ADD13=(Token)match(input,ADD,FOLLOW_ADD_in_addArtifact318); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_ADD.add(ADD13);
@@ -630,7 +630,7 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (CommonTree)adaptor.nil();
             // 89:9: -> ^( CMD_ADD_ARTIFACT filepath )
             {
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:89:12: ^( CMD_ADD_ARTIFACT filepath )
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:89:12: ^( CMD_ADD_ARTIFACT filepath )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(
@@ -681,7 +681,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "getArtifact"
-    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:92:1: getArtifact : GET ARTIFACT ( id )? -> ^( CMD_GET_ARTIFACT ( id )? ) ;
+    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:92:1: getArtifact : GET ARTIFACT ( id )? -> ^( CMD_GET_ARTIFACT ( id )? ) ;
     public final DiosMioCliParser.getArtifact_return getArtifact() throws RecognitionException {
         DiosMioCliParser.getArtifact_return retval = new DiosMioCliParser.getArtifact_return();
         retval.start = input.LT(1);
@@ -700,8 +700,8 @@ public TreeAdaptor getTreeAdaptor() {
         RewriteRuleTokenStream stream_ARTIFACT=new RewriteRuleTokenStream(adaptor,"token ARTIFACT");
         RewriteRuleSubtreeStream stream_id=new RewriteRuleSubtreeStream(adaptor,"rule id");
         try {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:93:5: ( GET ARTIFACT ( id )? -> ^( CMD_GET_ARTIFACT ( id )? ) )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:93:7: GET ARTIFACT ( id )?
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:93:5: ( GET ARTIFACT ( id )? -> ^( CMD_GET_ARTIFACT ( id )? ) )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:93:7: GET ARTIFACT ( id )?
             {
             GET16=(Token)match(input,GET,FOLLOW_GET_in_getArtifact355); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_GET.add(GET16);
@@ -711,7 +711,7 @@ public TreeAdaptor getTreeAdaptor() {
             if ( state.backtracking==0 ) stream_ARTIFACT.add(ARTIFACT17);
 
 
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:93:20: ( id )?
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:93:20: ( id )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -720,7 +720,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt2) {
                 case 1 :
-                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:93:20: id
+                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:93:20: id
                     {
                     pushFollow(FOLLOW_id_in_getArtifact359);
                     id18=id();
@@ -750,14 +750,14 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (CommonTree)adaptor.nil();
             // 94:9: -> ^( CMD_GET_ARTIFACT ( id )? )
             {
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:94:12: ^( CMD_GET_ARTIFACT ( id )? )
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:94:12: ^( CMD_GET_ARTIFACT ( id )? )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(
                 (CommonTree)adaptor.create(CMD_GET_ARTIFACT, "CMD_GET_ARTIFACT")
                 , root_1);
 
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:94:31: ( id )?
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:94:31: ( id )?
                 if ( stream_id.hasNext() ) {
                     adaptor.addChild(root_1, stream_id.nextTree());
 
@@ -806,7 +806,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "deleteArtifact"
-    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:97:1: deleteArtifact : DELETE ARTIFACT id -> ^( CMD_DELETE_ARTIFACT id ) ;
+    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:97:1: deleteArtifact : DELETE ARTIFACT id -> ^( CMD_DELETE_ARTIFACT id ) ;
     public final DiosMioCliParser.deleteArtifact_return deleteArtifact() throws RecognitionException {
         DiosMioCliParser.deleteArtifact_return retval = new DiosMioCliParser.deleteArtifact_return();
         retval.start = input.LT(1);
@@ -825,8 +825,8 @@ public TreeAdaptor getTreeAdaptor() {
         RewriteRuleTokenStream stream_ARTIFACT=new RewriteRuleTokenStream(adaptor,"token ARTIFACT");
         RewriteRuleSubtreeStream stream_id=new RewriteRuleSubtreeStream(adaptor,"rule id");
         try {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:98:5: ( DELETE ARTIFACT id -> ^( CMD_DELETE_ARTIFACT id ) )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:98:7: DELETE ARTIFACT id
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:98:5: ( DELETE ARTIFACT id -> ^( CMD_DELETE_ARTIFACT id ) )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:98:7: DELETE ARTIFACT id
             {
             DELETE19=(Token)match(input,DELETE,FOLLOW_DELETE_in_deleteArtifact394); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_DELETE.add(DELETE19);
@@ -858,7 +858,7 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (CommonTree)adaptor.nil();
             // 99:9: -> ^( CMD_DELETE_ARTIFACT id )
             {
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:99:12: ^( CMD_DELETE_ARTIFACT id )
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:99:12: ^( CMD_DELETE_ARTIFACT id )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(
@@ -909,7 +909,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "addConfig"
-    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:103:1: addConfig : ADD CONFIG hostname sshPort sshUser -> ^( CMD_ADD_CONFIG hostname sshPort sshUser ) ;
+    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:103:1: addConfig : ADD CONFIG hostname sshPort sshUser -> ^( CMD_ADD_CONFIG hostname sshPort sshUser ) ;
     public final DiosMioCliParser.addConfig_return addConfig() throws RecognitionException {
         DiosMioCliParser.addConfig_return retval = new DiosMioCliParser.addConfig_return();
         retval.start = input.LT(1);
@@ -934,8 +934,8 @@ public TreeAdaptor getTreeAdaptor() {
         RewriteRuleSubtreeStream stream_sshPort=new RewriteRuleSubtreeStream(adaptor,"rule sshPort");
         RewriteRuleSubtreeStream stream_sshUser=new RewriteRuleSubtreeStream(adaptor,"rule sshUser");
         try {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:104:5: ( ADD CONFIG hostname sshPort sshUser -> ^( CMD_ADD_CONFIG hostname sshPort sshUser ) )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:104:7: ADD CONFIG hostname sshPort sshUser
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:104:5: ( ADD CONFIG hostname sshPort sshUser -> ^( CMD_ADD_CONFIG hostname sshPort sshUser ) )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:104:7: ADD CONFIG hostname sshPort sshUser
             {
             ADD22=(Token)match(input,ADD,FOLLOW_ADD_in_addConfig433); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_ADD.add(ADD22);
@@ -981,7 +981,7 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (CommonTree)adaptor.nil();
             // 105:9: -> ^( CMD_ADD_CONFIG hostname sshPort sshUser )
             {
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:105:12: ^( CMD_ADD_CONFIG hostname sshPort sshUser )
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:105:12: ^( CMD_ADD_CONFIG hostname sshPort sshUser )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(
@@ -1036,7 +1036,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "getConfig"
-    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:108:1: getConfig : GET CONFIG ( id )? -> ^( CMD_GET_CONFIG ( id )? ) ;
+    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:108:1: getConfig : GET CONFIG ( id )? -> ^( CMD_GET_CONFIG ( id )? ) ;
     public final DiosMioCliParser.getConfig_return getConfig() throws RecognitionException {
         DiosMioCliParser.getConfig_return retval = new DiosMioCliParser.getConfig_return();
         retval.start = input.LT(1);
@@ -1055,8 +1055,8 @@ public TreeAdaptor getTreeAdaptor() {
         RewriteRuleTokenStream stream_GET=new RewriteRuleTokenStream(adaptor,"token GET");
         RewriteRuleSubtreeStream stream_id=new RewriteRuleSubtreeStream(adaptor,"rule id");
         try {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:109:5: ( GET CONFIG ( id )? -> ^( CMD_GET_CONFIG ( id )? ) )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:109:7: GET CONFIG ( id )?
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:109:5: ( GET CONFIG ( id )? -> ^( CMD_GET_CONFIG ( id )? ) )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:109:7: GET CONFIG ( id )?
             {
             GET27=(Token)match(input,GET,FOLLOW_GET_in_getConfig478); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_GET.add(GET27);
@@ -1066,7 +1066,7 @@ public TreeAdaptor getTreeAdaptor() {
             if ( state.backtracking==0 ) stream_CONFIG.add(CONFIG28);
 
 
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:109:18: ( id )?
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:109:18: ( id )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -1075,7 +1075,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt3) {
                 case 1 :
-                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:109:18: id
+                    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:109:18: id
                     {
                     pushFollow(FOLLOW_id_in_getConfig482);
                     id29=id();
@@ -1105,14 +1105,14 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (CommonTree)adaptor.nil();
             // 110:9: -> ^( CMD_GET_CONFIG ( id )? )
             {
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:110:12: ^( CMD_GET_CONFIG ( id )? )
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:110:12: ^( CMD_GET_CONFIG ( id )? )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(
                 (CommonTree)adaptor.create(CMD_GET_CONFIG, "CMD_GET_CONFIG")
                 , root_1);
 
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:110:29: ( id )?
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:110:29: ( id )?
                 if ( stream_id.hasNext() ) {
                     adaptor.addChild(root_1, stream_id.nextTree());
 
@@ -1161,7 +1161,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "deleteConfig"
-    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:113:1: deleteConfig : DELETE CONFIG id -> ^( CMD_DELETE_CONFIG id ) ;
+    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:113:1: deleteConfig : DELETE CONFIG id -> ^( CMD_DELETE_CONFIG id ) ;
     public final DiosMioCliParser.deleteConfig_return deleteConfig() throws RecognitionException {
         DiosMioCliParser.deleteConfig_return retval = new DiosMioCliParser.deleteConfig_return();
         retval.start = input.LT(1);
@@ -1180,8 +1180,8 @@ public TreeAdaptor getTreeAdaptor() {
         RewriteRuleTokenStream stream_DELETE=new RewriteRuleTokenStream(adaptor,"token DELETE");
         RewriteRuleSubtreeStream stream_id=new RewriteRuleSubtreeStream(adaptor,"rule id");
         try {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:114:5: ( DELETE CONFIG id -> ^( CMD_DELETE_CONFIG id ) )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:114:7: DELETE CONFIG id
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:114:5: ( DELETE CONFIG id -> ^( CMD_DELETE_CONFIG id ) )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:114:7: DELETE CONFIG id
             {
             DELETE30=(Token)match(input,DELETE,FOLLOW_DELETE_in_deleteConfig517); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_DELETE.add(DELETE30);
@@ -1213,7 +1213,7 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (CommonTree)adaptor.nil();
             // 115:9: -> ^( CMD_DELETE_CONFIG id )
             {
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:115:12: ^( CMD_DELETE_CONFIG id )
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:115:12: ^( CMD_DELETE_CONFIG id )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(
@@ -1264,7 +1264,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "loadFile"
-    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:119:1: loadFile : LOAD filepath -> ^( CMD_LOAD filepath ) ;
+    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:119:1: loadFile : LOAD filepath -> ^( CMD_LOAD filepath ) ;
     public final DiosMioCliParser.loadFile_return loadFile() throws RecognitionException {
         DiosMioCliParser.loadFile_return retval = new DiosMioCliParser.loadFile_return();
         retval.start = input.LT(1);
@@ -1280,8 +1280,8 @@ public TreeAdaptor getTreeAdaptor() {
         RewriteRuleTokenStream stream_LOAD=new RewriteRuleTokenStream(adaptor,"token LOAD");
         RewriteRuleSubtreeStream stream_filepath=new RewriteRuleSubtreeStream(adaptor,"rule filepath");
         try {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:120:5: ( LOAD filepath -> ^( CMD_LOAD filepath ) )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:120:7: LOAD filepath
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:120:5: ( LOAD filepath -> ^( CMD_LOAD filepath ) )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:120:7: LOAD filepath
             {
             LOAD33=(Token)match(input,LOAD,FOLLOW_LOAD_in_loadFile556); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LOAD.add(LOAD33);
@@ -1309,7 +1309,7 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (CommonTree)adaptor.nil();
             // 121:9: -> ^( CMD_LOAD filepath )
             {
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:121:12: ^( CMD_LOAD filepath )
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:121:12: ^( CMD_LOAD filepath )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(
@@ -1360,7 +1360,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "parseFile"
-    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:124:1: parseFile : PARSE filepath -> ^( PARSE filepath ) ;
+    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:124:1: parseFile : PARSE filepath -> ^( PARSE filepath ) ;
     public final DiosMioCliParser.parseFile_return parseFile() throws RecognitionException {
         DiosMioCliParser.parseFile_return retval = new DiosMioCliParser.parseFile_return();
         retval.start = input.LT(1);
@@ -1376,8 +1376,8 @@ public TreeAdaptor getTreeAdaptor() {
         RewriteRuleTokenStream stream_PARSE=new RewriteRuleTokenStream(adaptor,"token PARSE");
         RewriteRuleSubtreeStream stream_filepath=new RewriteRuleSubtreeStream(adaptor,"rule filepath");
         try {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:125:5: ( PARSE filepath -> ^( PARSE filepath ) )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:125:7: PARSE filepath
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:125:5: ( PARSE filepath -> ^( PARSE filepath ) )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:125:7: PARSE filepath
             {
             PARSE35=(Token)match(input,PARSE,FOLLOW_PARSE_in_parseFile591); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_PARSE.add(PARSE35);
@@ -1405,7 +1405,7 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (CommonTree)adaptor.nil();
             // 126:9: -> ^( PARSE filepath )
             {
-                // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:126:12: ^( PARSE filepath )
+                // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:126:12: ^( PARSE filepath )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(
@@ -1456,7 +1456,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "id"
-    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:129:1: id : NUMBER ;
+    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:129:1: id : NUMBER ;
     public final DiosMioCliParser.id_return id() throws RecognitionException {
         DiosMioCliParser.id_return retval = new DiosMioCliParser.id_return();
         retval.start = input.LT(1);
@@ -1469,8 +1469,8 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree NUMBER37_tree=null;
 
         try {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:130:5: ( NUMBER )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:130:7: NUMBER
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:130:5: ( NUMBER )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:130:7: NUMBER
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -1516,7 +1516,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "filepath"
-    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:133:1: filepath : FILEPATH ;
+    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:133:1: filepath : FILEPATH ;
     public final DiosMioCliParser.filepath_return filepath() throws RecognitionException {
         DiosMioCliParser.filepath_return retval = new DiosMioCliParser.filepath_return();
         retval.start = input.LT(1);
@@ -1529,8 +1529,8 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree FILEPATH38_tree=null;
 
         try {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:133:10: ( FILEPATH )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:133:12: FILEPATH
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:133:10: ( FILEPATH )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:133:12: FILEPATH
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -1576,7 +1576,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "hostname"
-    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:135:1: hostname : WORD ;
+    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:135:1: hostname : WORD ;
     public final DiosMioCliParser.hostname_return hostname() throws RecognitionException {
         DiosMioCliParser.hostname_return retval = new DiosMioCliParser.hostname_return();
         retval.start = input.LT(1);
@@ -1589,8 +1589,8 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree WORD39_tree=null;
 
         try {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:135:10: ( WORD )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:135:12: WORD
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:135:10: ( WORD )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:135:12: WORD
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -1636,7 +1636,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "sshPort"
-    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:137:1: sshPort : NUMBER ;
+    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:137:1: sshPort : NUMBER ;
     public final DiosMioCliParser.sshPort_return sshPort() throws RecognitionException {
         DiosMioCliParser.sshPort_return retval = new DiosMioCliParser.sshPort_return();
         retval.start = input.LT(1);
@@ -1649,8 +1649,8 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree NUMBER40_tree=null;
 
         try {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:137:9: ( NUMBER )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:137:11: NUMBER
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:137:9: ( NUMBER )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:137:11: NUMBER
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -1696,7 +1696,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "sshUser"
-    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:139:1: sshUser : WORD ;
+    // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:139:1: sshUser : WORD ;
     public final DiosMioCliParser.sshUser_return sshUser() throws RecognitionException {
         DiosMioCliParser.sshUser_return retval = new DiosMioCliParser.sshUser_return();
         retval.start = input.LT(1);
@@ -1709,8 +1709,8 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree WORD41_tree=null;
 
         try {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:139:9: ( WORD )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:139:11: WORD
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:139:9: ( WORD )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/CliJmxClient.g:139:11: WORD
             {
             root_0 = (CommonTree)adaptor.nil();
 

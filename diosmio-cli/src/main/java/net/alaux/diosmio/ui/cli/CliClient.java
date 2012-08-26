@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class DiosMioCli {
+public abstract class CliClient {
 
     private static final String JSON_TAG_ARTIFACTS = "artifacts";
 
@@ -48,7 +48,7 @@ public abstract class DiosMioCli {
         if (artifact != null) {
             Main.out.println(artifact);
         } else {
-            Main.out.println("Artifact not found");
+            Main.out.println(Main.bundle.getString("info.artifact.not_found"));
         }
     }
 
@@ -134,11 +134,10 @@ public abstract class DiosMioCli {
         Artifact artifact = getArtifactManager().get(id);
 
         if (artifact == null) {
-            // TODO create and use a "consoleWriter" -> reuse KissLogger?
-            Main.out.println("Cannot find artifact");
+            Main.out.println(Main.bundle.getString("info.artifact.not_found"));
         } else {
             artifactManager.delete(artifact);
-            Main.out.println("Artifact deleted");
+            Main.out.println(Main.bundle.getString("info.artifact.deleted"));
         }
     }
 
@@ -192,7 +191,7 @@ public abstract class DiosMioCli {
 
         List<Artifact> artifacts = new ArrayList<Artifact>();
         parseFile(file, artifacts);
-        Main.out.println("Found " + artifacts.size() + " artifacts");
+        Main.out.println(MessageFormat.format(Main.bundle.getString("info.artifacts.found"), artifacts.size()));
     }
 
     private void parseFile(File file, List<Artifact> artifacts) {

@@ -3,7 +3,7 @@ package net.alaux.diosmio.ui.cli;
 import jline.*;
 import net.alaux.diosmio.ui.cli.antlr.DiosMioCliLexer;
 import net.alaux.diosmio.ui.cli.antlr.DiosMioCliParser;
-import net.alaux.diosmio.ui.cli.jmx.DiosMioJmxCli;
+import net.alaux.diosmio.ui.cli.jmx.CliJmxClient;
 import net.alaux.diosmio.ui.cli.logging.KissLogger;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -99,7 +99,7 @@ public class Main {
 
             updateCliLogger(logger, properties, cmd);
 
-            DiosMioJmxCli diosMioConnectedCli = new DiosMioJmxCli(properties.getProperty("server.rmi.url"),
+            CliJmxClient client = new CliJmxClient(properties.getProperty("server.rmi.url"),
                     properties.getProperty("server.rmi.domain_name"));
 
             ConsoleReader reader = new ConsoleReader();
@@ -119,7 +119,7 @@ public class Main {
                         break;
                     }
 
-                    handleQuery(line, diosMioConnectedCli);
+                    handleQuery(line, client);
                     out.flush();
 
                 } catch (RuntimeException e) {
@@ -129,7 +129,7 @@ public class Main {
                 }
             }
 
-            diosMioConnectedCli.close();
+            client.close();
 
         } catch (Exception e) {
             Main.err.println("A fatal error occurred: " + e);
@@ -143,7 +143,7 @@ public class Main {
 
     }
 
-    public void handleQuery(String query, DiosMioCli diosMioCli) {
+    public void handleQuery(String query, CliJmxClient client) {
 
         Tree tree;
 
@@ -177,33 +177,33 @@ public class Main {
 
                 // Artifact ***************************************************
                 case DiosMioCliParser.CMD_ADD_ARTIFACT:
-                    diosMioCli.createArtifact(tree.getChild(0).toString());
+                    client.createArtifact(tree.getChild(0).toString());
                     break;
 
                 case DiosMioCliParser.CMD_GET_ARTIFACT:
                     if (tree.getChildCount() > 1) {
-                        diosMioCli.showArtifact(new Long(tree.getChild(0).toString()));
+                        client.showArtifact(new Long(tree.getChild(0).toString()));
 
                     } else {
-                        diosMioCli.listAllArtifacts();
+                        client.listAllArtifacts();
                     }
                     break;
 
                 case DiosMioCliParser.CMD_DELETE_ARTIFACT:
-                    diosMioCli.deleteArtifact(new Long(tree.getChild(0).toString()));
+                    client.deleteArtifact(new Long(tree.getChild(0).toString()));
                     break;
 
                 // Configuration **********************************************
                 case DiosMioCliParser.CMD_ADD_CONFIG:
                     Main.logger.info("Main.handleQuery(CMD_ADD_CONFIG)");
-                    diosMioCli.createConfiguration(tree.getChild(0).toString(),
+                    client.createConfiguration(tree.getChild(0).toString(),
                             tree.getChild(1).toString(),
                             tree.getChild(2).toString());
                     break;
 
                 case DiosMioCliParser.CMD_GET_CONFIG:
                     if (tree.getChildCount() > 1) {
-                        diosMioCli.readConfiguration(new Long(tree.getChild(0).toString()));
+                        client.readConfiguration(new Long(tree.getChild(0).toString()));
                     } else {
 
                     }
@@ -211,11 +211,11 @@ public class Main {
 
                 // Misc *******************************************************
                 case DiosMioCliParser.CMD_LOAD:
-                    diosMioCli.loadFile(tree.getChild(0).toString());
+                    client.loadFile(tree.getChild(0).toString());
                     break;
 
                 case DiosMioCliParser.CMD_PARSE:
-                    diosMioCli.parseFile(tree.getChild(0).toString());
+                    client.parseFile(tree.getChild(0).toString());
                     break;
 
                 case DiosMioCliParser.CMD_NO_OP:
