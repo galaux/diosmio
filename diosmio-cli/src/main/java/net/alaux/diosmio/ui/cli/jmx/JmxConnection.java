@@ -45,7 +45,7 @@ public class JmxConnection {
         jmxc.close();
     }
 
-    public  <T> T getServiceBean(Class<T> clazz) throws IOException, InstanceNotFoundException, MalformedObjectNameException {
+    public  <T> T getServiceBean(Class<T> clazz) throws InstanceNotFoundException, MalformedObjectNameException {
 
         ObjectName mbeanName = null;
         // TODO put BEAN_ARTIFACT_MANAGER_NAME in ArtifactManager and call general value
@@ -57,8 +57,8 @@ public class JmxConnection {
         }
 
         T mbean =  JMX.newMBeanProxy(mbsc, mbeanName, clazz, true);
-        ClientListener listener = new ClientListener();
-        mbsc.addNotificationListener(mbeanName, listener, null, null);
+//        ClientListener listener = new ClientListener();
+//        mbsc.addNotificationListener(mbeanName, listener, null, null);
 
         return mbean;
     }
