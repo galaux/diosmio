@@ -6,15 +6,14 @@ import org.json.simple.JSONObject;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * User: miguel
+ * @author Guillaume ALAUX <guillaume at alaux dot net>
  * Date: 7/26/12
  */
 @Entity
-@Table(name = "ARTIFACT")
+//@Table(name = "ARTIFACT")
 public class Artifact implements Serializable {
 
     @Id
@@ -27,6 +26,25 @@ public class Artifact implements Serializable {
     // Not used anymore
     // TODO Get rid of this property
     private String fsName;
+
+    /* The no-argument constructor, which is also a JavaBean convention,
+    is a requirement for all persistent classes */
+    public Artifact() {
+    }
+
+    public Artifact(String name, String fsName) {
+        this.name = name;
+        this.fsName = fsName;
+    }
+
+    public Artifact(JSONObject jsonObject) {
+        this.name = (String) jsonObject.get("name");
+        this.fsName = (String) jsonObject.get("fsName");
+    }
+
+    public String toString() {
+        return id + "\t" + name + "\t" + fsName;
+    }
 
     public Long getId() {
         return id;
@@ -50,24 +68,5 @@ public class Artifact implements Serializable {
 
     public void setFsName(String fsName) {
         this.fsName = fsName;
-    }
-
-    /* The no-argument constructor, which is also a JavaBean convention,
-    is a requirement for all persistent classes */
-    public Artifact() {
-    }
-
-    public Artifact(String name, String fsName) {
-        this.name = name;
-        this.fsName = fsName;
-    }
-
-    public Artifact(JSONObject jsonObject) {
-        this.name = (String) jsonObject.get("name");
-        this.fsName = (String) jsonObject.get("fsName");
-    }
-
-    public String toString() {
-        return id + "\t" + name + "\t" + fsName;
     }
 }

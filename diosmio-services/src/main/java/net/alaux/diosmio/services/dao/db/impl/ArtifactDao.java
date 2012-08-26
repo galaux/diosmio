@@ -67,7 +67,7 @@ public class ArtifactDao implements DatabaseDao {
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List result = session.createQuery( "from Artifact" ).list();
+        List result = session.createQuery("from Artifact").list();
         session.getTransaction().commit();
         session.close();
 

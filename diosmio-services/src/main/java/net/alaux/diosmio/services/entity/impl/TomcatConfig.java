@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import java.io.File;
 
 /**
- * User: miguel
+ * @author Guillaume ALAUX <guillaume at alaux dot net>
  * Date: 8/11/12
  */
 @Entity

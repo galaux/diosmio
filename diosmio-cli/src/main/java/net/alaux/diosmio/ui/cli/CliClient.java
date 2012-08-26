@@ -3,7 +3,6 @@ package net.alaux.diosmio.ui.cli;
 import net.alaux.diosmio.services.core.ArtifactManager;
 import net.alaux.diosmio.services.dao.db.ConfigDao;
 import net.alaux.diosmio.services.entity.Artifact;
-import net.alaux.diosmio.services.entity.Configuration;
 import net.alaux.diosmio.services.entity.impl.HostConfig;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -145,23 +144,20 @@ public abstract class CliClient {
     // Configuration **********************************************************
 
     public void createConfiguration(String hostname, String sshPort, String sshUser) {
-
-        HostConfig hostConfig = new HostConfig(hostname, sshPort, sshUser);
-        getConfigDao().create(hostConfig);
+        getConfigDao().create(new HostConfig(hostname, sshPort, sshUser));
     }
 
     public void readConfiguration(Long id) {
-
-        HostConfig hostConfig = getConfigDao().read(id);
-        Main.out.println(hostConfig);
+        Main.logger.info("readConfiguration(" + id + ")");
+        Main.out.println(getConfigDao().read(id));
     }
 
     public void listAllConfigurations() {
+        Main.logger.info("listAllConfigurations()");
+        List<HostConfig> hostConfigs = getConfigDao().readAll();
 
-        List<Configuration> configurations = getConfigDao().readAll();
-
-        for (Configuration configuration : configurations) {
-            Main.out.println(((HostConfig)configuration).toString());
+        for (HostConfig hostConfig : hostConfigs) {
+            Main.out.println((hostConfig).toString());
         }
     }
 

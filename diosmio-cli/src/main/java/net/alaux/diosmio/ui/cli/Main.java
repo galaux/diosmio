@@ -99,7 +99,7 @@ public class Main {
 
             updateCliLogger(logger, properties, cmd);
 
-            CliJmxClient client = new CliJmxClient(properties.getProperty("server.rmi.url"),
+            CliClient client = new CliJmxClient(properties.getProperty("server.rmi.url"),
                     properties.getProperty("server.rmi.domain_name"));
 
             ConsoleReader reader = new ConsoleReader();
@@ -143,24 +143,15 @@ public class Main {
 
     }
 
-    public void handleQuery(String query, CliJmxClient client) {
+    public void handleQuery(String query, CliClient client) {
 
         Tree tree;
 
-        logger.debug("Creating ANTLRStringStream");
         ANTLRStringStream input = new ANTLRStringStream(query);
-
-        logger.debug("Creating lexer");
         DiosMioCliLexer lexer = new DiosMioCliLexer(input);
-
-        logger.debug("Creating token");
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-
-        logger.debug("Creating parser");
         DiosMioCliParser parser = new DiosMioCliParser(tokens);
 
-        logger.debug("Getting tree");
-        // start parsing...
         try {
             tree = (Tree)(parser.parse().getTree());
         } catch (RecognitionException e) {
@@ -169,7 +160,6 @@ public class Main {
 
         if (tree != null) {
 
-            // TODO use business exception in 'throws'
             switch (tree.getType()) {
                 case DiosMioCliParser.CMD_HELP:
                     out.println(usage);
@@ -181,7 +171,7 @@ public class Main {
                     break;
 
                 case DiosMioCliParser.CMD_GET_ARTIFACT:
-                    if (tree.getChildCount() > 1) {
+                    if (tree.getChildCount() > 0) {
                         client.showArtifact(new Long(tree.getChild(0).toString()));
 
                     } else {
@@ -202,10 +192,10 @@ public class Main {
                     break;
 
                 case DiosMioCliParser.CMD_GET_CONFIG:
-                    if (tree.getChildCount() > 1) {
+                    if (tree.getChildCount() > 0) {
                         client.readConfiguration(new Long(tree.getChild(0).toString()));
                     } else {
-
+                        client.listAllConfigurations();
                     }
                     break;
 

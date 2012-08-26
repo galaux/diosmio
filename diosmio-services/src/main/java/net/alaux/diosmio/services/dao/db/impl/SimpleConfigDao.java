@@ -1,7 +1,6 @@
 package net.alaux.diosmio.services.dao.db.impl;
 
 import net.alaux.diosmio.services.dao.db.ConfigDao;
-import net.alaux.diosmio.services.entity.Configuration;
 import net.alaux.diosmio.services.entity.impl.HostConfig;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -12,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 /**
- * User: miguel
+ * @author Guillaume ALAUX <guillaume at alaux dot net>
  * Date: 8/11/12
  */
 public class SimpleConfigDao implements ConfigDao {
@@ -44,12 +43,12 @@ public class SimpleConfigDao implements ConfigDao {
         return hostConfig;
     }
 
-    public List<Configuration> readAll() {
+    public List<HostConfig> readAll() {
         logger.info("getAll()");
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List result = session.createQuery( "from hostconfig" ).list();
+        List result = session.createQuery("from HostConfig").list();
         session.getTransaction().commit();
         session.close();
 

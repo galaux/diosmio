@@ -1,20 +1,19 @@
 package net.alaux.diosmio.services.entity.impl;
 
-import net.alaux.diosmio.services.entity.Configuration;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
- * User: miguel
+ * @author Guillaume ALAUX <guillaume at alaux dot net>
  * Date: 8/11/12
  */
 @Entity
-@Table(name = "HOSTCONFIG")
-public class HostConfig implements Configuration {
+//@Table(name = "HOSTCONFIG")
+public class HostConfig implements Serializable {
 
     @Id
     @GeneratedValue(generator="increment")
@@ -40,7 +39,7 @@ public class HostConfig implements Configuration {
 
     @Override
     public String toString() {
-        return this.getClass() + "(" + id + ", " + sshUser + "@" + hostname + ":" + sshPort + ")";
+        return this.getClass().getSimpleName() + " - id=" + id + ", " + sshUser + "@" + hostname + ":" + sshPort;
     }
 
     public Long getId() {

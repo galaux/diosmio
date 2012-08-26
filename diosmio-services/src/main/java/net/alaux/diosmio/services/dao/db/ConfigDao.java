@@ -1,12 +1,11 @@
 package net.alaux.diosmio.services.dao.db;
 
-import net.alaux.diosmio.services.entity.Configuration;
 import net.alaux.diosmio.services.entity.impl.HostConfig;
 
 import java.util.List;
 
 /**
- * User: miguel
+ * @author Guillaume ALAUX <guillaume at alaux dot net>
  * Date: 8/11/12
  */
 public interface ConfigDao {
@@ -15,7 +14,7 @@ public interface ConfigDao {
 
     public HostConfig read(Long id);
 
-    public List<Configuration>  readAll();
+    public List<HostConfig>  readAll();
 
     public void update(HostConfig hostConfig);
 
