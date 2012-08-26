@@ -19,6 +19,7 @@ import java.util.List;
 public abstract class CliClient {
 
     private static final String JSON_TAG_ARTIFACTS = "artifacts";
+    private static final String JSON_TAG_HOST_CONFIGS = "host_configs";
 
     protected ArtifactManager artifactManager;
     protected ConfigDao configDao;
@@ -73,6 +74,7 @@ public abstract class CliClient {
         }
     }
 
+    // TODO turn this "String" into File and check this is true for all methods in here
     public void createArtifact(String path) {
 
         File file = new File(path);
@@ -172,25 +174,30 @@ public abstract class CliClient {
         }
 
         List<Artifact> artifacts = new ArrayList<Artifact>();
-        parseFile(file, artifacts);
-//        for (Artifact artifact : artifacts) {
-//            createArtifact();
-//        }
+        List<HostConfig> hostConfigs = new ArrayList<HostConfig>();
+        parseFile(file, artifacts, hostConfigs);
+        for (HostConfig hostConfig : hostConfigs) {
+            getConfigDao().create(hostConfig);
+        }
+        Main.out.println("Not yet persisting Artifacts. TODO?");
     }
 
     public void parseFile(String filePath) {
 
+        Main.logger.info("parseFile");
         File file = new File(filePath);
         if (file == null || !file.canRead()) {
             throw new RuntimeException(MessageFormat.format(Main.bundle.getString("cli.error.cannot_read_file"), filePath));
         }
 
         List<Artifact> artifacts = new ArrayList<Artifact>();
-        parseFile(file, artifacts);
+        List<HostConfig> hostConfigs = new ArrayList<HostConfig>();
+        parseFile(file, artifacts, hostConfigs);
         Main.out.println(MessageFormat.format(Main.bundle.getString("info.artifacts.found"), artifacts.size()));
+        Main.out.println(MessageFormat.format(Main.bundle.getString("info.host_configs.found"), hostConfigs.size()));
     }
 
-    private void parseFile(File file, List<Artifact> artifacts) {
+    private void parseFile(File file, List<Artifact> artifacts, List<HostConfig> hostConfigs) {
 
         try {
             JSONParser parser = new JSONParser();
@@ -204,6 +211,16 @@ public abstract class CliClient {
                     artifacts.add(new Artifact(iterator.next()));
                 }
             }
+
+            if (jsonObject.containsKey(JSON_TAG_HOST_CONFIGS)) {
+                JSONArray jsonArray = (JSONArray) jsonObject.get(JSON_TAG_HOST_CONFIGS);
+
+                Iterator<JSONObject> iterator = jsonArray.iterator();
+                while (iterator.hasNext()) {
+                    hostConfigs.add(new HostConfig(iterator.next()));
+                }
+            }
+
         } catch (IOException e) {
             throw new RuntimeException(MessageFormat.format(Main.bundle.getString("cli.error.cannot_read_file"), file.getAbsolutePath()));
         } catch (ParseException e) {

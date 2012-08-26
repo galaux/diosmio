@@ -201,10 +201,12 @@ public class Main {
 
                 // Misc *******************************************************
                 case DiosMioCliParser.CMD_LOAD:
+                    Main.logger.info("DiosMioCliParser.CMD_LOAD");
                     client.loadFile(tree.getChild(0).toString());
                     break;
 
                 case DiosMioCliParser.CMD_PARSE:
+                    Main.logger.info("DiosMioCliParser.CMD_PARSE");
                     client.parseFile(tree.getChild(0).toString());
                     break;
 

@@ -1,6 +1,7 @@
 package net.alaux.diosmio.services.entity.impl;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.json.simple.JSONObject;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,6 +36,12 @@ public class HostConfig implements Serializable {
         this.hostname = hostname;
         this.sshPort = sshPort;
         this.sshUser = sshUser;
+    }
+
+    public HostConfig(JSONObject jsonObject) {
+        this.hostname = (String) jsonObject.get("hostname");
+        this.sshPort = (String) jsonObject.get("sshPort");
+        this.sshUser = (String) jsonObject.get("sshUser");
     }
 
     @Override

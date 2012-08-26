@@ -121,7 +121,7 @@ loadFile
 
 parseFile
     : PARSE filepath
-        -> ^(PARSE filepath)
+        -> ^(CMD_PARSE filepath)
     ;
 
 id
@@ -161,4 +161,4 @@ fragment DIGIT  : '0'..'9' ;
 WORD : ( 'a'..'z' | 'A'..'Z' )+;
 
 // TODO get a better "filepath" definition
-FILEPATH : ( 'a'..'z' | 'A'..'Z' | '/' | '.' | '-' )+;
+FILEPATH : ( 'a'..'z' | 'A'..'Z' | '/' | '.' | '-' | DIGIT )+;
