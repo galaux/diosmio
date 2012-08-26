@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface DatabaseDao {
 
-    public boolean getStatus();
-
     public void create(Artifact artifact);
 
     public Artifact get(Long id);

@@ -6,7 +6,8 @@ import net.alaux.diosmio.services.entity.Artifact;
 import net.alaux.diosmio.services.entity.Configuration;
 import net.alaux.diosmio.services.entity.impl.HostConfig;
 import net.alaux.diosmio.ui.cli.DiosMioCli;
-import net.alaux.utils.AppException;
+import net.alaux.diosmio.ui.cli.Main;
+import net.alaux.utils.AppMessages;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -15,6 +16,7 @@ import org.json.simple.parser.ParseException;
 import javax.management.InstanceNotFoundException;
 import javax.management.MalformedObjectNameException;
 import java.io.*;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -40,30 +42,53 @@ public class DiosMioJmxCli implements DiosMioCli {
 
     private ConfigDao configDao;
 
-    public DiosMioJmxCli(String url, String domain) throws IOException, MalformedObjectNameException, InstanceNotFoundException {
+    private AppMessages appMessages;
 
+    public DiosMioJmxCli(String url, String domain) {
         this.url = url;
         this.domain = domain;
     }
 
-    private JmxConnection getJmxConnection() throws IOException {
+    private JmxConnection getJmxConnection() {
+
         if (diosMioJmxConnection == null) {
-            diosMioJmxConnection = new JmxConnection(url, domain);
+            try {
+                diosMioJmxConnection = new JmxConnection(url, domain);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         return diosMioJmxConnection;
     }
 
-    public ArtifactManager getArtifactManager() throws MalformedObjectNameException, InstanceNotFoundException, IOException {
+    public ArtifactManager getArtifactManager() {
+
         if (artifactManager == null) {
-            artifactManager = getJmxConnection().getServiceBean(ArtifactManager.class);
+            try {
+                artifactManager = getJmxConnection().getServiceBean(ArtifactManager.class);
+            } catch (MalformedObjectNameException e) {
+                throw new RuntimeException(e);
+            } catch (InstanceNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         return artifactManager;
     }
 
-    public ConfigDao getConfigDao() throws IOException, MalformedObjectNameException, InstanceNotFoundException {
+    public ConfigDao getConfigDao() {
         if (configDao == null) {
-            configDao = getJmxConnection().getServiceBean(ConfigDao.class);
+            try {
+                configDao = getJmxConnection().getServiceBean(ConfigDao.class);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (InstanceNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (MalformedObjectNameException e) {
+                throw new RuntimeException(e);
+            }
         }
         return configDao;
     }
@@ -74,78 +99,77 @@ public class DiosMioJmxCli implements DiosMioCli {
         }
     }
 
-    //    public void displayMBeanList() throws IOException, MalformedObjectNameException {
-//        //To change body of implemented methods use File | Settings | File Templates.
-//    }
-
-    public void displayStatus() throws Exception {
-        System.out.println(getArtifactManager().getStatus());
-    }
 
     // Artifact ***************************************************************
 
-    public void listAllArtifacts() throws IOException, MalformedObjectNameException, InstanceNotFoundException {
+    public void listAllArtifacts() {
 
         List<Artifact> artifacts = getArtifactManager().getAll();
 
         for (Artifact artifact : artifacts) {
-            System.out.println(artifact);
+            Main.out.println(artifact);
         }
     }
 
-    public void showArtifact(Long id) throws IOException, MalformedObjectNameException, InstanceNotFoundException {
+    public void showArtifact(Long id) {
 
         Artifact artifact = getArtifactManager().get(id);
         if (artifact != null) {
-            System.out.println(artifact);
+            Main.out.println(artifact);
         } else {
-            System.out.println("Artifact not found");
+            Main.out.println("Artifact not found");
         }
     }
 
-    private void createArtifact(File file) throws IOException, AppException, MalformedObjectNameException, InstanceNotFoundException {
+    private void createArtifact(File file) {
 
-        System.out.println("Creating artifact " + file.getName());
+        Main.logger.info("Creating artifact " + file.getName());
 
-        FileInputStream fis = new FileInputStream(file);
+        try {
+            FileInputStream fis = new FileInputStream(file);
 
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        byte[] buf = new byte[1024];
-        for (int readNum; (readNum = fis.read(buf)) != -1;) {
-            bos.write(buf, 0, readNum);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                bos.write(buf, 0, readNum);
+            }
+
+            getArtifactManager().create(file.getName(), bos.toByteArray());
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(MessageFormat.format(Main.bundle.getString("error.access.read"), file.getAbsolutePath()), e);
+        } catch (IOException e) {
+            throw new RuntimeException(MessageFormat.format(Main.bundle.getString("error.access.read"), file.getAbsolutePath()), e);
         }
-
-        getArtifactManager().create(file.getName(), bos.toByteArray());
     }
 
-    public void createArtifact(String path) throws Exception {
+    public void createArtifact(String path) {
 
         File file = new File(path);
         if (file == null || !file.exists() || !file.canRead()) {
-            throw new Exception("cli.error.cannot_read_file");
+            throw new RuntimeException(MessageFormat.format(Main.bundle.getString("error.access.read"), path));
         }
 
         if (file.isFile()) {
             createArtifact(file);
         } else {
-            System.out.print("Scanning for files in " + path + ".");
+            Main.logger.info("Scanning for files in " + path + ".");
             List<File> files = getFilesOfExtension(file, "war");
-            System.out.println(" Found " + files.size());
+            Main.logger.info(" Found " + files.size());
             for (File f : files) {
                 try {
                     createArtifact(f);
 
-                    // TODO Ugly! Do something prettier
-                } catch (Exception e) {
-                    System.err.println(e.getMessage());
+                } catch (RuntimeException e) {
+                    Main.err.println(e);
+                    Main.logger.logException(e);
                     // On error, continue with other elements creation
                 }
-
             }
         }
     }
 
-    private List<File> getFilesOfExtension(File dir, String extension) throws Exception {
+    private List<File> getFilesOfExtension(File dir, String extension) {
 
         List<File> resultList = new ArrayList<File>();
         final String fullExtension = "." + extension;
@@ -174,50 +198,51 @@ public class DiosMioJmxCli implements DiosMioCli {
         return resultList;
     }
 
-    public void deleteArtifact(Long id) throws Exception, MalformedObjectNameException, InstanceNotFoundException {
+    public void deleteArtifact(Long id) {
 
         Artifact artifact = getArtifactManager().get(id);
 
         if (artifact == null) {
-            System.out.println("Cannot find artifact");
+            // TODO create and use a "consoleWriter" -> reuse KissLogger?
+            Main.out.println("Cannot find artifact");
         } else {
             artifactManager.delete(artifact);
-            System.out.println("Artifact deleted");
+            Main.out.println("Artifact deleted");
         }
     }
 
 
     // Configuration **********************************************************
 
-    public void createConfiguration(String hostname, String sshPort, String sshUser) throws MalformedObjectNameException, InstanceNotFoundException, IOException {
+    public void createConfiguration(String hostname, String sshPort, String sshUser) {
 
         HostConfig hostConfig = new HostConfig(hostname, sshPort, sshUser);
-
         getConfigDao().create(hostConfig);
     }
 
-    public void readConfiguration(Long id) throws MalformedObjectNameException, InstanceNotFoundException, IOException {
+    public void readConfiguration(Long id) {
+
         HostConfig hostConfig = getConfigDao().read(id);
-        System.out.println(hostConfig);
+        Main.out.println(hostConfig);
     }
 
-    public void listAllConfigurations() throws MalformedObjectNameException, InstanceNotFoundException, IOException {
+    public void listAllConfigurations() {
 
         List<Configuration> configurations = getConfigDao().readAll();
 
         for (Configuration configuration : configurations) {
-            System.out.println(((HostConfig)configuration).toString());
+            Main.out.println(((HostConfig)configuration).toString());
         }
     }
 
 
     // Automatic loading ******************************************************
 
-    public void loadFile(String filePath) throws Exception {
+    public void loadFile(String filePath) {
 
         File file = new File(filePath);
         if (file == null || !file.canRead()) {
-            throw new Exception("cli.error.cannot_read_file");
+            throw new RuntimeException(MessageFormat.format(appMessages.get("cli.error.cannot_read_file"), filePath));
         }
 
         List<Artifact> artifacts = new ArrayList<Artifact>();
@@ -227,30 +252,36 @@ public class DiosMioJmxCli implements DiosMioCli {
 //        }
     }
 
-    public void parseFile(String filePath) throws Exception {
+    public void parseFile(String filePath) {
 
         File file = new File(filePath);
         if (file == null || !file.canRead()) {
-            throw new Exception("cli.error.cannot_read_file");
+            throw new RuntimeException(MessageFormat.format(appMessages.get("cli.error.cannot_read_file"), filePath));
         }
 
         List<Artifact> artifacts = new ArrayList<Artifact>();
         parseFile(file, artifacts);
-        System.out.println("Found " + artifacts.size() + " artifacts");
+        Main.out.println("Found " + artifacts.size() + " artifacts");
     }
 
-    private void parseFile(File file, List<Artifact> artifacts) throws IOException, ParseException {
+    private void parseFile(File file, List<Artifact> artifacts) {
 
-        JSONParser parser = new JSONParser();
-        JSONObject jsonObject = (JSONObject) parser.parse(new FileReader(file));
+        try {
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(new FileReader(file));
 
-        if (jsonObject.containsKey(JSON_TAG_ARTIFACTS)) {
-            JSONArray jsonArray = (JSONArray) jsonObject.get(JSON_TAG_ARTIFACTS);
+            if (jsonObject.containsKey(JSON_TAG_ARTIFACTS)) {
+                JSONArray jsonArray = (JSONArray) jsonObject.get(JSON_TAG_ARTIFACTS);
 
-            Iterator<JSONObject> iterator = jsonArray.iterator();
-            while (iterator.hasNext()) {
-                artifacts.add(new Artifact(iterator.next()));
+                Iterator<JSONObject> iterator = jsonArray.iterator();
+                while (iterator.hasNext()) {
+                    artifacts.add(new Artifact(iterator.next()));
+                }
             }
+        } catch (IOException e) {
+            throw new RuntimeException(MessageFormat.format(appMessages.get("cli.error.cannot_read_file"), file.getAbsolutePath()));
+        } catch (ParseException e) {
+            throw new RuntimeException(MessageFormat.format(appMessages.get("error.json.parse"), file.getAbsolutePath()));
         }
     }
 }

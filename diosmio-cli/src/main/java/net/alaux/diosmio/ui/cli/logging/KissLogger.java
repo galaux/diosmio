@@ -54,6 +54,12 @@ public class KissLogger {
     }
 
 
+//    private static final KissLogger instance = new KissLogger(Level.ERROR);
+//
+//    public static KissLogger getInstance() {
+//        return instance;
+//    }
+
     /** Temporary OutputStream to hold data while definitive destination is not yet known */
     private ByteArrayOutputStream tempOutputStream = null;
     /** PrintStream to which logs are written */
@@ -118,7 +124,7 @@ public class KissLogger {
      *
      * @param e    the exception that owns the stack trace to print
      */
-    public void error(Exception e) {
+    public void logException(Exception e) {
         error("The following exception was thrown:");
         e.printStackTrace(this.printStream);
     }

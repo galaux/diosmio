@@ -1,4 +1,4 @@
-package net.alaux.diosmio.services;
+package net.alaux.utils;
 
 import org.springframework.context.MessageSource;
 
@@ -6,18 +6,15 @@ import java.util.Arrays;
 import java.util.Locale;
 
 /**
- * Created with IntelliJ IDEA.
- * User: miguel
+ * @author Guillaume ALAUX <guillaume at alaux dot net>
  * Date: 8/4/12
- * Time: 11:46 AM
- * To change this template use File | Settings | File Templates.
  */
 public class AppMessages {
 
-    // Injected in applicationContext.xml to prevent it from beeing used elsewhere
+    // Injected in applicationContext.xml to prevent it from being used elsewhere
     private MessageSource messageSource;
 
-    private Locale usedLocale = Locale.getDefault();
+    private static Locale usedLocale = Locale.getDefault();
 
     public MessageSource getMessageSource() {
         return messageSource;
@@ -26,7 +23,6 @@ public class AppMessages {
     public void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
-
 
     public String get(String key, String... args) {
         return messageSource.getMessage(key,

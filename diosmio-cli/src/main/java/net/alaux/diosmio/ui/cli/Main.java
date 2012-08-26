@@ -11,9 +11,10 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.Tree;
 import org.apache.commons.cli.*;
 
-import javax.management.InstanceNotFoundException;
 import java.io.*;
+import java.text.MessageFormat;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 /**
  * Created with IntelliJ IDEA.
@@ -40,12 +41,9 @@ public class Main {
     public static final String OPT_TECH_CONFIG_FILE = "c";
     public static final String OPT_TECH_CONFIG_FILE_L = "conf";
 
-    // TODO Get this value from config file
-    private static final String DEFAULT_LOG_PATH = "/tmp/diosmio-cli.log";
-
+//    private static final String DEFAULT_LOG_PATH = "/tmp/diosmio-cli.log";
 
     private static final String DEFAULT_CONF_PATH = "diosmio-cli.conf";
-    private static String configFilePath;
 
     public static final String PROMPT = "DiosMioCLI> ";
 
@@ -62,18 +60,21 @@ public class Main {
                     "\tdelete [ artifact | config ] id" + LINE_SEP +
                     "\t\tdelete specified element";
 
-    public static final String ELEMENT_CONFIG = "config";
-    public static final String ELEMENT_ARTIFACT = "artifact";
 
-    public static KissLogger logger;
     public static final KissLogger.Level CLI_DEFAULT_LEVEL = KissLogger.Level.DEBUG;
+    public static final KissLogger logger = new KissLogger(CLI_DEFAULT_LEVEL);
+
+    public static final ResourceBundle bundle = ResourceBundle.getBundle("messages/messages");
+
+    public static final PrintWriter out = new PrintWriter(System.out, true);
+    // For now let's write error output to regular "out" output. Later, TODO think about a colorized err output?
+    public static final PrintWriter err = out;
 
     /**
      *
      */
     public Main(String[] args) {
 
-        logger = new KissLogger(CLI_DEFAULT_LEVEL);
         logger.info(APP_NAME + " v" + APP_VERSION);
 
         try {
@@ -96,9 +97,9 @@ public class Main {
                 System.exit(0);
             }
 
-            Properties properties = getApplicationProperties(cmd, DEFAULT_CONF_PATH);
+            Properties properties = getCliProperties(cmd, DEFAULT_CONF_PATH);
 
-            updateLogger(logger, properties, cmd);
+            updateCliLogger(logger, properties, cmd);
 
             DiosMioJmxCli diosMioConnectedCli = new DiosMioJmxCli(properties.getProperty("server.rmi.url"),
                     properties.getProperty("server.rmi.domain_name"));
@@ -111,32 +112,31 @@ public class Main {
             reader.addCompletor(getCompletor());
 
             String line;
-            PrintWriter out = new PrintWriter(System.out);
             out.println(APP_NAME + " v" + APP_VERSION);
             out.flush();
 
             while((line = reader.readLine(PROMPT)) != null) {
-//                try {
-                if (line.equalsIgnoreCase("quit") || line.equalsIgnoreCase("exit")) {
-                    break;
+                try {
+                    if (line.equalsIgnoreCase("quit") || line.equalsIgnoreCase("exit")) {
+                        break;
+                    }
+
+                    handleQuery(line, diosMioConnectedCli);
+                    out.flush();
+
+                } catch (RuntimeException e) {
+                    out.println(e.getMessage());
+                    logger.logException(e);
+                    // On error, continue...
                 }
-
-                handleQuery(line, diosMioConnectedCli);
-                out.flush();
-
-//                } catch (Exception e) {
-//                    System.err.println(e.getMessage());
-//                    logger.error(e.getCause().toString());
-//                    // On error, continue...
-//                }
             }
 
             diosMioConnectedCli.close();
 
         } catch (Exception e) {
-            System.err.println("A fatal error occurred: " + e.getMessage());
-            System.err.println("See the logs for more detail.");
-            logger.error(e);
+            Main.err.println("A fatal error occurred: " + e);
+            Main.err.println("See the logs for more detail.");
+            logger.logException(e);
 
         } finally {
             logger.info("Done.\n");
@@ -145,30 +145,28 @@ public class Main {
 
     }
 
-    public void handleQuery(String query, DiosMioCli diosMioCli) throws Exception, InstanceNotFoundException {
+    public void handleQuery(String query, DiosMioCli diosMioCli) {
 
-        Tree tree = null;
+        Tree tree;
 
-        // TODO let this Exception go up
+        logger.debug("Creating ANTLRStringStream");
+        ANTLRStringStream input = new ANTLRStringStream(query);
+
+        logger.debug("Creating lexer");
+        DiosMioCliLexer lexer = new DiosMioCliLexer(input);
+
+        logger.debug("Creating token");
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+        logger.debug("Creating parser");
+        DiosMioCliParser parser = new DiosMioCliParser(tokens);
+
+        logger.debug("Getting tree");
+        // start parsing...
         try {
-            logger.debug("Creating ANTLRStringStream");
-            ANTLRStringStream input = new ANTLRStringStream(query);
-
-            logger.debug("Creating lexer");
-            DiosMioCliLexer lexer = new DiosMioCliLexer(input);
-
-            logger.debug("Creating token");
-            CommonTokenStream tokens = new CommonTokenStream(lexer);
-
-            logger.debug("Creating parser");
-            DiosMioCliParser parser = new DiosMioCliParser(tokens);
-
-            logger.debug("Getting tree");
-            // start parsing...
             tree = (Tree)(parser.parse().getTree());
-
-        } catch(RecognitionException e) {
-            System.out.println("Invalid query");
+        } catch (RecognitionException e) {
+            throw new RuntimeException(bundle.getString("error.antlr.parse"), e);
         }
 
         if (tree != null) {
@@ -176,7 +174,7 @@ public class Main {
             // TODO use business exception in 'throws'
             switch (tree.getType()) {
                 case DiosMioCliParser.CMD_HELP:
-                    System.out.println(usage);
+                    out.println(usage);
                     break;
 
                 // Artifact ***************************************************
@@ -215,31 +213,18 @@ public class Main {
 
                 // Misc *******************************************************
                 case DiosMioCliParser.CMD_LOAD:
-                    loadFile(diosMioCli, tree.getChild(0).toString());
+                    diosMioCli.loadFile(tree.getChild(0).toString());
                     break;
 
                 case DiosMioCliParser.CMD_PARSE:
-                    parseFile(diosMioCli, tree.getChild(0).toString());
+                    diosMioCli.parseFile(tree.getChild(0).toString());
                     break;
 
                 case DiosMioCliParser.CMD_NO_OP:
                     // Nothing to do
                     break;
-
-                default:
-                    // TODO throw exception?
-                    System.out.println("Unknown action: " + tree.getType());
-                    break;
             }
         }
-    }
-
-    private void loadFile(DiosMioCli diosMioCli, String filepath) throws Exception {
-        diosMioCli.loadFile(filepath);
-    }
-
-    private void parseFile(DiosMioCli diosMioCli, String filepath) throws Exception {
-        diosMioCli.parseFile(filepath);
     }
 
     private Completor getCompletor() {
@@ -280,14 +265,9 @@ public class Main {
         return rootCompletor;
     }
 
-    /**
-     *
-     * @param defaultFilePath
-     * @return
-     * @throws java.io.IOException
-     * @throws Exception
-     */
-    public Properties getApplicationProperties(CommandLine cmd, String defaultFilePath) throws IOException, Exception {
+
+    // TODO This method is too complicated (too many if, try, then, else, etc). Clean it
+    public Properties getCliProperties(CommandLine cmd, String defaultFilePath) {
 
         logger.info("Retrieving properties");
 
@@ -297,9 +277,15 @@ public class Main {
             File f = new File(cmd.getOptionValue(OPT_TECH_CONFIG_FILE));
             if (f.exists() && f.canRead()) {
                 logger.info("Using argument provided configuration file '" + f.getAbsolutePath() + "'");
-                is = new FileInputStream(f);
+                try {
+                    is = new FileInputStream(f);
+                } catch (FileNotFoundException e) {
+                    Main.err.println(MessageFormat.format(bundle.getString("error.access.read.argument"), cmd.getOptionValue(OPT_TECH_CONFIG_FILE)));
+                    logger.error("Cannot access argument specified configuration file '" + cmd.getOptionValue(OPT_TECH_CONFIG_FILE) + "'");
+                }
             } else {
-                logger.error("Cannot access argument specified configuration file '" + f.getAbsolutePath() + "'");
+                Main.err.println(MessageFormat.format(bundle.getString("error.access.read.argument"), cmd.getOptionValue(OPT_TECH_CONFIG_FILE)));
+                logger.error("Cannot access argument specified configuration file '" + cmd.getOptionValue(OPT_TECH_CONFIG_FILE) + "'");
             }
         }
 
@@ -310,13 +296,19 @@ public class Main {
 
         if (is == null) {
             // TODO Handle this properly
-            throw new Exception("cli.no_config_file");
+            throw new Error(bundle.getString("error.no_config_file"));
         }
 
         Properties res =  new Properties();
-        res.load(is);
+        try {
+            res.load(is);
+        } catch (IOException e) {
+            throw new Error(bundle.getString("error.no_config_file"));
+        }
+
         return res;
     }
+
 
     private Options createOptions() {
 
@@ -347,7 +339,7 @@ public class Main {
         return  opt;
     }
 
-    private void updateLogger(KissLogger targetLogger, Properties properties, CommandLine cmd) {
+    private void updateCliLogger(KissLogger targetLogger, Properties properties, CommandLine cmd) {
 
         // TODO handle this in a more simple manner: one try catch?
 
@@ -360,10 +352,12 @@ public class Main {
             logFile = new File(cmd.getOptionValue(OPT_TECH_LOG_FILE));
             if (logFile == null) {
                 // TODO Should be checked earlier (see #ABC)
-                logger.error("Bad file specified as argument for log file");
+                err.println(MessageFormat.format(bundle.getString("error.access.write.argument"), cmd.getOptionValue(OPT_TECH_LOG_FILE)));
+                logger.error("Cannot write to argument specified log file '" + cmd.getOptionValue(OPT_TECH_LOG_FILE) + "'");
             } else {
                 if (logFile.exists() && !logFile.canWrite()) {
-                    logger.error("Cannot write to argument specified log file '" + "logFile.getAbsolutePath()" + "'");
+                    err.println(MessageFormat.format(bundle.getString("error.access.write.argument"), logFile.getAbsolutePath()));
+                    logger.error("Cannot write to argument specified log file '" + logFile.getAbsolutePath() + "'");
                     logFile = null;
                 } else {
                     logger.info("Found the following log file path given by argument '" + logFile.getAbsolutePath() + "'");
@@ -375,6 +369,7 @@ public class Main {
         if (logFile == null) {
             String filePath = properties.getProperty("log.file");
             if (filePath == null) {
+                err.println(bundle.getString("error.config.no_logfile"));
                 logger.error("Cannot find any log file path in config file");
                 logFile = null;
             } else {
@@ -382,7 +377,8 @@ public class Main {
                 if ((logFile == null) ||
                         (logFile.exists() && !logFile.canWrite()) ||
                         (!logFile.exists() && !logFile.getParentFile().canWrite())) {
-                    logger.error("Cannot write to config specified log file '" + logFile.getAbsolutePath() + "'");
+                    err.println(MessageFormat.format(bundle.getString("error.access.write"), filePath));
+                    logger.error("Cannot write to config specified log file '" + filePath + "'");
                     logFile = null;
                 } else {
                     logger.info("Found the following log file path given in config file '" + logFile.getAbsolutePath() + "'");
@@ -397,10 +393,12 @@ public class Main {
             if (printStream != null && !printStream.checkError() && targetLogger.switchDestination(printStream)) {
                 logger.info("Switched log destination to " + logFile.getAbsolutePath());
             } else {
+                err.println(MessageFormat.format(bundle.getString("error.access.write"), logFile));
+                out.println(bundle.getString("info.logging_to_default"));
                 logger.error("Still using console as error output. You should fix your config.");
             }
         } catch (FileNotFoundException e) {
-             // Nothing to do
+            // Nothing to do
         }
 
         // Now let's see if user provided arguments about the log level
@@ -409,6 +407,7 @@ public class Main {
         if (cmd.hasOption(OPT_TECH_LOG)) {
             logLevel = KissLogger.Level.getLevel(cmd.getOptionValue(OPT_TECH_LOG));
             if (logLevel == null) {
+                err.println(MessageFormat.format(bundle.getString("error.config.incorrect_log_level"), cmd.getOptionValue(OPT_TECH_LOG)));
                 logger.error("Incorrect log level specified as argument: '" + cmd.getOptionValue(OPT_TECH_LOG) + "'");
             } else {
                 logger.info("Found the following log level passed as argument '" + logLevel.name() + "'");
@@ -420,6 +419,7 @@ public class Main {
             logLevel = KissLogger.Level.getLevel(properties.getProperty("log.level"));
 
             if (logLevel == null) {
+                err.println(bundle.getString("error.config.no_log_level"));
                 logger.error("No valid log level specified in config file.");
             } else {
                 logger.info("Found the following log level in config file '" + logLevel.name() + "'");
@@ -427,16 +427,11 @@ public class Main {
         }
 
         if (logLevel != null) {
-            logger.info("Switching log level to " + logLevel);
+            logger.info("Switching log level from " + logger.getLevel() + " to " + logLevel);
             logger.setLevel(logLevel);
         }
     }
 
-    /**
-     *
-     * @param args
-     * @throws Exception
-     */
     public static void main(String[] args) {
 
         Main main = new Main(args);

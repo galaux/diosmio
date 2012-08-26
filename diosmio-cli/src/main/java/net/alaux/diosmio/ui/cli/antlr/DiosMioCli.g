@@ -25,16 +25,22 @@ tokens {
 
 @header {
 package net.alaux.diosmio.ui.cli.antlr;
+
+import net.alaux.diosmio.ui.cli.Main;
+import java.text.MessageFormat;
 }
 
 @lexer::header {
 package net.alaux.diosmio.ui.cli.antlr;
+
+import net.alaux.diosmio.ui.cli.Main;
+import java.text.MessageFormat;
 }
 
 @parser::members
 {
     public void reportError(RecognitionException e) {
-        String errorMessage = "Syntax error at position " + e.charPositionInLine + ": " + this.getErrorMessage(e, this.getTokenNames());
+        String errorMessage = MessageFormat.format(Main.bundle.getString("error.syntax"), e.charPositionInLine, this.getErrorMessage(e, this.getTokenNames()));
         throw new RuntimeException(errorMessage);
     }
 }
@@ -42,10 +48,11 @@ package net.alaux.diosmio.ui.cli.antlr;
 @lexer::members
 {
     public void reportError(RecognitionException e) {
-        String errorMessage = "Syntax error at position " + e.charPositionInLine + ": " + this.getErrorMessage(e, this.getTokenNames());
+        String errorMessage = MessageFormat.format(Main.bundle.getString("error.syntax"), e.charPositionInLine, this.getErrorMessage(e, this.getTokenNames()));
         throw new RuntimeException(errorMessage);
     }
 }
+
 
 /* ***************************************************************** *
  *                          PARSER RULES                             *

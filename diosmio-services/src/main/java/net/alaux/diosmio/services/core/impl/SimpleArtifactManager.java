@@ -1,16 +1,14 @@
 package net.alaux.diosmio.services.core.impl;
 
-import net.alaux.diosmio.services.AppMessages;
 import net.alaux.diosmio.services.core.ArtifactManager;
 import net.alaux.diosmio.services.dao.db.impl.ArtifactDao;
 import net.alaux.diosmio.services.dao.file.FileDao;
 import net.alaux.diosmio.services.entity.Artifact;
-import net.alaux.utils.AppException;
+import net.alaux.utils.AppMessages;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -26,28 +24,14 @@ public class SimpleArtifactManager implements ArtifactManager {
     private FileDao fileDao;
 
     @Autowired
-    private AppMessages diosMioMessage;
+    private AppMessages appMessages;
 
     public static final String FILE_SEPARATOR   = System.getProperty("file.separator");
 
     public Log logger = LogFactory.getLog(SimpleArtifactManager.class);
 
-    public boolean getStatus() {
-        return (artifactDao != null)
-                && (artifactDao.getStatus())
-                && (fileDao != null)
-                && (fileDao.getStatus());
-    }
+    public Artifact create(String name, byte[] content) {
 
-    public boolean getDbDaoStatus() {
-        return artifactDao.getStatus();
-    }
-
-    public boolean getFileDaoStatus() {
-        return fileDao.getStatus();
-    }
-
-    public Artifact create(String name, byte[] content) throws AppException, IOException {
         logger.info("create()");
 
         /*
@@ -72,7 +56,7 @@ public class SimpleArtifactManager implements ArtifactManager {
         return artifactDao.getAll();
     }
 
-    public void delete(Artifact artifact) throws AppException {
+    public void delete(Artifact artifact) {
         logger.info("delete()");
         fileDao.delete(artifact);
         artifactDao.delete(artifact);

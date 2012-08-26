@@ -1,10 +1,9 @@
 package net.alaux.diosmio.services.dao.file.impl;
 
 
-import net.alaux.diosmio.services.AppMessages;
 import net.alaux.diosmio.services.dao.file.FileDao;
 import net.alaux.diosmio.services.entity.Artifact;
-import net.alaux.utils.AppException;
+import net.alaux.utils.AppMessages;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class SimpleFileDao implements FileDao {
     public Log logger = LogFactory.getLog(SimpleFileDao.class);
 
     @Autowired
-    private AppMessages diosMioMessage;
+    private AppMessages appMessages;
 
     public static final String FILE_SEPARATOR   = System.getProperty("file.separator");
 
@@ -35,48 +34,40 @@ public class SimpleFileDao implements FileDao {
     }
 
     @PostConstruct
-    public void init() throws AppException {
+    public void init() {
 
         storageDirectory = new File(storageDirPath);
         if (storageDirectory == null
                 || !storageDirectory.exists()
                 || !storageDirectory.canRead()
                 || !storageDirectory.isDirectory()) {
-            throw new AppException(
-                    diosMioMessage.get("error.storage_dir_not_accessible", storageDirPath)
+            throw new RuntimeException(
+                    appMessages.get("error.storage_dir_not_accessible", storageDirPath)
             );
         }
     }
 
-    public boolean getStatus() {
-        return (storageDirectory != null) && (storageDirectory.exists()) && (storageDirectory.canRead())
-                && (storageDirectory.isDirectory());
-    }
-
-    /**
-     *
-     * @param artifact
-     * @param content
-     * @throws net.alaux.utils.AppException
-     * @throws IOException
-     */
-    public void create(Artifact artifact, byte[] content) throws AppException, IOException {
+    public void create(Artifact artifact, byte[] content) {
 
         File file = new File(getInnerPathName(artifact));
 
         if (file == null || file.exists()) {
-            throw new AppException(
-                    diosMioMessage.get("error.file_already_exists", getInnerPathName(artifact))
+            throw new RuntimeException(
+                    appMessages.get("error.file_already_exists", getInnerPathName(artifact))
             );
         }
 
-        // TODO handle internPath = dir + filename
-        FileOutputStream fos = new FileOutputStream(file);
         try {
-            fos.write(content);
-        } finally {
-            fos.flush();
-            fos.close();
+            // TODO handle internPath = dir + filename
+            FileOutputStream fos = new FileOutputStream(file);
+            try {
+                fos.write(content);
+            } finally {
+                fos.flush();
+                fos.close();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -84,13 +75,13 @@ public class SimpleFileDao implements FileDao {
         return new File(getInnerPathName(artifact));
     }
 
-    public boolean delete(Artifact artifact) throws AppException {
+    public boolean delete(Artifact artifact) {
 
         File file = new File(getInnerPathName(artifact));
 
         if (file == null || !file.exists() || !file.canWrite()) {
-            throw new AppException(
-                    diosMioMessage.get("error.file_not_readable", getInnerPathName(artifact))
+            throw new RuntimeException(
+                    appMessages.get("error.file_not_readable", getInnerPathName(artifact))
             );
         }
 
