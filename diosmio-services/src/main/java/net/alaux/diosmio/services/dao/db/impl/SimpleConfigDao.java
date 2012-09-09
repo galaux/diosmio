@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public class SimpleConfigDao implements ConfigDao {
 
     public Log logger = LogFactory.getLog(SimpleConfigDao.class);
 
-    public void create(HostConfig hostConfig) {
+    public void create(HostConfig hostConfig) throws RemoteException {
         logger.info("create(HostConfig)");
 
         Session session = sessionFactory.openSession();
@@ -31,7 +32,7 @@ public class SimpleConfigDao implements ConfigDao {
         session.close();
     }
 
-    public HostConfig read(Long id) {
+    public HostConfig read(Long id) throws RemoteException {
         logger.info("read(HostConfig, " + id + ")");
 
         Session session = sessionFactory.openSession();
@@ -43,7 +44,7 @@ public class SimpleConfigDao implements ConfigDao {
         return hostConfig;
     }
 
-    public List<HostConfig> readAll() {
+    public List<HostConfig> readAll() throws RemoteException {
         logger.info("getAll()");
 
         Session session = sessionFactory.openSession();
@@ -55,12 +56,12 @@ public class SimpleConfigDao implements ConfigDao {
         return result;
     }
 
-    public void update(HostConfig hostConfig) {
+    public void update(HostConfig hostConfig) throws RemoteException {
         logger.info("update(HostConfig) - NOT IMPLEMENTED");
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public void delete(HostConfig hostConfig) {
+    public void delete(HostConfig hostConfig) throws RemoteException {
         logger.info("delete() - NOT IMPLEMENTED");
         //To change body of implemented methods use File | Settings | File Templates.
     }

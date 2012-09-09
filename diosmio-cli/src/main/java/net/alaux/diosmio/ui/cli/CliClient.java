@@ -10,6 +10,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.rmi.RemoteException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +36,13 @@ public abstract class CliClient {
 
     public void listAllArtifacts() {
 
-        List<Artifact> artifacts = getArtifactManager().getAll();
+        List<Artifact> artifacts = null;
+        try {
+            artifacts = getArtifactManager().getAll();
+        } catch (RemoteException e) {
+            // TODO add error message
+            throw new RuntimeException(e);
+        }
 
         for (Artifact artifact : artifacts) {
             Main.out.println(artifact);
@@ -44,7 +51,13 @@ public abstract class CliClient {
 
     public void showArtifact(Long id) {
 
-        Artifact artifact = getArtifactManager().get(id);
+        Artifact artifact = null;
+        try {
+            artifact = getArtifactManager().get(id);
+        } catch (RemoteException e) {
+            // TODO add error message
+            throw new RuntimeException(e);
+        }
         if (artifact != null) {
             Main.out.println(artifact);
         } else {
@@ -132,13 +145,21 @@ public abstract class CliClient {
 
     public void deleteArtifact(Long id) {
 
-        Artifact artifact = getArtifactManager().get(id);
+        Artifact artifact = null;
+        try {
+            artifact = getArtifactManager().get(id);
 
-        if (artifact == null) {
-            Main.out.println(Main.bundle.getString("info.artifact.not_found"));
-        } else {
-            artifactManager.delete(artifact);
-            Main.out.println(Main.bundle.getString("info.artifact.deleted"));
+            if (artifact == null) {
+                Main.out.println(Main.bundle.getString("info.artifact.not_found"));
+            } else {
+                artifactManager.delete(artifact);
+
+                Main.out.println(Main.bundle.getString("info.artifact.deleted"));
+            }
+
+        } catch (RemoteException e) {
+            // TODO add error message
+            throw new RuntimeException(e);
         }
     }
 
@@ -146,20 +167,37 @@ public abstract class CliClient {
     // Configuration **********************************************************
 
     public void createConfiguration(String hostname, String sshPort, String sshUser) {
-        getConfigDao().create(new HostConfig(hostname, sshPort, sshUser));
+        try {
+            getConfigDao().create(new HostConfig(hostname, sshPort, sshUser));
+        } catch (RemoteException e) {
+            // TODO add error message
+            throw new RuntimeException(e);
+        }
     }
 
     public void readConfiguration(Long id) {
         Main.logger.info("readConfiguration(" + id + ")");
-        Main.out.println(getConfigDao().read(id));
+        try {
+            Main.out.println(getConfigDao().read(id));
+        } catch (RemoteException e) {
+            // TODO add error message
+            throw new RuntimeException(e);
+        }
     }
 
     public void listAllConfigurations() {
-        Main.logger.info("listAllConfigurations()");
-        List<HostConfig> hostConfigs = getConfigDao().readAll();
 
-        for (HostConfig hostConfig : hostConfigs) {
-            Main.out.println((hostConfig).toString());
+        Main.logger.info("listAllConfigurations()");
+        List<HostConfig> hostConfigs = null;
+        try {
+            hostConfigs = getConfigDao().readAll();
+
+            for (HostConfig hostConfig : hostConfigs) {
+                Main.out.println((hostConfig).toString());
+            }
+        } catch (RemoteException e) {
+            // TODO add error message
+            throw new RuntimeException(e);
         }
     }
 
@@ -177,7 +215,12 @@ public abstract class CliClient {
         List<HostConfig> hostConfigs = new ArrayList<HostConfig>();
         parseFile(file, artifacts, hostConfigs);
         for (HostConfig hostConfig : hostConfigs) {
-            getConfigDao().create(hostConfig);
+            try {
+                getConfigDao().create(hostConfig);
+            } catch (RemoteException e) {
+                // TOOD add error message
+                throw new RuntimeException(e);
+            }
         }
         Main.out.println("Not yet persisting Artifacts. TODO?");
     }

@@ -5,6 +5,7 @@ DM_VERSION=1.0-SNAPSHOT
 # Dirs
 REL_SCRIPT_DIR=$(dirname $0)
 ABS_LIB_DIR=${PWD}/${REL_SCRIPT_DIR}/../lib
+ABS_POLICY_DIR=${PWD}/${REL_SCRIPT_DIR}
 
 # External libs
 COMMONS_CLI_JAR=${ABS_LIB_DIR}/commons-cli-1.2.jar
@@ -15,11 +16,17 @@ COMMONS_LOGGING_JAR=${ABS_LIB_DIR}/commons-logging-1.1.1.jar
 
 EXT_LIBS=${COMMONS_CLI_JAR}:${JLINE_JAR}:${ANTLR_JAR}:${JSON_SIMPLE_JAR}:${COMMONS_LOGGING_JAR}
 
-# Internal libs
-DM_SERVICES_JAR=${ABS_LIB_DIR}/diosmio-services-${DM_VERSION}.jar
-DM_SERVER_COMMON_JAR=${ABS_LIB_DIR}/diosmio-server-common-${DM_VERSION}.jar
-DM_CLI_JAR=${ABS_LIB_DIR}/diosmio-cli-${DM_VERSION}.jar
+# Application libs
+APP_SERVICES_JAR=${ABS_LIB_DIR}/diosmio-services-${DM_VERSION}.jar
+APP_SERVER_COMMON_JAR=${ABS_LIB_DIR}/diosmio-server-common-${DM_VERSION}.jar
+APP_CLI_JAR=${ABS_LIB_DIR}/diosmio-cli-${DM_VERSION}.jar
 
+APP_LIBS=${APP_SERVICES_JAR}:${APP_SERVER_COMMON_JAR}:${APP_CLI_JAR}
+
+# Main CLI class
 DM_CLI_MAIN=net.alaux.diosmio.ui.cli.Main
+APP_CONF_POLICY=${ABS_POLICY_DIR}/diosmio-cli.policy
 
-java -cp ${EXT_LIBS}:${DM_SERVICES_JAR}:${DM_SERVER_COMMON_JAR}:${DM_CLI_JAR} ${DM_CLI_MAIN} $@
+java -cp ${EXT_LIBS}:${APP_LIBS} \
+    -Djava.security.policy=${APP_CONF_POLICY} \
+    ${DM_CLI_MAIN} $@

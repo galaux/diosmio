@@ -9,6 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -30,7 +31,8 @@ public class SimpleArtifactManager implements ArtifactManager {
 
     public Log logger = LogFactory.getLog(SimpleArtifactManager.class);
 
-    public Artifact create(String name, byte[] content) {
+
+    public Artifact create(String name, byte[] content) throws RemoteException {
 
         logger.info("create()");
 
@@ -46,17 +48,17 @@ public class SimpleArtifactManager implements ArtifactManager {
         return artifact;
     }
 
-    public Artifact get(Long id) {
+    public Artifact get(Long id) throws RemoteException {
         logger.info("get()");
         return artifactDao.get(id);
     }
 
-    public List<Artifact> getAll() {
+    public List<Artifact> getAll() throws RemoteException {
         logger.info("getAll()");
         return artifactDao.getAll();
     }
 
-    public void delete(Artifact artifact) {
+    public void delete(Artifact artifact) throws RemoteException {
         logger.info("delete()");
         fileDao.delete(artifact);
         artifactDao.delete(artifact);

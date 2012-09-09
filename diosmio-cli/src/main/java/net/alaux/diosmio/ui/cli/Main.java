@@ -3,7 +3,7 @@ package net.alaux.diosmio.ui.cli;
 import jline.*;
 import net.alaux.diosmio.ui.cli.antlr.DiosMioCliLexer;
 import net.alaux.diosmio.ui.cli.antlr.DiosMioCliParser;
-import net.alaux.diosmio.ui.cli.jmx.CliJmxClient;
+import net.alaux.diosmio.ui.cli.jmx.CliRmiClient;
 import net.alaux.diosmio.ui.cli.logging.KissLogger;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -64,7 +64,7 @@ public class Main {
 
     public static final ResourceBundle bundle = ResourceBundle.getBundle("messages/messages");
 
-    public static final PrintWriter out = new PrintWriter(System.out, true);
+    public static PrintWriter out = new PrintWriter(System.out, true);
     // For now let's write error output to regular "out" output. Later, TODO think about a colorized err output?
     public static final PrintWriter err = out;
 
@@ -95,12 +95,20 @@ public class Main {
                 System.exit(0);
             }
 
+            // TODO Check all properties are here and consistent
             Properties properties = getCliProperties(cmd, DEFAULT_CONF_PATH);
 
             updateCliLogger(logger, properties, cmd);
 
-            CliClient client = new CliJmxClient(properties.getProperty("server.rmi.url"),
-                    properties.getProperty("server.rmi.domain_name"));
+//            CliClient client = new CliJmxClient(properties.getProperty("server.rmi.url"),
+//                    properties.getProperty("server.rmi.domain_name"));
+
+            // TODO Check we have these values in here
+            //String str = properties.getProperty("server.rmi.artifact_manager.port");
+            int artifactManagerRmiPort = 2001;
+            int configDaoRmiPort = 2002;
+            //int configDaoRmiPort =  Integer.getInteger(properties.getProperty("server.rmi.config_dao.port"));
+            CliClient client = new CliRmiClient(artifactManagerRmiPort, configDaoRmiPort);
 
             ConsoleReader reader = new ConsoleReader();
             reader.setBellEnabled(false);
