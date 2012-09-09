@@ -47,3 +47,6 @@ Jars needed to generate Antlr Parser and Compiler
 To see the content of the H2 database:
     java -jar ../tools/tomcat-7.0.28/lib/h2-1.3.168.jar
     Login with empty login and empty password
+
+
+diosmio-gwt is a GWT project for DiosMio
