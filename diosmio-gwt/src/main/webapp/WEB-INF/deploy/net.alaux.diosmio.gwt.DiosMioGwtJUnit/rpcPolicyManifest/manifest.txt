@@ -1,0 +1,2 @@
+# Module net.alaux.diosmio.gwt.DiosMioGwtJUnit
+# RPC service class, partial path of RPC policy file

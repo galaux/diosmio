@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='net.alaux.diosmio.gwt.DiosMioGwt' />
+
+  <!-- Specify the path to any remote services.                   -->
+  <servlet path="/DiosMioGwt/greet" class="net.alaux.diosmio.gwt.server.GreetingServiceImpl" />
+
+</module>

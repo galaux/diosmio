@@ -1,0 +1,24 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+	<g:HTMLPanel>
+		<h2>Artifact</h2>
+		<g:VerticalPanel>
+			<g:HorizontalPanel>
+				<g:Label>id:</g:Label>
+				<g:TextBox ui:field="textBoxId"></g:TextBox>
+			</g:HorizontalPanel>
+			<g:HorizontalPanel>
+				<g:Label>name:</g:Label>
+				<g:TextBox ui:field="textBoxName"></g:TextBox>
+			</g:HorizontalPanel>
+			<g:HorizontalPanel>
+				<g:Button ui:field="saveButton" text="Save"></g:Button>
+				<g:Button ui:field="deleteButton" text="Delete"></g:Button>
+				<g:Button ui:field="closeButton" text="Close"></g:Button>
+			</g:HorizontalPanel>
+		</g:VerticalPanel>
+	</g:HTMLPanel>
+
+</ui:UiBinder> 
