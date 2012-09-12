@@ -1,0 +1,21 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+	<ui:style>
+		
+	</ui:style>
+
+	<g:HTMLPanel>
+		<h2>Artifacts list</h2>
+		<g:VerticalPanel>
+			<g:FlexTable ui:field="artifactsTable"></g:FlexTable>
+			<g:HorizontalPanel>
+				<g:Button ui:field="delSelectedButton" text="Delete selected" />
+				<g:Button ui:field="addArtifactButton" text="Add" />
+			</g:HorizontalPanel>
+		</g:VerticalPanel>
+
+	</g:HTMLPanel>
+
+</ui:UiBinder> 

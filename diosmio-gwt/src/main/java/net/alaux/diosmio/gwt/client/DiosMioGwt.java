@@ -15,10 +15,10 @@ public class DiosMioGwt implements EntryPoint {
      */
     @Override
     public void onModuleLoad() {
-	ArtifactServiceAsync rpcService = GWT.create(ArtifactService.class);
+	ArtifactServiceAsync artifactService = GWT.create(ArtifactService.class);
 	HandlerManager eventBus = new HandlerManager(null);
-	AppController appViewer = new AppController(rpcService, eventBus);
-	appViewer.go(RootPanel.get());
+	AppController appappController = new AppController(artifactService, eventBus);
+	appappController.go(RootPanel.get());
     }
 
 }

@@ -55,4 +55,24 @@ public class ArtifactServiceImpl extends RemoteServiceServlet implements
 	return artifact;
     }
 
+    @Override
+    public List<Long> deleteArtifacts(List<Long> ids) {
+	List<Long> deletedIds = new ArrayList<Long>();
+	List<Artifact> oldArtifactList = new ArrayList<Artifact>(artifacts);
+
+	for (Artifact artifact : oldArtifactList) {
+	    if (ids.contains(artifact.getId())) {
+		artifacts.remove(artifact);
+		deletedIds.add(artifact.getId());
+	    }
+	}
+
+	return deletedIds;
+    }
+
+    @Override
+    public List<Artifact> getAllArtifacts() {
+	return new ArrayList<Artifact>(artifacts);
+    }
+
 }
