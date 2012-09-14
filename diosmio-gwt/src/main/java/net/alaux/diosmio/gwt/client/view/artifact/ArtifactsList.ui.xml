@@ -3,7 +3,6 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 
 	<ui:style>
-		
 	</ui:style>
 
 	<g:HTMLPanel>

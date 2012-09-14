@@ -1,9 +1,5 @@
 package net.alaux.diosmio.gwt.client;
 
-import java.util.List;
-
-import net.alaux.diosmio.gwt.client.common.ArtifactsColumnDefinitionsFactory;
-import net.alaux.diosmio.gwt.client.common.ColumnDefinition;
 import net.alaux.diosmio.gwt.client.event.artifact.AddArtifactEvent;
 import net.alaux.diosmio.gwt.client.event.artifact.AddArtifactEvent.AddArtifactHandler;
 import net.alaux.diosmio.gwt.client.event.artifact.ArtifactAddedEvent;
@@ -16,11 +12,8 @@ import net.alaux.diosmio.gwt.client.event.artifact.ArtifactUpdatedEvent;
 import net.alaux.diosmio.gwt.client.event.artifact.ArtifactUpdatedEvent.ArtifactUpdatedHandler;
 import net.alaux.diosmio.gwt.client.event.artifact.EditArtifactEvent;
 import net.alaux.diosmio.gwt.client.event.artifact.EditArtifactEvent.EditArtifactHandler;
+import net.alaux.diosmio.gwt.client.presenter.MainAppPresenter;
 import net.alaux.diosmio.gwt.client.presenter.PresenterOLD;
-import net.alaux.diosmio.gwt.client.presenter.artifact.ArtifactPresenter;
-import net.alaux.diosmio.gwt.client.presenter.artifact.ArtifactsListPresenter;
-import net.alaux.diosmio.gwt.client.view.artifact.ArtifactViewImpl;
-import net.alaux.diosmio.gwt.client.view.artifact.ArtifactsListImpl;
 import net.alaux.diosmio.gwt.shared.Artifact;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -36,6 +29,8 @@ public class AppController implements PresenterOLD, ValueChangeHandler<String> {
     private HasWidgets container;
     private final ArtifactServiceAsync service;
     private final ClientFactory clientFactory;
+
+    private MainAppPresenter mainAppPresenter;
 
     public AppController(ArtifactServiceAsync service,
 	    ClientFactory clientFactory) {
@@ -105,9 +100,7 @@ public class AppController implements PresenterOLD, ValueChangeHandler<String> {
 
     private void doOnEditArtifact(Long id) {
 	History.newItem("edit", false);
-	ArtifactPresenter presenter = new ArtifactPresenter(service,
-		new ArtifactViewImpl(), clientFactory.getEventBus(), id);
-	presenter.go(container);
+	mainAppPresenter.showArtifact(id);
     }
 
     private void doOnArtifactAdded() {
@@ -135,12 +128,15 @@ public class AppController implements PresenterOLD, ValueChangeHandler<String> {
     @Override
     public void go(final HasWidgets container) {
 	this.container = container;
-
-	if ("".equals(History.getToken())) {
-	    History.newItem("list");
-	} else {
-	    History.fireCurrentHistoryState();
-	}
+	mainAppPresenter = new MainAppPresenter(service,
+		clientFactory.getMainAppView(), clientFactory.getEventBus(),
+		clientFactory);
+	mainAppPresenter.go(container);
+	// if ("".equals(History.getToken())) {
+	// History.newItem("list");
+	// } else {
+	// History.fireCurrentHistoryState();
+	// }
     }
 
     @Override
@@ -151,19 +147,23 @@ public class AppController implements PresenterOLD, ValueChangeHandler<String> {
 	if (token != null) {
 
 	    if (token.equals("list")) {
-		List<ColumnDefinition<Artifact>> columns = ArtifactsColumnDefinitionsFactory
-			.getArtifactsListColumnDefinitions();
-		new ArtifactsListPresenter(service,
-			new ArtifactsListImpl<Artifact>(), columns,
-			clientFactory.getEventBus()).go(container);
+		// List<ColumnDefinition<Artifact>> columns =
+		// ArtifactsColumnDefinitionsFactory
+		// .getArtifactsListColumnDefinitions();
+		// new ArtifactsListPresenter(service,
+		// new ArtifactsListImpl<Artifact>(), columns,
+		// clientFactory.getEventBus()).go(container);
+		mainAppPresenter.showArtifactsList();
 
 	    } else if (token.equals("add")) {
-		new ArtifactPresenter(service, new ArtifactViewImpl(),
-			clientFactory.getEventBus()).go(container);
+		// new ArtifactPresenter(service, new ArtifactViewImpl(),
+		// clientFactory.getEventBus()).go(container);
+		mainAppPresenter.showArtifact(null);
 
-	    } else if (token.equals("edit")) {
-		new ArtifactPresenter(service, new ArtifactViewImpl(),
-			clientFactory.getEventBus()).go(container);
+		// } else if (token.equals("edit")) {
+		// new ArtifactPresenter(service, new ArtifactViewImpl(),
+		// clientFactory.getEventBus()).go(container);
+		// mainAppPresenter.showArtifact(null);
 	    }
 	}
 

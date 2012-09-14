@@ -1,5 +1,7 @@
 package net.alaux.diosmio.gwt.client;
 
+import net.alaux.diosmio.gwt.client.view.MainAppView;
+import net.alaux.diosmio.gwt.client.view.MainAppViewImpl;
 import net.alaux.diosmio.gwt.client.view.artifact.ArtifactView;
 import net.alaux.diosmio.gwt.client.view.artifact.ArtifactViewImpl;
 import net.alaux.diosmio.gwt.client.view.artifact.ArtifactsList;
@@ -16,6 +18,8 @@ public class ClientFactoryImpl implements ClientFactory {
     private ArtifactView artifactView;
 
     private ArtifactsList<Artifact> artifactsList;
+
+    private MainAppView mainAppView;
 
     @Override
     public HandlerManager getEventBus() {
@@ -36,6 +40,14 @@ public class ClientFactoryImpl implements ClientFactory {
 	    artifactsList = new ArtifactsListImpl<Artifact>();
 	}
 	return artifactsList;
+    }
+
+    @Override
+    public MainAppView getMainAppView() {
+	if (mainAppView == null) {
+	    mainAppView = new MainAppViewImpl();
+	}
+	return mainAppView;
     }
 
 }

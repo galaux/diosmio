@@ -1,6 +1,7 @@
 package net.alaux.diosmio.gwt.client.view.artifact;
 
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 
 /*
@@ -9,7 +10,7 @@ import com.google.gwt.user.client.ui.Widget;
  * "Widget Toolkit agnostic" rather than on ArtifactViewImpl which is the GWT
  * implementation of ArtifactVie
  */
-public interface ArtifactView {
+public interface ArtifactView extends IsWidget {
 
     public interface Presenter {
 
@@ -32,5 +33,6 @@ public interface ArtifactView {
 
     void setName(String name);
 
+    @Override
     Widget asWidget();
 }

@@ -2,7 +2,7 @@ package net.alaux.diosmio.gwt.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 
 public class DiosMioGwt implements EntryPoint {
 
@@ -23,7 +23,7 @@ public class DiosMioGwt implements EntryPoint {
 	AppController appController = new AppController(artifactService,
 		clientFactory);
 
-	appController.go(RootPanel.get());
+	appController.go(RootLayoutPanel.get());
     }
 
 }

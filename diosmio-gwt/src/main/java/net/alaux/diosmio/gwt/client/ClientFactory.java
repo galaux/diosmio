@@ -1,5 +1,6 @@
 package net.alaux.diosmio.gwt.client;
 
+import net.alaux.diosmio.gwt.client.view.MainAppView;
 import net.alaux.diosmio.gwt.client.view.artifact.ArtifactView;
 import net.alaux.diosmio.gwt.client.view.artifact.ArtifactsList;
 import net.alaux.diosmio.gwt.shared.Artifact;
@@ -18,4 +19,5 @@ public interface ClientFactory {
     // TODO is it OK to pass an Artifact here?
     ArtifactsList<Artifact> getArtifactsList();
 
+    MainAppView getMainAppView();
 }

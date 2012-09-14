@@ -4,9 +4,10 @@ import java.util.List;
 
 import net.alaux.diosmio.gwt.client.common.ColumnDefinition;
 
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 
-public interface ArtifactsList<T> {
+public interface ArtifactsList<T> extends IsWidget {
 
     public interface Presenter<T> {
 
@@ -25,5 +26,6 @@ public interface ArtifactsList<T> {
 
     void setRowData(List<T> rowData);
 
+    @Override
     Widget asWidget();
 }
