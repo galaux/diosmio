@@ -13,6 +13,8 @@ public class ArtifactServiceImpl extends RemoteServiceServlet implements
 
     List<Artifact> artifacts;
 
+    // private final Random random = new Random();
+
     public ArtifactServiceImpl() {
 	artifacts = new ArrayList<Artifact>();
 	artifacts.add(new Artifact(1L, "test.war"));
@@ -24,6 +26,7 @@ public class ArtifactServiceImpl extends RemoteServiceServlet implements
 
     @Override
     public Artifact addArtifact(Artifact artifact) {
+	artifact.setId(new Double(Math.random() * 100 + 10).longValue());
 	artifacts.add(artifact);
 	return artifact;
     }
@@ -52,6 +55,11 @@ public class ArtifactServiceImpl extends RemoteServiceServlet implements
 
     @Override
     public Artifact updateArtifact(Artifact artifact) {
+	for (Artifact a : artifacts) {
+	    if (a.getId().equals(artifact.getId())) {
+		a.setName(artifact.getName());
+	    }
+	}
 	return artifact;
     }
 

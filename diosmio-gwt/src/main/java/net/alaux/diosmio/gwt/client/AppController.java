@@ -75,7 +75,7 @@ public class AppController implements PresenterOLD, ValueChangeHandler<String> {
 		new ArtifactUpdatedHandler() {
 		    @Override
 		    public void onArtifactUpdated(ArtifactUpdatedEvent event) {
-			doOnArtifactUpdated();
+			doOnArtifactUpdated(event.getArtifact());
 		    }
 		});
 
@@ -118,8 +118,11 @@ public class AppController implements PresenterOLD, ValueChangeHandler<String> {
 	History.newItem("list");
     }
 
-    private void doOnArtifactUpdated() {
-	// Nothing to do
+    private void doOnArtifactUpdated(Artifact artifact) {
+	// Let the artifacts list know about the change
+	// TODO no need to do this right now as each time we display the
+	// artifacts list we instantiate a new ArtifactsListView which retrieves
+	// the complete list
     }
 
     /**

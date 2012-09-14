@@ -7,9 +7,7 @@ import net.alaux.diosmio.gwt.client.event.artifact.ArtifactUpdatedEvent;
 import net.alaux.diosmio.gwt.client.view.artifact.ArtifactView;
 import net.alaux.diosmio.gwt.shared.Artifact;
 
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.HandlerManager;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -50,8 +48,6 @@ public class ArtifactPresenter implements ArtifactView.Presenter {
 	this.view = v;
 	this.eventBus = b;
 
-	this.artifact = new Artifact();
-
 	view.setPresenter(this);
 
 	retrieveArtifact(id);
@@ -63,6 +59,7 @@ public class ArtifactPresenter implements ArtifactView.Presenter {
 
 	    @Override
 	    public void onSuccess(Artifact result) {
+		artifact = result;
 		view.setId(result.getId());
 		view.setName(result.getName());
 	    }
@@ -74,15 +71,54 @@ public class ArtifactPresenter implements ArtifactView.Presenter {
 	});
     }
 
+    // go method ********************************
     @Override
     public void go(final HasWidgets container) {
 	container.clear();
 	container.add(view.asWidget());
     }
 
-    @UiHandler("deleteButton")
-    void deleteButtonOnClick(ClickEvent e) {
+    // Event handling ***************************
+    @Override
+    public void onSaveButtonClicked() {
+	artifact.setName(view.getName());
 
+	// New artifact
+	if (artifact.getId() == null) {
+	    service.addArtifact(artifact, new AsyncCallback<Artifact>() {
+
+		@Override
+		public void onSuccess(Artifact result) {
+		    artifact = result;
+		    eventBus.fireEvent(new ArtifactUpdatedEvent(artifact));
+		    Window.alert("Artifact saved");
+		}
+
+		@Override
+		public void onFailure(Throwable caught) {
+		    Window.alert("Error while trying to save artifact");
+		}
+	    });
+	} else {
+	    service.updateArtifact(artifact, new AsyncCallback<Artifact>() {
+
+		@Override
+		public void onSuccess(Artifact result) {
+		    artifact = result;
+		    eventBus.fireEvent(new ArtifactUpdatedEvent(artifact));
+		    Window.alert("Artifact saved");
+		}
+
+		@Override
+		public void onFailure(Throwable caught) {
+		    Window.alert("Error while trying to save artifact");
+		}
+	    });
+	}
+    }
+
+    @Override
+    public void onDeleteButtonClicked() {
 	service.deleteArtifact(artifact.getId(), new AsyncCallback<Boolean>() {
 
 	    @Override
@@ -97,40 +133,8 @@ public class ArtifactPresenter implements ArtifactView.Presenter {
 	});
     }
 
-    @UiHandler("closeButton")
-    void closeButtonOnClick(ClickEvent e) {
-	eventBus.fireEvent(new ArtifactEditDoneEvent());
-    }
-
-    @Override
-    public void onSaveButtonClicked() {
-	artifact.setName(view.getName());
-
-	service.updateArtifact(artifact, new AsyncCallback<Artifact>() {
-
-	    @Override
-	    public void onSuccess(Artifact result) {
-		artifact = result;
-		eventBus.fireEvent(new ArtifactUpdatedEvent(artifact));
-		Window.alert("Artifact saved.");
-	    }
-
-	    @Override
-	    public void onFailure(Throwable caught) {
-		Window.alert("Error while trying to save artifact");
-	    }
-	});
-    }
-
-    @Override
-    public void onDeleteButtonClicked() {
-	// TODO Auto-generated method stub
-	Window.alert("TODO onDeleteButtonClicked");
-    }
-
     @Override
     public void onCloseButtonClicked() {
-	// TODO Auto-generated method stub
-	Window.alert("TODO onCloseButtonClicked");
+	eventBus.fireEvent(new ArtifactEditDoneEvent());
     }
 }
