@@ -17,6 +17,9 @@ public class ArtifactPresenter implements ArtifactView.Presenter {
     /*
      * FIXME Does specifying that the Presenter has a pointer on ArtifactView
      * rather than on a generic Display break the MVP pattern???
+     * 
+     * Answer: no because the P has a pointer to the interface ArtifactView and
+     * NOT to its GWT implementation ArtifactViewImpl !
      */
     private final ArtifactView view;
     private final ArtifactServiceAsync service;
@@ -32,6 +35,7 @@ public class ArtifactPresenter implements ArtifactView.Presenter {
      */
     public ArtifactPresenter(ArtifactServiceAsync service, ArtifactView view,
 	    HandlerManager eventBusParam) {
+
 	this.service = service;
 	this.view = view;
 	this.eventBus = eventBusParam;

@@ -25,7 +25,6 @@ import net.alaux.diosmio.gwt.shared.Artifact;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasWidgets;
 
@@ -36,18 +35,21 @@ public class AppController implements PresenterOLD, ValueChangeHandler<String> {
      */
     private HasWidgets container;
     private final ArtifactServiceAsync service;
-    private final HandlerManager eventBus;
+    private final ClientFactory clientFactory;
 
-    public AppController(ArtifactServiceAsync service, HandlerManager eventBus) {
+    public AppController(ArtifactServiceAsync service,
+	    ClientFactory clientFactory) {
+
 	this.service = service;
-	this.eventBus = eventBus;
+	this.clientFactory = clientFactory;
+
 	bind();
     }
 
     private void bind() {
 	History.addValueChangeHandler(this);
 	// Artifact
-	eventBus.addHandler(ArtifactAddedEvent.TYPE,
+	clientFactory.getEventBus().addHandler(ArtifactAddedEvent.TYPE,
 		new ArtifactAddedHandler() {
 		    @Override
 		    public void onArtifactAdded(ArtifactAddedEvent event) {
@@ -55,7 +57,7 @@ public class AppController implements PresenterOLD, ValueChangeHandler<String> {
 		    }
 		});
 
-	eventBus.addHandler(ArtifactDeletedEvent.TYPE,
+	clientFactory.getEventBus().addHandler(ArtifactDeletedEvent.TYPE,
 		new ArtifactDeletedHandler() {
 		    @Override
 		    public void onArtifactDeleted(ArtifactDeletedEvent event) {
@@ -63,7 +65,7 @@ public class AppController implements PresenterOLD, ValueChangeHandler<String> {
 		    }
 		});
 
-	eventBus.addHandler(ArtifactEditDoneEvent.TYPE,
+	clientFactory.getEventBus().addHandler(ArtifactEditDoneEvent.TYPE,
 		new ArtifactEditDoneHandler() {
 		    @Override
 		    public void onArtifactEditDone(ArtifactEditDoneEvent event) {
@@ -71,7 +73,7 @@ public class AppController implements PresenterOLD, ValueChangeHandler<String> {
 		    }
 		});
 
-	eventBus.addHandler(ArtifactUpdatedEvent.TYPE,
+	clientFactory.getEventBus().addHandler(ArtifactUpdatedEvent.TYPE,
 		new ArtifactUpdatedHandler() {
 		    @Override
 		    public void onArtifactUpdated(ArtifactUpdatedEvent event) {
@@ -80,19 +82,21 @@ public class AppController implements PresenterOLD, ValueChangeHandler<String> {
 		});
 
 	// Artifacts list
-	eventBus.addHandler(AddArtifactEvent.TYPE, new AddArtifactHandler() {
-	    @Override
-	    public void onAddArtifact(AddArtifactEvent event) {
-		doOnAddArtifact();
-	    }
-	});
+	clientFactory.getEventBus().addHandler(AddArtifactEvent.TYPE,
+		new AddArtifactHandler() {
+		    @Override
+		    public void onAddArtifact(AddArtifactEvent event) {
+			doOnAddArtifact();
+		    }
+		});
 
-	eventBus.addHandler(EditArtifactEvent.TYPE, new EditArtifactHandler() {
-	    @Override
-	    public void onEditArtifact(EditArtifactEvent event) {
-		doOnEditArtifact(event.getSelectedArtifactId());
-	    }
-	});
+	clientFactory.getEventBus().addHandler(EditArtifactEvent.TYPE,
+		new EditArtifactHandler() {
+		    @Override
+		    public void onEditArtifact(EditArtifactEvent event) {
+			doOnEditArtifact(event.getSelectedArtifactId());
+		    }
+		});
     }
 
     private void doOnAddArtifact() {
@@ -102,7 +106,7 @@ public class AppController implements PresenterOLD, ValueChangeHandler<String> {
     private void doOnEditArtifact(Long id) {
 	History.newItem("edit", false);
 	ArtifactPresenter presenter = new ArtifactPresenter(service,
-		new ArtifactViewImpl(), eventBus, id);
+		new ArtifactViewImpl(), clientFactory.getEventBus(), id);
 	presenter.go(container);
     }
 
@@ -150,16 +154,16 @@ public class AppController implements PresenterOLD, ValueChangeHandler<String> {
 		List<ColumnDefinition<Artifact>> columns = ArtifactsColumnDefinitionsFactory
 			.getArtifactsListColumnDefinitions();
 		new ArtifactsListPresenter(service,
-			new ArtifactsListImpl<Artifact>(), columns, eventBus)
-			.go(container);
+			new ArtifactsListImpl<Artifact>(), columns,
+			clientFactory.getEventBus()).go(container);
 
 	    } else if (token.equals("add")) {
-		new ArtifactPresenter(service, new ArtifactViewImpl(), eventBus)
-			.go(container);
+		new ArtifactPresenter(service, new ArtifactViewImpl(),
+			clientFactory.getEventBus()).go(container);
 
 	    } else if (token.equals("edit")) {
-		new ArtifactPresenter(service, new ArtifactViewImpl(), eventBus)
-			.go(container);
+		new ArtifactPresenter(service, new ArtifactViewImpl(),
+			clientFactory.getEventBus()).go(container);
 	    }
 	}
 

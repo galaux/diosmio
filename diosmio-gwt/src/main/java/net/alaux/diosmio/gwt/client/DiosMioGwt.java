@@ -2,7 +2,6 @@ package net.alaux.diosmio.gwt.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class DiosMioGwt implements EntryPoint {
@@ -15,10 +14,16 @@ public class DiosMioGwt implements EntryPoint {
      */
     @Override
     public void onModuleLoad() {
-	ArtifactServiceAsync artifactService = GWT.create(ArtifactService.class);
-	HandlerManager eventBus = new HandlerManager(null);
-	AppController appappController = new AppController(artifactService, eventBus);
-	appappController.go(RootPanel.get());
+
+	ClientFactory clientFactory = GWT.create(ClientFactoryImpl.class);
+
+	ArtifactServiceAsync artifactService = GWT
+		.create(ArtifactService.class);
+
+	AppController appController = new AppController(artifactService,
+		clientFactory);
+
+	appController.go(RootPanel.get());
     }
 
 }
