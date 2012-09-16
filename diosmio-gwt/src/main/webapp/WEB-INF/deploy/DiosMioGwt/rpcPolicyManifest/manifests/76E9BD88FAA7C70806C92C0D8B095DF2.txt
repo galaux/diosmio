@@ -1,2 +1,0 @@
-serviceClass: net.alaux.diosmio.gwt.client.ArtifactService
-path: D8B8C4BBA083128C4CFE0D3EF79C3C16.gwt.rpc

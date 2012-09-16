@@ -1,2 +1,0 @@
-serviceClass: net.alaux.diosmio.gwt.client.GreetingService
-path: 02D628BA17D1765889CAC364A353E9EB.gwt.rpc

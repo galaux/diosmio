@@ -1,5 +1,10 @@
 */target/
-diosmio-gwt/src/main/gwt-unitCache/
-diosmio-gwt/.gwt/
-diosmio-gwt/src/main/webapp/DiosMioGwt/
 *.class
+
+# GWT
+diosmio-gwt/.gwt/
+diosmio-gwt/src/main/gwt-unitCache/
+diosmio-gwt/src/main/webapp/DiosMioGwt/
+diosmio-gwt/src/main/webapp/net.alaux.diosmio.gwt.DiosMioGwtJUnit/
+diosmio-gwt/src/main/webapp/WEB-INF/deploy
+diosmio-gwt/src/main/webapp/WEB-INF/classes
