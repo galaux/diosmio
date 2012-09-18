@@ -1,3 +1,0 @@
-grant codeBase "file:webapps/diosmio-1.0-SNAPSHOT/WEB-INF/lib/-" {
-    permission java.security.AllPermission;
-};
