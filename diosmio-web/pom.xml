@@ -9,7 +9,7 @@
 	</parent>
 
 	<groupId>net.alaux.diosmio</groupId>
-	<artifactId>diosmio</artifactId>
+	<artifactId>diosmio-web</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<name>DiosMio Webapp</name>
