@@ -1,112 +1,93 @@
 package net.alaux.diosmio.services.dao.db.impl;
 
-import net.alaux.diosmio.services.dao.db.DatabaseDao;
-import net.alaux.diosmio.services.entity.Artifact;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import net.alaux.diosmio.services.dao.db.DatabaseDao;
+import net.alaux.diosmio.services.entity.Artifact;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
+
 /**
- * Created with IntelliJ IDEA.
- * User: miguel
- * Date: 7/30/12
- * Time: 10:06 PM
- * To change this template use File | Settings | File Templates.
+ * @author miguel Date: 7/30/12 Time: 10:06 PM
  */
 public class ArtifactDao implements DatabaseDao {
 
+    @PersistenceContext
+    private EntityManager em;
+
     @Autowired
-    private SessionFactory sessionFactory;
+    private JpaTransactionManager transactionManager;
 
     public Log logger = LogFactory.getLog(ArtifactDao.class);
 
-    /**
-     *
-     * @param artifact
-     */
+    @Override
     public void create(Artifact artifact) {
 
-        logger.info("create()");
+	logger.info("create()");
 
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.save(artifact);
-        session.getTransaction().commit();
-        session.close();
+	TransactionStatus status = transactionManager
+		.getTransaction(new DefaultTransactionDefinition());
+
+	// try {
+	em.persist(artifact);
+	transactionManager.commit(status);
+	// } catch (Exception e) {
+	// transactionManager.rollback(status);
+	// // TODO add nice message
+	// throw new RuntimeException(e);
+	// }
     }
 
-    /**
-     *
-     * @param id
-     * @return
-     */
+    @Override
     public Artifact get(Long id) {
 
-        logger.info("get(" + id + ")");
+	logger.info("get(" + id + ")");
 
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        Artifact result = (Artifact) session.get(Artifact.class, id);
-        session.getTransaction().commit();
-        session.close();
-
-        return result;
+	Artifact result = em.find(Artifact.class, id);
+	return result;
     }
 
-    /**
-     *
-     * @return
-     */
+    @Override
     public List<Artifact> getAll() {
 
-        logger.info("getAll()");
+	logger.info("getAll()");
 
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        List result = session.createQuery("from Artifact").list();
-        session.getTransaction().commit();
-        session.close();
+	List<Artifact> result = em.createQuery("SELECT a from Artifact a")
+		.getResultList();
+	// TODO em.createNativeQuery("")
 
-        return result;
+	return result;
     }
 
-    /**
-     *
-     * @param artifact
-     * @return
-     */
+    @Override
     public Artifact update(Artifact artifact) {
 
-        logger.info("update()");
+	logger.info("update()");
 
-//        Session session = sessionFactory.openSession();
-//        session.beginTransaction();
-//        session.get(Artifact.class, artifact.)
-//        session.getTransaction().commit();
-//        session.close();
+	TransactionStatus status = transactionManager
+		.getTransaction(new DefaultTransactionDefinition());
+	em.persist(artifact);
+	transactionManager.commit(status);
 
-        return null;
+	return artifact;
     }
 
-    /**
-     *
-     * @param artifact
-     * @return
-     */
+    @Override
     public void delete(Artifact artifact) {
 
-        logger.info("delete()");
+	logger.info("delete(Artifact(" + artifact.getId() + "))");
 
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.delete(artifact);
-        session.getTransaction().commit();
-        session.close();
+	TransactionStatus status = transactionManager
+		.getTransaction(new DefaultTransactionDefinition());
+	em.remove(em.merge(artifact));
+	transactionManager.commit(status);
     }
-
-
 }

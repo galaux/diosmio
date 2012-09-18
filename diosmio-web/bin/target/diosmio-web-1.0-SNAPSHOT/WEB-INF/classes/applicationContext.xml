@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/util
+                           http://www.springframework.org/schema/util/spring-util-3.0.xsd
+                           http://www.springframework.org/schema/context
+	                       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    <!--xmlns:jdbc="http://www.springframework.org/schema/jdbc">-->
+
+    <context:annotation-config/>
+    <context:component-scan base-package="net.alaux.diosmio"/>
+    <context:property-placeholder location="file:${diosmio-conf-file}"/>
+
+    <bean id="appMessages" class="net.alaux.utils.AppMessages">
+        <property name="messageSource">
+            <!--Injected here to prevent it from being used elsewhere-->
+            <bean class="org.springframework.context.support.ResourceBundleMessageSource">
+                <property name="basename">
+                    <value>messages/messages</value>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <!--<util:properties id="serviceProperties" location="file:${diosmio-conf-file}"/>-->
+
+    <bean id="fileDao" class="net.alaux.diosmio.services.dao.file.impl.SimpleFileDao"/>
+    <bean id="artifactDao" class="net.alaux.diosmio.services.dao.db.impl.ArtifactDao"/>
+    <bean id="artifactManager" class="net.alaux.diosmio.services.core.impl.SimpleArtifactManager"/>
+    <bean id="configDao" class="net.alaux.diosmio.services.dao.db.impl.SimpleConfigDao"/>
+
+    <!-- this bean must not be lazily initialized if the exporting is to happen -->
+    <!--<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">-->
+    <!--<property name="beans">-->
+    <!--<map>-->
+    <!--<entry key="net.alaux.diosmio:name=artifactManager" value-ref="artifactManager"/>-->
+    <!--<entry key="net.alaux.diosmio:name=configDao" value-ref="configDao"/>-->
+    <!--</map>-->
+    <!--</property>-->
+    <!--</bean>-->
+
+    <bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+        <property name="serviceName" value="artifactManager"/>
+        <property name="service" ref="artifactManager"/>
+        <property name="serviceInterface" value="net.alaux.diosmio.services.core.ArtifactManager"/>
+        <!-- defaults to 1099 -->
+        <property name="registryPort" value="${server.rmi.artifact_manager.port}"/>
+    </bean>
+
+    <bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+        <property name="serviceName" value="configDao"/>
+        <property name="service" ref="configDao"/>
+        <property name="serviceInterface" value="net.alaux.diosmio.services.dao.db.ConfigDao"/>
+        <!-- defaults to 1099 -->
+        <property name="registryPort" value="${server.rmi.config_dao.port}"/>
+    </bean>
+
+
+    <!-- Hibernate -->
+    <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">-->
+    <!--<property name="url" value="jdbc:h2:${server.persistence.hibernate.h2.dbfilename}"/>-->
+    <!--<property name="driverClass" value="org.h2.Driver" />-->
+    <!--</bean>-->
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <property name="jdbcUrl" value="jdbc:h2:${server.persistence.hibernate.h2.dbfilename}"/>
+        <property name="driverClass" value="org.h2.Driver" />
+
+        <property name="minPoolSize" value="5" />
+        <property name="maxPoolSize" value="20" />
+        <property name="maxStatements" value="50" />
+        <property name="idleConnectionTestPeriod" value="3000" />
+        <property name="loginTimeout" value="300" />
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="hibernateProperties">
+            <props>
+                <!-- would like to know all the properties supported here -->
+                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+                <prop key="connection.driver_class">org.h2.Driver</prop>
+                <prop key="connection.username">sa</prop>
+                <prop key="connection.password"></prop>
+                <prop key="show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">${server.persistence.hibernate.hbm2ddl.auto}</prop>
+                <prop key="hibernate.connection.release_mode">on_close</prop>
+            </props>
+        </property>
+
+        <property name="annotatedClasses">
+            <list>
+                <value>net.alaux.diosmio.services.entity.Artifact</value>
+                <value>net.alaux.diosmio.services.entity.impl.HostConfig</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>
+

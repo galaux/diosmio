@@ -1,8 +1,8 @@
 package net.alaux.diosmio.services.dao.db;
 
-import net.alaux.diosmio.services.entity.Artifact;
-
 import java.util.List;
+
+import net.alaux.diosmio.services.entity.Artifact;
 
 public interface DatabaseDao {
 
