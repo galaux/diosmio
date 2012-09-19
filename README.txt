@@ -50,3 +50,5 @@ To see the content of the H2 database:
 
 
 diosmio-gwt is a GWT project for DiosMio
+
+Check you have gwt-servlet.jar in diosmio-gwt/src/main/webapp/WEB-INF/lib

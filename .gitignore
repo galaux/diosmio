@@ -1,6 +1,7 @@
 */target/
 *.class
-*/bin
+bin
+lib
 
 # GWT
 diosmio-gwt/.gwt/
