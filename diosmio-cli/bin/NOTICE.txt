@@ -1,3 +1,0 @@
-This project depends on a JAR that is not present on public repositories: org.archive.jmx.cmdline-jmxclient
-To compile, you thus need to provide it on the following path (or change it on the pom.xml):
-    ${basedir}/lib/cmdline-jmxclient-0.10.3.jar
