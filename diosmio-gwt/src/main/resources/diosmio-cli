@@ -1,7 +1,7 @@
 #!/bin/sh
 
-WEBINF_DIR=${PWD}/$(dirname $0)/..
+WEBINF_DIR=/home/miguel/documents/it/diosmio/sources/diosmio-gwt/target/diosmio-gwt-1.0-SNAPSHOT/WEB-INF
 
- java -cp "${WEBINF_DIR}/lib/*:" \
-      -Djava.security.policy=${WEBINF_DIR}/classes/diosmio-cli.policy \
-      net.alaux.diosmio.ui.cli.Main $@
+java -cp "${WEBINF_DIR}/lib/*:" \
+     -Djava.security.policy=${WEBINF_DIR}/classes/diosmio-cli.policy \
+     net.alaux.diosmio.ui.cli.Main $@
