@@ -1,6 +1,6 @@
 package net.alaux.diosmio.services.core.impl;
 
-import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 import net.alaux.diosmio.services.core.ArtifactManager;
@@ -32,8 +32,10 @@ public class SimpleArtifactManager implements ArtifactManager {
 
     public Log logger = LogFactory.getLog(SimpleArtifactManager.class);
 
+    // Non RMI methods **********************************************
+
     @Override
-    public Artifact create(String name, byte[] content) throws RemoteException {
+    public Artifact create(String name, byte[] content) {
 
 	logger.info("create()");
 
@@ -50,29 +52,67 @@ public class SimpleArtifactManager implements ArtifactManager {
     }
 
     @Override
-    public Artifact get(Long id) throws RemoteException {
+    public Artifact create(Artifact artifact) {
+	logger.info("create()");
+
+	/*
+	 * TODO some sort of transaction: if
+	 * "fileDao.create(artifact, content);" fails then remove the Artifact
+	 * from the artifactDao too!
+	 */
+	artifactDao.create(artifact);
+	// TODO
+	// fileDao.create(artifact, content);
+
+	return artifact;
+    }
+
+    @Override
+    public Artifact get(Long id) {
 	logger.info("get()");
 	return artifactDao.get(id);
     }
 
     @Override
-    public List<Artifact> getAll() throws RemoteException {
+    public List<Artifact> getAll() {
 	logger.info("getAll()");
 	return artifactDao.getAll();
     }
 
     @Override
-    public void delete(Artifact artifact) throws RemoteException {
-	logger.info("delete()");
+    public void delete(Artifact artifact) {
+	logger.info("delete(Artifact(" + artifact.getId() + "))");
+	// TODO use boolean return of this method
 	fileDao.delete(artifact);
 	artifactDao.delete(artifact);
     }
 
     @Override
-    public void delete(Long id) throws RemoteException {
-	logger.info("delete()");
+    public void delete(Long id) {
+	logger.info("delete(" + id + ")");
 	Artifact artifact = artifactDao.get(id);
 	fileDao.delete(artifact);
 	artifactDao.delete(artifact);
+    }
+
+    @Override
+    public Artifact update(Artifact artifact) {
+	logger.info("update()");
+	return artifactDao.update(artifact);
+    }
+
+    @Override
+    public List<Long> delete(List<Long> ids) {
+	logger.info("delete(" + ids + ")");
+	List<Long> deletedIds = new ArrayList<Long>();
+
+	// FIXME is it possible to fail here?
+	for (Long id : ids) {
+	    logger.info("\tdelete(" + id + ")");
+	    artifactDao.delete(id);
+	    logger.info("done");
+	    deletedIds.add(id);
+	}
+	return deletedIds;
     }
 }

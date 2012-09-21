@@ -5,7 +5,7 @@ import net.alaux.diosmio.gwt.client.event.artifact.ArtifactDeletedEvent;
 import net.alaux.diosmio.gwt.client.event.artifact.ArtifactEditDoneEvent;
 import net.alaux.diosmio.gwt.client.event.artifact.ArtifactUpdatedEvent;
 import net.alaux.diosmio.gwt.client.view.artifact.ArtifactView;
-import net.alaux.diosmio.gwt.shared.Artifact;
+import net.alaux.diosmio.gwt.shared.ArtifactDto;
 
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Window;
@@ -25,7 +25,7 @@ public class ArtifactPresenter implements ArtifactView.Presenter {
     private final ArtifactServiceAsync service;
     private final HandlerManager eventBus;
 
-    private Artifact artifact;
+    private ArtifactDto artifact;
 
     /**
      * Used to show an empty Artifact Panel
@@ -40,9 +40,13 @@ public class ArtifactPresenter implements ArtifactView.Presenter {
 	this.view = view;
 	this.eventBus = eventBusParam;
 
-	this.artifact = new Artifact();
+	this.artifact = new ArtifactDto();
 
 	view.setPresenter(this);
+
+	// Clear view
+	view.setId(null);
+	view.setName(null);
     }
 
     public ArtifactPresenter(ArtifactServiceAsync s, ArtifactView v,
@@ -59,10 +63,10 @@ public class ArtifactPresenter implements ArtifactView.Presenter {
 
     private void retrieveArtifact(Long id) {
 
-	service.getArtifact(id, new AsyncCallback<Artifact>() {
+	service.getArtifact(id, new AsyncCallback<ArtifactDto>() {
 
 	    @Override
-	    public void onSuccess(Artifact result) {
+	    public void onSuccess(ArtifactDto result) {
 		artifact = result;
 		view.setId(result.getId());
 		view.setName(result.getName());
@@ -89,10 +93,10 @@ public class ArtifactPresenter implements ArtifactView.Presenter {
 
 	// New artifact
 	if (artifact.getId() == null) {
-	    service.addArtifact(artifact, new AsyncCallback<Artifact>() {
+	    service.addArtifact(artifact, new AsyncCallback<ArtifactDto>() {
 
 		@Override
-		public void onSuccess(Artifact result) {
+		public void onSuccess(ArtifactDto result) {
 		    artifact = result;
 		    eventBus.fireEvent(new ArtifactUpdatedEvent(artifact));
 		    Window.alert("Artifact saved");
@@ -104,10 +108,10 @@ public class ArtifactPresenter implements ArtifactView.Presenter {
 		}
 	    });
 	} else {
-	    service.updateArtifact(artifact, new AsyncCallback<Artifact>() {
+	    service.updateArtifact(artifact, new AsyncCallback<ArtifactDto>() {
 
 		@Override
-		public void onSuccess(Artifact result) {
+		public void onSuccess(ArtifactDto result) {
 		    artifact = result;
 		    eventBus.fireEvent(new ArtifactUpdatedEvent(artifact));
 		    Window.alert("Artifact saved");
@@ -123,10 +127,10 @@ public class ArtifactPresenter implements ArtifactView.Presenter {
 
     @Override
     public void onDeleteButtonClicked() {
-	service.deleteArtifact(artifact.getId(), new AsyncCallback<Boolean>() {
+	service.deleteArtifact(artifact.getId(), new AsyncCallback<Void>() {
 
 	    @Override
-	    public void onSuccess(Boolean result) {
+	    public void onSuccess(Void result) {
 		eventBus.fireEvent(new ArtifactDeletedEvent());
 	    }
 

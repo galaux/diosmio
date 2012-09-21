@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import net.alaux.diosmio.services.dao.db.DatabaseDao;
 import net.alaux.diosmio.services.entity.Artifact;
@@ -60,9 +62,9 @@ public class ArtifactDao implements DatabaseDao {
 
 	logger.info("getAll()");
 
-	List<Artifact> result = em.createQuery("SELECT a from Artifact a")
-		.getResultList();
-	// TODO em.createNativeQuery("")
+	TypedQuery<Artifact> query = em.createNamedQuery("artifact.findAll",
+		Artifact.class);
+	List<Artifact> result = query.getResultList();
 
 	return result;
     }
@@ -74,7 +76,7 @@ public class ArtifactDao implements DatabaseDao {
 
 	TransactionStatus status = transactionManager
 		.getTransaction(new DefaultTransactionDefinition());
-	em.persist(artifact);
+	em.persist(em.merge(artifact));
 	transactionManager.commit(status);
 
 	return artifact;
@@ -82,12 +84,26 @@ public class ArtifactDao implements DatabaseDao {
 
     @Override
     public void delete(Artifact artifact) {
-
 	logger.info("delete(Artifact(" + artifact.getId() + "))");
 
 	TransactionStatus status = transactionManager
 		.getTransaction(new DefaultTransactionDefinition());
 	em.remove(em.merge(artifact));
+	transactionManager.commit(status);
+    }
+
+    @Override
+    public void delete(Long id) {
+	logger.info("delete(" + id + ")");
+
+	TransactionStatus status = transactionManager
+		.getTransaction(new DefaultTransactionDefinition());
+	// TODO Put as named query in Artifact
+
+	Query query = em.createQuery("DELETE FROM Artifact a WHERE a.id = :id");
+	int deletedCount = query.setParameter("id", id).executeUpdate();
+	System.out.println("-" + deletedCount + "-");
+
 	transactionManager.commit(status);
     }
 }

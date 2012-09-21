@@ -6,7 +6,7 @@ import net.alaux.diosmio.gwt.client.view.artifact.ArtifactView;
 import net.alaux.diosmio.gwt.client.view.artifact.ArtifactViewImpl;
 import net.alaux.diosmio.gwt.client.view.artifact.ArtifactsList;
 import net.alaux.diosmio.gwt.client.view.artifact.ArtifactsListImpl;
-import net.alaux.diosmio.gwt.shared.Artifact;
+import net.alaux.diosmio.gwt.shared.ArtifactDto;
 
 import com.google.gwt.event.shared.HandlerManager;
 
@@ -17,7 +17,7 @@ public class ClientFactoryImpl implements ClientFactory {
 
     private ArtifactView artifactView;
 
-    private ArtifactsList<Artifact> artifactsList;
+    private ArtifactsList<ArtifactDto> artifactsList;
 
     private MainAppView mainAppView;
 
@@ -35,9 +35,9 @@ public class ClientFactoryImpl implements ClientFactory {
     }
 
     @Override
-    public ArtifactsList<Artifact> getArtifactsList() {
+    public ArtifactsList<ArtifactDto> getArtifactsList() {
 	if (artifactsList == null) {
-	    artifactsList = new ArtifactsListImpl<Artifact>();
+	    artifactsList = new ArtifactsListImpl<ArtifactDto>();
 	}
 	return artifactsList;
     }

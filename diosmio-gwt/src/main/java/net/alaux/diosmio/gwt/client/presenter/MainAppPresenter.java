@@ -9,7 +9,7 @@ import net.alaux.diosmio.gwt.client.common.ColumnDefinition;
 import net.alaux.diosmio.gwt.client.presenter.artifact.ArtifactPresenter;
 import net.alaux.diosmio.gwt.client.presenter.artifact.ArtifactsListPresenter;
 import net.alaux.diosmio.gwt.client.view.MainAppView;
-import net.alaux.diosmio.gwt.shared.Artifact;
+import net.alaux.diosmio.gwt.shared.ArtifactDto;
 
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -42,7 +42,7 @@ public class MainAppPresenter implements MainAppView.Presenter {
 
     public void showArtifactsList() {
 	// TODO put this in the clientFactory???
-	List<ColumnDefinition<Artifact>> columnDefinitions = ArtifactsColumnDefinitionsFactory
+	List<ColumnDefinition<ArtifactDto>> columnDefinitions = ArtifactsColumnDefinitionsFactory
 		.getArtifactsListColumnDefinitions();
 
 	artifactsListPresenter = new ArtifactsListPresenter(this.service,

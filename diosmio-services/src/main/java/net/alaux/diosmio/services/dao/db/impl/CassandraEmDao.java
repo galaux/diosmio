@@ -1,15 +1,12 @@
 package net.alaux.diosmio.services.dao.db.impl;
 
-import java.util.List;
-
 import net.alaux.diosmio.services.dao.db.DatabaseDao;
-import net.alaux.diosmio.services.entity.Artifact;
 
 /**
  * Created with IntelliJ IDEA. User: miguel Date: 7/15/12 Time: 6:55 PM To
  * change this template use File | Settings | File Templates.
  */
-public class CassandraEmDao implements DatabaseDao {
+public abstract class CassandraEmDao implements DatabaseDao {
 
     // @Value("${server.persistence.cassandra.cluster.name}")
     // public String cassandraClusterName;
@@ -87,37 +84,4 @@ public class CassandraEmDao implements DatabaseDao {
     // logger.info("closing connection");
     // cluster.getConnectionManager().shutdown();
     // }
-
-    public boolean getStatus() {
-	return false; // To change body of implemented methods use File |
-		      // Settings | File Templates.
-    }
-
-    @Override
-    public void create(Artifact artifact) {
-	// To change body of implemented methods use File | Settings | File
-	// Templates.
-    }
-
-    @Override
-    public Artifact get(Long id) {
-	return null; // To change body of implemented methods use File |
-		     // Settings | File Templates.
-    }
-
-    @Override
-    public List<Artifact> getAll() {
-	return null; // To change body of implemented methods use File |
-		     // Settings | File Templates.
-    }
-
-    @Override
-    public Artifact update(Artifact artifact) {
-	return null; // To change body of implemented methods use File |
-		     // Settings | File Templates.
-    }
-
-    @Override
-    public void delete(Artifact artifact) {
-    }
 }

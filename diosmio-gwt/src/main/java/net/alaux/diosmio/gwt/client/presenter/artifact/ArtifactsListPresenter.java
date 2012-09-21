@@ -9,7 +9,7 @@ import net.alaux.diosmio.gwt.client.common.SelectionModel;
 import net.alaux.diosmio.gwt.client.event.artifact.AddArtifactEvent;
 import net.alaux.diosmio.gwt.client.event.artifact.EditArtifactEvent;
 import net.alaux.diosmio.gwt.client.view.artifact.ArtifactsList;
-import net.alaux.diosmio.gwt.shared.Artifact;
+import net.alaux.diosmio.gwt.shared.ArtifactDto;
 
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Window;
@@ -17,29 +17,33 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 public class ArtifactsListPresenter implements
-	ArtifactsList.Presenter<Artifact> {
+	ArtifactsList.Presenter<ArtifactDto> {
 
-    private final ArtifactsList<Artifact> view;
-    private final SelectionModel<Artifact> selectionModel;
+    private final ArtifactsList<ArtifactDto> view;
+    private final SelectionModel<ArtifactDto> selectionModel;
     private final ArtifactServiceAsync service;
     private final HandlerManager eventBus;
 
-    private final List<Artifact> artifacts;
+    // Logger logger = Logger.getLogger("ArtifactsListPresenter");
+
+    public static final String NEW_LINE = "\n";
+
+    private final List<ArtifactDto> artifacts;
 
     public ArtifactsListPresenter(ArtifactServiceAsync service,
-	    ArtifactsList<Artifact> view,
-	    List<ColumnDefinition<Artifact>> columnDefinitions,
+	    ArtifactsList<ArtifactDto> view,
+	    List<ColumnDefinition<ArtifactDto>> columnDefinitions,
 	    HandlerManager eventBus) {
 
 	this.view = view;
 	this.service = service;
 	this.eventBus = eventBus;
-	this.selectionModel = new SelectionModel<Artifact>();
+	this.selectionModel = new SelectionModel<ArtifactDto>();
 
 	this.view.setPresenter(this);
 	this.view.setColumnDefinitions(columnDefinitions);
 
-	this.artifacts = new ArrayList<Artifact>();
+	this.artifacts = new ArrayList<ArtifactDto>();
     }
 
     @Override
@@ -50,7 +54,7 @@ public class ArtifactsListPresenter implements
     @Override
     public void onDeleteButtonClicked() {
 	// Turn selected rows numbers into Artifacts ids
-	List<Artifact> selectedContacts = selectionModel.getSelectedItems();
+	List<ArtifactDto> selectedContacts = selectionModel.getSelectedItems();
 	ArrayList<Long> ids = new ArrayList<Long>();
 
 	for (int i = 0; i < selectedContacts.size(); ++i) {
@@ -65,9 +69,9 @@ public class ArtifactsListPresenter implements
 		    // TODO see if delete could return a list of all remaining
 		    // Artifacts
 		    // Remove artifacts which ids belong to the deletedList
-		    List<Artifact> oldArtifactsList = new ArrayList<Artifact>(
+		    List<ArtifactDto> oldArtifactsList = new ArrayList<ArtifactDto>(
 			    artifacts);
-		    for (Artifact artifact : oldArtifactsList) {
+		    for (ArtifactDto artifact : oldArtifactsList) {
 			if (result.contains(artifact.getId())) {
 			    artifacts.remove(artifact);
 			}
@@ -79,6 +83,7 @@ public class ArtifactsListPresenter implements
 
 		@Override
 		public void onFailure(Throwable caught) {
+		    // logger.log(Level.SEVERE, caught.toString());
 		    Window.alert("An error occured while trying to delete the artifacts.");
 		}
 	    });
@@ -86,12 +91,12 @@ public class ArtifactsListPresenter implements
     }
 
     @Override
-    public void onItemClicked(Artifact clickedItem) {
+    public void onItemClicked(ArtifactDto clickedItem) {
 	eventBus.fireEvent(new EditArtifactEvent(clickedItem.getId()));
     }
 
     @Override
-    public void onItemSelected(Artifact selectedItem) {
+    public void onItemSelected(ArtifactDto selectedItem) {
 	if (selectionModel.isSelected(selectedItem)) {
 	    selectionModel.removeSelection(selectedItem);
 	} else {
@@ -106,9 +111,9 @@ public class ArtifactsListPresenter implements
     }
 
     private void fetchArtifactsList() {
-	service.getAllArtifacts(new AsyncCallback<List<Artifact>>() {
+	service.getAllArtifacts(new AsyncCallback<List<ArtifactDto>>() {
 	    @Override
-	    public void onSuccess(List<Artifact> result) {
+	    public void onSuccess(List<ArtifactDto> result) {
 		// Display result in view
 		if (result != null && result.size() > 0) {
 		    artifacts.clear();
@@ -120,7 +125,9 @@ public class ArtifactsListPresenter implements
 
 	    @Override
 	    public void onFailure(Throwable caught) {
-		Window.alert("Error while trying to retieve artifacts list");
+		// logger.log(Level.SEVERE, caught.toString());
+		Window.alert("Error while trying to retieve artifacts list"
+			+ NEW_LINE + caught.getMessage());
 	    }
 	});
     }

@@ -4,83 +4,74 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.alaux.diosmio.gwt.client.ArtifactService;
-import net.alaux.diosmio.gwt.shared.Artifact;
+import net.alaux.diosmio.gwt.shared.ArtifactDto;
+import net.alaux.diosmio.services.core.ArtifactManager;
+import net.alaux.diosmio.services.entity.Artifact;
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class ArtifactServiceImpl extends RemoteServiceServlet implements
+public class ArtifactServiceImpl extends SpringGwtServlet implements
 	ArtifactService {
 
-    List<Artifact> artifacts;
+    public Log logger = LogFactory.getLog(ArtifactServiceImpl.class);
 
-    // private final Random random = new Random();
+    @Autowired
+    ArtifactManager artifactManager;
 
-    public ArtifactServiceImpl() {
-	artifacts = new ArrayList<Artifact>();
-	artifacts.add(new Artifact(1L, "test.war"));
-	artifacts.add(new Artifact(2L, "other.war"));
-	artifacts.add(new Artifact(3L, "yetanother.war"));
-	artifacts.add(new Artifact(4L, "again.war"));
-	artifacts.add(new Artifact(5L, "again-2.0.war"));
+    @Override
+    public ArtifactDto addArtifact(ArtifactDto dto) {
+	return createDto(artifactManager.create(createEntity(dto)));
     }
 
     @Override
-    public Artifact addArtifact(Artifact artifact) {
-	artifact.setId(new Double(Math.random() * 100 + 10).longValue());
-	artifacts.add(artifact);
-	return artifact;
+    public ArtifactDto getArtifact(Long id) {
+	return createDto(artifactManager.get(id));
     }
 
     @Override
-    public Artifact getArtifact(Long id) {
-	for (Artifact artifact : artifacts) {
-	    if (artifact.getId().equals(id)) {
-		return artifact;
-	    }
-	}
-	// TODO use an Exception here
-	return null;
+    public void deleteArtifact(Long id) {
+	logger.info("deleteArtifact(" + id + ")");
+	artifactManager.delete(id);
     }
 
     @Override
-    public Boolean deleteArtifact(Long id) {
-	for (Artifact artifact : artifacts) {
-	    if (artifact.getId().equals(id)) {
-		artifacts.remove(artifact);
-		return true;
-	    }
-	}
-	return false;
-    }
-
-    @Override
-    public Artifact updateArtifact(Artifact artifact) {
-	for (Artifact a : artifacts) {
-	    if (a.getId().equals(artifact.getId())) {
-		a.setName(artifact.getName());
-	    }
-	}
-	return artifact;
+    public ArtifactDto updateArtifact(ArtifactDto artifact) {
+	return createDto(artifactManager.update(createEntity(artifact)));
     }
 
     @Override
     public List<Long> deleteArtifacts(List<Long> ids) {
-	List<Long> deletedIds = new ArrayList<Long>();
-	List<Artifact> oldArtifactList = new ArrayList<Artifact>(artifacts);
-
-	for (Artifact artifact : oldArtifactList) {
-	    if (ids.contains(artifact.getId())) {
-		artifacts.remove(artifact);
-		deletedIds.add(artifact.getId());
-	    }
-	}
-
-	return deletedIds;
+	logger.info("deleteArtifacts(" + ids + ")");
+	return artifactManager.delete(ids);
     }
 
     @Override
-    public List<Artifact> getAllArtifacts() {
-	return new ArrayList<Artifact>(artifacts);
+    public List<ArtifactDto> getAllArtifacts() {
+	logger.info("getAllArtifacts()");
+	logger.info("ArtifactManager: " + artifactManager);
+	List<ArtifactDto> dtos = new ArrayList<ArtifactDto>();
+	List<Artifact> entities = artifactManager.getAll();
+	for (Artifact entity : entities) {
+	    dtos.add(createDto(entity));
+	}
+	return dtos;
     }
 
+    // *******************************************************
+    // TODO put these as static in a utility package?
+    private Artifact createEntity(ArtifactDto artifactDto) {
+	Artifact artifact = new Artifact();
+	artifact.setId(artifactDto.getId());
+	artifact.setName(artifactDto.getName());
+	return artifact;
+    }
+
+    private ArtifactDto createDto(Artifact artifact) {
+	ArtifactDto artifactDto = new ArtifactDto();
+	artifactDto.setId(artifact.getId());
+	artifactDto.setName(artifact.getName());
+	return artifactDto;
+    }
 }

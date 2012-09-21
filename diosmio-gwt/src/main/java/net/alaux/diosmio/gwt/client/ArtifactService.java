@@ -2,7 +2,7 @@ package net.alaux.diosmio.gwt.client;
 
 import java.util.List;
 
-import net.alaux.diosmio.gwt.shared.Artifact;
+import net.alaux.diosmio.gwt.shared.ArtifactDto;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -10,16 +10,16 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("artifactService")
 public interface ArtifactService extends RemoteService {
 
-    Artifact addArtifact(Artifact artifact);
+    ArtifactDto addArtifact(ArtifactDto artifact);
 
-    Artifact getArtifact(Long id);
+    ArtifactDto getArtifact(Long id);
 
-    List<Artifact> getAllArtifacts();
+    List<ArtifactDto> getAllArtifacts();
 
-    Boolean deleteArtifact(Long id);
+    void deleteArtifact(Long id);
 
     List<Long> deleteArtifacts(List<Long> ids);
 
-    Artifact updateArtifact(Artifact artifact);
+    ArtifactDto updateArtifact(ArtifactDto artifact);
 
 }

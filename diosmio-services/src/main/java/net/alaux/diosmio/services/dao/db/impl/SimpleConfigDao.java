@@ -62,7 +62,7 @@ public class SimpleConfigDao implements ConfigDao {
 
     @Override
     public void update(HostConfig hostConfig) throws RemoteException {
-	logger.info("update(HostConfig) - NOT IMPLEMENTED");
+	logger.info("update(HostConfig)");
 
 	TransactionStatus status = transactionManager
 		.getTransaction(new DefaultTransactionDefinition());

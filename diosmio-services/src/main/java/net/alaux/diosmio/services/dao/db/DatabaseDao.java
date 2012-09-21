@@ -15,4 +15,6 @@ public interface DatabaseDao {
     public Artifact update(Artifact artifact);
 
     public void delete(Artifact artifact);
+
+    public void delete(Long id);
 }

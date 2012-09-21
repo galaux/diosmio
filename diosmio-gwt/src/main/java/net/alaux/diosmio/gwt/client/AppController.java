@@ -14,7 +14,7 @@ import net.alaux.diosmio.gwt.client.event.artifact.EditArtifactEvent;
 import net.alaux.diosmio.gwt.client.event.artifact.EditArtifactEvent.EditArtifactHandler;
 import net.alaux.diosmio.gwt.client.presenter.MainAppPresenter;
 import net.alaux.diosmio.gwt.client.presenter.PresenterOLD;
-import net.alaux.diosmio.gwt.shared.Artifact;
+import net.alaux.diosmio.gwt.shared.ArtifactDto;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -115,7 +115,7 @@ public class AppController implements PresenterOLD, ValueChangeHandler<String> {
 	History.newItem("list");
     }
 
-    private void doOnArtifactUpdated(Artifact artifact) {
+    private void doOnArtifactUpdated(ArtifactDto artifact) {
 	// Let the artifacts list know about the change
 	// TODO no need to do this right now as each time we display the
 	// artifacts list we instantiate a new ArtifactsListView which retrieves

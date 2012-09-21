@@ -2,14 +2,14 @@ package net.alaux.diosmio.gwt.client.common;
 
 import java.util.ArrayList;
 
-import net.alaux.diosmio.gwt.shared.Artifact;
+import net.alaux.diosmio.gwt.shared.ArtifactDto;
 
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 
 public class ArtifactsListColumnDefinitionsImpl extends
-	ArrayList<ColumnDefinition<Artifact>> {
+	ArrayList<ColumnDefinition<ArtifactDto>> {
 
     private static final long serialVersionUID = -6390998325977877364L;
 
@@ -24,9 +24,9 @@ public class ArtifactsListColumnDefinitionsImpl extends
 
     protected ArtifactsListColumnDefinitionsImpl() {
 
-	this.add(new ColumnDefinition<Artifact>() {
+	this.add(new ColumnDefinition<ArtifactDto>() {
 	    @Override
-	    public Widget render(Artifact a) {
+	    public Widget render(ArtifactDto a) {
 		return new CheckBox();
 	    }
 
@@ -36,9 +36,9 @@ public class ArtifactsListColumnDefinitionsImpl extends
 	    }
 	});
 
-	this.add(new ColumnDefinition<Artifact>() {
+	this.add(new ColumnDefinition<ArtifactDto>() {
 	    @Override
-	    public Widget render(Artifact artifact) {
+	    public Widget render(ArtifactDto artifact) {
 		return new HTML(artifact.getId().toString());
 	    }
 
@@ -48,9 +48,9 @@ public class ArtifactsListColumnDefinitionsImpl extends
 	    }
 	});
 
-	this.add(new ColumnDefinition<Artifact>() {
+	this.add(new ColumnDefinition<ArtifactDto>() {
 	    @Override
-	    public Widget render(Artifact artifact) {
+	    public Widget render(ArtifactDto artifact) {
 		return new HTML(artifact.getName());
 	    }
 

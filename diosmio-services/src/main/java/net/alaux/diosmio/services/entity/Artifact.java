@@ -18,7 +18,9 @@ import org.json.simple.JSONObject;
 @Table(name = Artifact.TABLE_NAME)
 @NamedQueries({
 	@NamedQuery(name = "artifact.findAll", query = "SELECT a FROM Artifact a"),
-	@NamedQuery(name = "artifact.findByLogin", query = "SELECT a FROM Artifact a WHERE a.id = :id") })
+	@NamedQuery(name = "artifact.findByLogin", query = "SELECT a FROM Artifact a WHERE a.id = :id"),
+	@NamedQuery(name = "artifact.deleteById", query = "DELETE FROM Artifact a WHERE a.id = :id") //
+})
 public class Artifact implements Serializable {
 
     public static final String TABLE_NAME = "ARTIFACT";

@@ -2,6 +2,7 @@
 *.class
 bin
 lib
+logs
 
 # GWT
 diosmio-gwt/.gwt/

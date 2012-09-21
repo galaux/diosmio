@@ -1,14 +1,17 @@
 package net.alaux.diosmio.services.dao.file;
 
-import net.alaux.diosmio.services.entity.Artifact;
-
 import java.io.File;
 
+import net.alaux.diosmio.services.entity.Artifact;
+
+/*
+ * TODO Should this class only accept File and byte[]?
+ */
 public interface FileDao {
 
     public void create(Artifact artifact, byte[] content);
 
-	File get(Artifact artifact);
+    File get(Artifact artifact);
 
-	boolean delete(Artifact artifact);
+    boolean delete(Artifact artifact);
 }

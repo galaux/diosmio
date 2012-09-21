@@ -9,9 +9,6 @@
                            http://www.springframework.org/schema/context
 	                       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<!-- <import resource="applicationContext-persistence-hibernate.xml" /> -->
-	<import resource="applicationContext-persistence-jpa.xml" />
-
 	<context:annotation-config />
 	<context:component-scan base-package="net.alaux.diosmio" />
 	<context:property-placeholder location="file:${diosmio-conf-file}" />
@@ -36,20 +33,14 @@
 		class="net.alaux.diosmio.services.core.impl.SimpleArtifactManager" />
 	<bean id="configDao" class="net.alaux.diosmio.services.dao.db.impl.SimpleConfigDao" />
 
-	<!-- this bean must not be lazily initialized if the exporting is to happen -->
-	<!--<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" 
-		lazy-init="false"> -->
-	<!--<property name="beans"> -->
-	<!--<map> -->
-	<!--<entry key="net.alaux.diosmio:name=artifactManager" value-ref="artifactManager"/> -->
-	<!--<entry key="net.alaux.diosmio:name=configDao" value-ref="configDao"/> -->
-	<!--</map> -->
-	<!--</property> -->
-	<!--</bean> -->
 
+	<!-- <import resource="applicationContext-rmi.xml" /> -->
 	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
 		<property name="serviceName" value="artifactManager" />
-		<property name="service" ref="artifactManager" />
+		<property name="service">
+			<bean
+				class="net.alaux.diosmio.services.core.impl.ArtifactManagerRmiExporterImpl" />
+		</property>
 		<property name="serviceInterface"
 			value="net.alaux.diosmio.services.core.ArtifactManager" />
 		<!-- defaults to 1099 -->
@@ -63,6 +54,9 @@
 		<!-- defaults to 1099 -->
 		<property name="registryPort" value="${server.rmi.config_dao.port}" />
 	</bean>
+
+	<!-- <import resource="applicationContext-persistence-hibernate.xml" /> -->
+	<import resource="applicationContext-persistence-jpa.xml" />
 
 </beans>
 

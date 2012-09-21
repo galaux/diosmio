@@ -1,6 +1,6 @@
 package net.alaux.diosmio.gwt.client.event.artifact;
 
-import net.alaux.diosmio.gwt.shared.Artifact;
+import net.alaux.diosmio.gwt.shared.ArtifactDto;
 
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
@@ -14,13 +14,13 @@ public class ArtifactAddedEvent extends
 	void onArtifactAdded(ArtifactAddedEvent event);
     }
 
-    private final Artifact artifact;
+    private final ArtifactDto artifact;
 
-    public Artifact getArtifact() {
+    public ArtifactDto getArtifact() {
 	return artifact;
     }
 
-    public ArtifactAddedEvent(Artifact artifact) {
+    public ArtifactAddedEvent(ArtifactDto artifact) {
 	this.artifact = artifact;
     }
 

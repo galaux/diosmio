@@ -13,8 +13,8 @@
     </properties>
 
     <modules>
-        <module>diosmio-web</module>
-<!--        <module>diosmio-gwt</module>-->
+<!--        <module>diosmio-web</module> -->
+        <module>diosmio-gwt</module>
         <module>diosmio-services</module>
         <module>diosmio-common</module>
         <module>diosmio-cli</module>

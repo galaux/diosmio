@@ -44,12 +44,12 @@ public abstract class CliClient {
     public void listAllArtifacts() {
 
 	List<Artifact> artifacts = null;
-	try {
-	    artifacts = getArtifactManager().getAll();
-	} catch (RemoteException e) {
-	    // TODO add error message
-	    throw new RuntimeException(e);
-	}
+	// try {
+	artifacts = getArtifactManager().getAll();
+	// } catch (RemoteException e) {
+	// // TODO add error message
+	// throw new RuntimeException(e);
+	// }
 
 	for (Artifact artifact : artifacts) {
 	    Main.out.println(artifact);
@@ -59,12 +59,12 @@ public abstract class CliClient {
     public void showArtifact(Long id) {
 
 	Artifact artifact = null;
-	try {
-	    artifact = getArtifactManager().get(id);
-	} catch (RemoteException e) {
-	    // TODO add error message
-	    throw new RuntimeException(e);
-	}
+	// try {
+	artifact = getArtifactManager().get(id);
+	// } catch (RemoteException e) {
+	// // TODO add error message
+	// throw new RuntimeException(e);
+	// }
 	if (artifact != null) {
 	    Main.out.println(artifact);
 	} else {
@@ -161,14 +161,14 @@ public abstract class CliClient {
     public void deleteArtifact(Long id) {
 
 	Artifact artifact = null;
-	try {
-	    getArtifactManager().delete(id);
-	    Main.out.println(Main.bundle.getString("info.artifact.deleted"));
+	// try {
+	getArtifactManager().delete(id);
+	Main.out.println(Main.bundle.getString("info.artifact.deleted"));
 
-	} catch (RemoteException e) {
-	    // TODO add error message
-	    throw new RuntimeException(e);
-	}
+	// } catch (RemoteException e) {
+	// // TODO add error message
+	// throw new RuntimeException(e);
+	// }
     }
 
     // Configuration **********************************************************
