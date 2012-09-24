@@ -31,6 +31,7 @@
 	<classpathentry kind="var" path="M2_REPO/org/json/json/20090211/json-20090211.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1.jar" sourcepath="M2_REPO/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/junit/junit/4.7/junit-4.7.jar" sourcepath="M2_REPO/junit/junit/4.7/junit-4.7-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.17/log4j-1.2.17.jar" sourcepath="M2_REPO/log4j/log4j/1.2.17/log4j-1.2.17-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/mchange/mchange-commons-java/0.2.2/mchange-commons-java-0.2.2.jar" sourcepath="M2_REPO/com/mchange/mchange-commons-java/0.2.2/mchange-commons-java-0.2.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/openjpa/openjpa/2.2.0/openjpa-2.2.0.jar" sourcepath="M2_REPO/org/apache/openjpa/openjpa/2.2.0/openjpa-2.2.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/net/sourceforge/serp/serp/1.13.1/serp-1.13.1.jar"/>
@@ -56,7 +57,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/diosmio-common"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/diosmio-services"/>
-	<classpathentry kind="output" path="target/diosmio-gwt-1.0-SNAPSHOT/WEB-INF/classes"/>
+	<classpathentry kind="output" path="src/main/webapp/WEB-INF/classes"/>
 </classpath>

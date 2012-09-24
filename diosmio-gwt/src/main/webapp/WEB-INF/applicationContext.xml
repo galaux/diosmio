@@ -34,7 +34,9 @@
 	<bean id="configDao" class="net.alaux.diosmio.services.dao.db.impl.SimpleConfigDao" />
 
 
-	<import resource="applicationContext-rmi.xml" />
+	<!-- applicationContext-cli-* enable how to communicate with the CLI -->
+	<!-- <import resource="applicationContext-cli-jmx.xml" /> -->
+	<import resource="applicationContext-cli-rmi.xml" />
 
 	<!-- <import resource="applicationContext-persistence-hibernate.xml" /> -->
 	<import resource="applicationContext-persistence-jpa.xml" />
