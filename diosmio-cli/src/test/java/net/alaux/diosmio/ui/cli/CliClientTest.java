@@ -1,7 +1,7 @@
 package net.alaux.diosmio.ui.cli;
 
 import junit.framework.Assert;
-import net.alaux.diosmio.services.core.ArtifactManager;
+import net.alaux.diosmio.com.service.ArtifactManager;
 import net.alaux.diosmio.services.dao.db.ConfigDao;
 import org.junit.Test;
 

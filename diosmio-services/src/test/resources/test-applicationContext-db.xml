@@ -17,7 +17,7 @@
 	<!-- </jdbc:embedded-database> -->
 
 	<jdbc:embedded-database id="dataSource" type="H2">
-		<jdbc:script location="classpath:test-data.sql" />
+<!-- 		<jdbc:script location="classpath:test-data.sql" /> -->
 	</jdbc:embedded-database>
 
 	<bean id="entityManagerFactory"
@@ -33,8 +33,8 @@
 		<!-- <property name="persistenceUnitName" value="diosmioPU" /> -->
 		<property name="packagesToScan">
 			<list>
-				<value>net.alaux.diosmio.services.entity</value>
-				<value>net.alaux.diosmio.services.entity.impl</value>
+				<value>net.alaux.diosmio.com.entity</value>
+				<value>net.alaux.diosmio.com.entity.impl</value>
 			</list>
 		</property>
 	</bean>

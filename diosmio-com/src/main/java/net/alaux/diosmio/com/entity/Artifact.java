@@ -1,4 +1,4 @@
-package net.alaux.diosmio.services.entity;
+package net.alaux.diosmio.com.entity;
 
 import java.io.Serializable;
 
@@ -15,25 +15,23 @@ import org.json.simple.JSONObject;
  * @author Guillaume ALAUX <guillaume at alaux dot net> Date: 7/26/12
  */
 @Entity
-@Table(name = Artifact.TABLE_NAME)
+@Table(name = "ARTIFACT")
 @NamedQueries({
-	@NamedQuery(name = "artifact.findAll", query = "SELECT a FROM Artifact a"),
-	@NamedQuery(name = "artifact.findByLogin", query = "SELECT a FROM Artifact a WHERE a.id = :id"),
-	@NamedQuery(name = "artifact.deleteById", query = "DELETE FROM Artifact a WHERE a.id = :id") //
+	@NamedQuery(name = Artifact.Q_FIND_ALL, query = Artifact.Q_FIND_ALL),
+	@NamedQuery(name = Artifact.Q_DELETE_BY_ID, query = Artifact.Q_DELETE_BY_ID) //
 })
 public class Artifact implements Serializable {
 
-    public static final String TABLE_NAME = "ARTIFACT";
+    private static final long serialVersionUID = 1L;
+
+    public static final String Q_FIND_ALL = "SELECT a FROM Artifact a";
+    public static final String Q_DELETE_BY_ID = "DELETE FROM Artifact a WHERE a.id = :id";
 
     @Id
     @GeneratedValue
     private Long id;
 
     private String name;
-
-    // Not used anymore
-    // TODO Get rid of this property
-    private String fsName;
 
     /*
      * The no-argument constructor, which is also a JavaBean convention, is a
@@ -42,19 +40,18 @@ public class Artifact implements Serializable {
     public Artifact() {
     }
 
-    public Artifact(String name, String fsName) {
+    public Artifact(long id, String name) {
+	this.id = id;
 	this.name = name;
-	this.fsName = fsName;
     }
 
     public Artifact(JSONObject jsonObject) {
 	this.name = (String) jsonObject.get("name");
-	this.fsName = (String) jsonObject.get("fsName");
     }
 
     @Override
     public String toString() {
-	return id + "\t" + name + "\t" + fsName;
+	return id + "\t" + name;
     }
 
     public Long getId() {
@@ -71,13 +68,5 @@ public class Artifact implements Serializable {
 
     public void setName(String name) {
 	this.name = name;
-    }
-
-    public String getFsName() {
-	return fsName;
-    }
-
-    public void setFsName(String fsName) {
-	this.fsName = fsName;
     }
 }

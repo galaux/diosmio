@@ -1,6 +1,6 @@
 package net.alaux.diosmio.ui.cli.jmx;
 
-import net.alaux.diosmio.services.core.ArtifactManager;
+import net.alaux.diosmio.com.service.ArtifactManager;
 import net.alaux.diosmio.services.dao.db.ConfigDao;
 import net.alaux.diosmio.ui.cli.CliClient;
 import net.alaux.diosmio.ui.cli.Main;

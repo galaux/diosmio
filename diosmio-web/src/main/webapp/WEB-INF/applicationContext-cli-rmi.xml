@@ -9,15 +9,12 @@
                            http://www.springframework.org/schema/context
 	                       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-
 	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
 		<property name="serviceName" value="artifactManager" />
-		<property name="service">
-			<bean
-				class="net.alaux.diosmio.services.core.impl.ArtifactManagerRmiExporterImpl" />
+		<property name="service" ref="artifactManager">
 		</property>
-		<property name="serviceInterface"
-			value="net.alaux.diosmio.services.core.ArtifactManager" />
+		<!-- <property name="serviceInterface" -->
+		<!-- value="net.alaux.diosmio.services.core.ArtifactManager" /> -->
 		<!-- defaults to 1099 -->
 		<property name="registryPort" value="${server.rmi.artifact_manager.port}" />
 	</bean>
@@ -25,7 +22,8 @@
 	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
 		<property name="serviceName" value="configDao" />
 		<property name="service" ref="configDao" />
-		<property name="serviceInterface" value="net.alaux.diosmio.services.dao.db.ConfigDao" />
+		<!-- <property name="serviceInterface" value="net.alaux.diosmio.services.dao.db.ConfigDao" 
+			/> -->
 		<!-- defaults to 1099 -->
 		<property name="registryPort" value="${server.rmi.config_dao.port}" />
 	</bean>

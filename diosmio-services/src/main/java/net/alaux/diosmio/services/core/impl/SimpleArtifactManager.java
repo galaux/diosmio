@@ -3,11 +3,11 @@ package net.alaux.diosmio.services.core.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.alaux.diosmio.services.core.ArtifactManager;
+import net.alaux.diosmio.com.entity.Artifact;
+import net.alaux.diosmio.com.service.ArtifactManager;
+import net.alaux.diosmio.com.utils.AppMessages;
 import net.alaux.diosmio.services.dao.db.impl.ArtifactDao;
 import net.alaux.diosmio.services.dao.file.FileDao;
-import net.alaux.diosmio.services.entity.Artifact;
-import net.alaux.utils.AppMessages;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,8 +32,6 @@ public class SimpleArtifactManager implements ArtifactManager {
 
     public Log logger = LogFactory.getLog(SimpleArtifactManager.class);
 
-    // Non RMI methods **********************************************
-
     @Override
     public Artifact create(String name, byte[] content) {
 
@@ -44,7 +42,9 @@ public class SimpleArtifactManager implements ArtifactManager {
 	 * "fileDao.create(artifact, content);" fails then remove the Artifact
 	 * from the artifactDao too!
 	 */
-	Artifact artifact = new Artifact(name, FILE_SEPARATOR);
+	// FIXME is it OK to put -1? Whek the DAO set its own
+	Artifact artifact = new Artifact();
+	artifact.setName(name);
 	artifactDao.create(artifact);
 	fileDao.create(artifact, content);
 

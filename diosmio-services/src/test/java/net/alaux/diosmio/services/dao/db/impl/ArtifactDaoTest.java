@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import net.alaux.diosmio.services.entity.Artifact;
+import net.alaux.diosmio.com.entity.Artifact;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -49,7 +49,8 @@ public class ArtifactDaoTest {
 
     @Test
     public void testCreate() {
-	Artifact artifact = new Artifact("cdsqfc", "dcvsqfd");
+	Artifact artifact = new Artifact();
+	artifact.setName("fdsklmg");
 	artifactDao.create(artifact);
 
 	Artifact result = em.find(Artifact.class, artifact.getId());
@@ -60,7 +61,8 @@ public class ArtifactDaoTest {
 
     @Test
     public void testGet() {
-	Artifact artifact = new Artifact("cdsqfc", "dcvsqfd");
+	Artifact artifact = new Artifact();
+	artifact.setName("fdhlm");
 	em.persist(artifact);
 
 	Assert.assertNotNull(artifactDao.get(artifact.getId()));
@@ -69,9 +71,11 @@ public class ArtifactDaoTest {
     @Test
     public void testGetAll() {
 
-	Artifact artifact = new Artifact("cdsqfc", "dcvsqfd");
+	Artifact artifact = new Artifact();
+	artifact.setName("cdgsfml");
 	em.persist(artifact);
-	Artifact artifact2 = new Artifact("dffdgdf", "klk");
+	Artifact artifact2 = new Artifact();
+	artifact.setName("vfk");
 	em.persist(artifact2);
 
 	List<Artifact> resultList = artifactDao.getAll();
@@ -81,7 +85,8 @@ public class ArtifactDaoTest {
     @Test
     public void testUpdate() {
 
-	Artifact artifact = new Artifact("cdsqfc", "dcvsqfd");
+	Artifact artifact = new Artifact();
+	artifact.setName("vfdhjyuikj");
 	em.persist(artifact);
 
 	artifact.setName("NEW");
@@ -93,7 +98,8 @@ public class ArtifactDaoTest {
 
     @Test
     public void testDeleteArtifact() {
-	Artifact artifact = new Artifact("cdsqfc", "dcvsqfd");
+	Artifact artifact = new Artifact();
+	artifact.setName("klme");
 	em.persist(artifact);
 
 	Assert.assertNotNull(em.find(Artifact.class, artifact.getId()));
@@ -103,11 +109,14 @@ public class ArtifactDaoTest {
 
     @Test
     public void testDeleteById() {
-	Artifact artifact1 = new Artifact("11111", "aaaaaa");
+	Artifact artifact1 = new Artifact();
+	artifact1.setName("gfdhjlmd");
 	em.persist(artifact1);
-	Artifact artifact2 = new Artifact("22222", "bbbb");
+	Artifact artifact2 = new Artifact();
+	artifact2.setName("klmte");
 	em.persist(artifact2);
-	Artifact artifact3 = new Artifact("33333", "ccc");
+	Artifact artifact3 = new Artifact();
+	artifact3.setName("plrkls");
 	em.persist(artifact3);
 
 	Assert.assertEquals(3, artifactDao.getAll().size());

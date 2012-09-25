@@ -6,8 +6,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import net.alaux.diosmio.com.entity.impl.HostConfig;
 import net.alaux.diosmio.services.dao.db.ConfigDao;
-import net.alaux.diosmio.services.entity.impl.HostConfig;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

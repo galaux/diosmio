@@ -49,8 +49,8 @@
 			here. -->
 		<property name="packagesToScan">
 			<list>
-				<value>net.alaux.diosmio.services.entity</value>
-				<value>net.alaux.diosmio.services.entity.impl</value>
+				<value>net.alaux.diosmio.com.entity</value>
+				<value>net.alaux.diosmio.com.entity.impl</value>
 			</list>
 		</property>
 	</bean>

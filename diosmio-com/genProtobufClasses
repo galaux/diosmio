@@ -3,4 +3,4 @@
 SRC_DIR=src/main/resources/net/alaux/diosmio/com/protobuf/proto
 DST_DIR=src/main/java
 
-protoc -I=${SRC_DIR} --java_out=${DST_DIR} ${SRC_DIR}/DiosmioEntity.proto
+protoc -I=${SRC_DIR} --java_out=${DST_DIR} ${SRC_DIR}/Artifact.proto

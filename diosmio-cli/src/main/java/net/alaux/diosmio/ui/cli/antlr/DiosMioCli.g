@@ -161,4 +161,4 @@ fragment DIGIT  : '0'..'9' ;
 WORD : ( 'a'..'z' | 'A'..'Z' )+;
 
 // TODO get a better "filepath" definition
-FILEPATH : ( 'a'..'z' | 'A'..'Z' | '/' | '.' | '-' | DIGIT )+;
+FILEPATH : ( 'a'..'z' | 'A'..'Z' | '/' | '.' | '-' | '_' | DIGIT )+;

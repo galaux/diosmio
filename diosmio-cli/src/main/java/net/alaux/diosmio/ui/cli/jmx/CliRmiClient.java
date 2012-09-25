@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-import net.alaux.diosmio.services.core.ArtifactManager;
+import net.alaux.diosmio.com.service.ArtifactManager;
 import net.alaux.diosmio.services.dao.db.ConfigDao;
 import net.alaux.diosmio.ui.cli.CliClient;
 
@@ -29,10 +29,6 @@ public class CliRmiClient extends CliClient {
     public ArtifactManager getArtifactManager() {
 
 	if (artifactManager == null) {
-	    // TODO Investigate the use of this
-	    if (System.getSecurityManager() == null) {
-		System.setSecurityManager(new SecurityManager());
-	    }
 	    try {
 		Registry registry = LocateRegistry
 			.getRegistry(artifactManagerRmiPort);
@@ -55,10 +51,6 @@ public class CliRmiClient extends CliClient {
     public ConfigDao getConfigDao() {
 
 	if (configDao == null) {
-	    // TODO Investigate the use of this
-	    if (System.getSecurityManager() == null) {
-		System.setSecurityManager(new SecurityManager());
-	    }
 	    try {
 		Registry registry = LocateRegistry
 			.getRegistry(configDaoRmiPort);

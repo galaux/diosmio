@@ -1,0 +1,3 @@
+grant codeBase "jar:file:target/diosmio-gwt-1.0-SNAPSHOT/WEB-INF/lib/diosmio-services-1.0-SNAPSHOT.jar!/-" {
+    permission java.security.AllPermission;
+};

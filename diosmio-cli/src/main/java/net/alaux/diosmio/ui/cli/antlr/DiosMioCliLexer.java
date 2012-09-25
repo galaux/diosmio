@@ -1,4 +1,4 @@
-// $ANTLR 3.4 src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g 2012-08-26 21:59:08
+// $ANTLR 3.4 src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g 2012-09-24 18:34:00
 
 package net.alaux.diosmio.ui.cli.antlr;
 
@@ -450,17 +450,17 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = FILEPATH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:164:10: ( ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' | DIGIT )+ )
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:164:12: ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' | DIGIT )+
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:164:10: ( ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' | '_' | DIGIT )+ )
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:164:12: ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' | '_' | DIGIT )+
             {
-            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:164:12: ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' | DIGIT )+
+            // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:164:12: ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' | '_' | DIGIT )+
             int cnt4=0;
             loop4:
             do {
                 int alt4=2;
                 int LA4_0 = input.LA(1);
 
-                if ( ((LA4_0 >= '-' && LA4_0 <= '9')||(LA4_0 >= 'A' && LA4_0 <= 'Z')||(LA4_0 >= 'a' && LA4_0 <= 'z')) ) {
+                if ( ((LA4_0 >= '-' && LA4_0 <= '9')||(LA4_0 >= 'A' && LA4_0 <= 'Z')||LA4_0=='_'||(LA4_0 >= 'a' && LA4_0 <= 'z')) ) {
                     alt4=1;
                 }
 
@@ -469,7 +469,7 @@ public class DiosMioCliLexer extends Lexer {
             	case 1 :
             	    // src/main/java/net/alaux/diosmio/ui/cli/antlr/DiosMioCli.g:
             	    {
-            	    if ( (input.LA(1) >= '-' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
+            	    if ( (input.LA(1) >= '-' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
             	        input.consume();
             	    }
             	    else {
@@ -634,59 +634,60 @@ public class DiosMioCliLexer extends Lexer {
         "\65\uffff}>";
     static final String[] DFA5_transitionS = {
             "\2\11\1\uffff\2\11\22\uffff\1\11\14\uffff\3\13\12\10\7\uffff"+
-            "\32\12\6\uffff\1\2\1\12\1\7\1\4\2\12\1\3\1\1\3\12\1\5\3\12\1"+
-            "\6\12\12",
-            "\15\13\7\uffff\32\12\6\uffff\4\12\1\14\25\12",
-            "\15\13\7\uffff\32\12\6\uffff\3\12\1\16\15\12\1\17\10\12",
-            "\15\13\7\uffff\32\12\6\uffff\4\12\1\20\25\12",
-            "\15\13\7\uffff\32\12\6\uffff\4\12\1\21\25\12",
-            "\15\13\7\uffff\32\12\6\uffff\16\12\1\22\13\12",
-            "\15\13\7\uffff\32\12\6\uffff\1\23\31\12",
-            "\15\13\7\uffff\32\12\6\uffff\16\12\1\24\13\12",
-            "\3\13\12\10\7\uffff\32\13\6\uffff\32\13",
+            "\32\12\4\uffff\1\13\1\uffff\1\2\1\12\1\7\1\4\2\12\1\3\1\1\3"+
+            "\12\1\5\3\12\1\6\12\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\4\12\1\14\25\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\3\12\1\16\15\12\1"+
+            "\17\10\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\4\12\1\20\25\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\4\12\1\21\25\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\16\12\1\22\13\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\1\23\31\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\16\12\1\24\13\12",
+            "\3\13\12\10\7\uffff\32\13\4\uffff\1\13\1\uffff\32\13",
             "",
-            "\15\13\7\uffff\32\12\6\uffff\32\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\32\12",
             "",
-            "\15\13\7\uffff\32\12\6\uffff\13\12\1\26\16\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\13\12\1\26\16\12",
             "",
-            "\15\13\7\uffff\32\12\6\uffff\3\12\1\27\26\12",
-            "\15\13\7\uffff\32\12\6\uffff\23\12\1\30\6\12",
-            "\15\13\7\uffff\32\12\6\uffff\23\12\1\31\6\12",
-            "\15\13\7\uffff\32\12\6\uffff\13\12\1\32\16\12",
-            "\15\13\7\uffff\32\12\6\uffff\1\33\31\12",
-            "\15\13\7\uffff\32\12\6\uffff\21\12\1\34\10\12",
-            "\15\13\7\uffff\32\12\6\uffff\15\12\1\35\14\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\3\12\1\27\26\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\23\12\1\30\6\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\23\12\1\31\6\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\13\12\1\32\16\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\1\33\31\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\21\12\1\34\10\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\15\12\1\35\14\12",
             "",
-            "\15\13\7\uffff\32\12\6\uffff\17\12\1\36\12\12",
-            "\15\13\7\uffff\32\12\6\uffff\32\12",
-            "\15\13\7\uffff\32\12\6\uffff\10\12\1\40\21\12",
-            "\15\13\7\uffff\32\12\6\uffff\32\12",
-            "\15\13\7\uffff\32\12\6\uffff\4\12\1\42\25\12",
-            "\15\13\7\uffff\32\12\6\uffff\3\12\1\43\26\12",
-            "\15\13\7\uffff\32\12\6\uffff\22\12\1\44\7\12",
-            "\15\13\7\uffff\32\12\6\uffff\5\12\1\45\24\12",
-            "\15\13\7\uffff\32\12\6\uffff\32\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\17\12\1\36\12\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\32\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\10\12\1\40\21\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\32\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\4\12\1\42\25\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\3\12\1\43\26\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\22\12\1\44\7\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\5\12\1\45\24\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\32\12",
             "",
-            "\15\13\7\uffff\32\12\6\uffff\5\12\1\47\24\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\5\12\1\47\24\12",
             "",
-            "\15\13\7\uffff\32\12\6\uffff\23\12\1\50\6\12",
-            "\15\13\7\uffff\32\12\6\uffff\32\12",
-            "\15\13\7\uffff\32\12\6\uffff\4\12\1\52\25\12",
-            "\15\13\7\uffff\32\12\6\uffff\10\12\1\53\21\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\23\12\1\50\6\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\32\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\4\12\1\52\25\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\10\12\1\53\21\12",
             "",
-            "\15\13\7\uffff\32\12\6\uffff\1\54\31\12",
-            "\15\13\7\uffff\32\12\6\uffff\4\12\1\55\25\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\1\54\31\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\4\12\1\55\25\12",
             "",
-            "\15\13\7\uffff\32\12\6\uffff\32\12",
-            "\15\13\7\uffff\32\12\6\uffff\6\12\1\57\23\12",
-            "\15\13\7\uffff\32\12\6\uffff\2\12\1\60\27\12",
-            "\15\13\7\uffff\32\12\6\uffff\32\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\32\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\6\12\1\57\23\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\2\12\1\60\27\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\32\12",
             "",
-            "\15\13\7\uffff\32\12\6\uffff\32\12",
-            "\15\13\7\uffff\32\12\6\uffff\23\12\1\63\6\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\32\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\23\12\1\63\6\12",
             "",
             "",
-            "\15\13\7\uffff\32\12\6\uffff\32\12",
+            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\32\12",
             ""
     };
 

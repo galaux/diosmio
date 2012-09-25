@@ -1,4 +1,4 @@
-package net.alaux.diosmio.services.entity.impl;
+package net.alaux.diosmio.com.entity.impl;
 
 //import me.prettyprint.hom.annotations.Column;
 //import me.prettyprint.hom.annotations.Id;

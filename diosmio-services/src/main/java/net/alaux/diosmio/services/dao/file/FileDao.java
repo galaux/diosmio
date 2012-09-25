@@ -2,7 +2,7 @@ package net.alaux.diosmio.services.dao.file;
 
 import java.io.File;
 
-import net.alaux.diosmio.services.entity.Artifact;
+import net.alaux.diosmio.com.entity.Artifact;
 
 /*
  * TODO Should this class only accept File and byte[]?

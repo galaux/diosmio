@@ -1,4 +1,4 @@
-package net.alaux.diosmio.services.entity.impl;
+package net.alaux.diosmio.com.entity.impl;
 
 import java.io.Serializable;
 

@@ -1,6 +1,6 @@
 package net.alaux.diosmio.services.dao.db;
 
-import net.alaux.diosmio.services.entity.impl.HostConfig;
+import net.alaux.diosmio.com.entity.impl.HostConfig;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

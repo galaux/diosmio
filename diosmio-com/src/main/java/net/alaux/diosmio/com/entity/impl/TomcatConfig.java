@@ -1,4 +1,4 @@
-package net.alaux.diosmio.services.entity.impl;
+package net.alaux.diosmio.com.entity.impl;
 
 import java.io.File;
 
@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import net.alaux.diosmio.services.entity.Configuration;
+import net.alaux.diosmio.com.entity.Configuration;
 
 /**
  * @author Guillaume ALAUX <guillaume at alaux dot net> Date: 8/11/12

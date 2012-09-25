@@ -13,7 +13,7 @@
 	<context:component-scan base-package="net.alaux.diosmio" />
 	<context:property-placeholder location="file:${diosmio-conf-file}" />
 
-	<bean id="appMessages" class="net.alaux.utils.AppMessages">
+	<bean id="appMessages" class="net.alaux.diosmio.com.utils.AppMessages">
 		<property name="messageSource">
 			<!--Injected here to prevent it from being used elsewhere -->
 			<bean
@@ -34,29 +34,11 @@
 	<bean id="configDao" class="net.alaux.diosmio.services.dao.db.impl.SimpleConfigDao" />
 
 
-	<!-- <import resource="applicationContext-rmi.xml" /> -->
-	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
-		<property name="serviceName" value="artifactManager" />
-		<property name="service">
-			<bean
-				class="net.alaux.diosmio.services.core.impl.ArtifactManagerRmiExporterImpl" />
-		</property>
-		<property name="serviceInterface"
-			value="net.alaux.diosmio.services.core.ArtifactManager" />
-		<!-- defaults to 1099 -->
-		<property name="registryPort" value="${server.rmi.artifact_manager.port}" />
-	</bean>
-
-	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
-		<property name="serviceName" value="configDao" />
-		<property name="service" ref="configDao" />
-		<property name="serviceInterface" value="net.alaux.diosmio.services.dao.db.ConfigDao" />
-		<!-- defaults to 1099 -->
-		<property name="registryPort" value="${server.rmi.config_dao.port}" />
-	</bean>
+	<!-- applicationContext-cli-* enable how to communicate with the CLI -->
+	<!-- <import resource="applicationContext-cli-jmx.xml" /> -->
+	<import resource="applicationContext-cli-rmi.xml" />
 
 	<!-- <import resource="applicationContext-persistence-hibernate.xml" /> -->
 	<import resource="applicationContext-persistence-jpa.xml" />
 
 </beans>
-

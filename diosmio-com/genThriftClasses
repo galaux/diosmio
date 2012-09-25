@@ -1,0 +1,5 @@
+#!/bin/sh
+
+thrift --gen java:beans \
+    -out src/main/java \
+    src/main/resources/net/alaux/diosmio/com/thrift/Artifact.thrift
