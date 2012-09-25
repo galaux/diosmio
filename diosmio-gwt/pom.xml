@@ -13,7 +13,6 @@
 	<groupId>net.alaux.diosmio.gwt</groupId>
 	<artifactId>diosmio-gwt</artifactId>
 	<packaging>war</packaging>
-	<version>1.0-SNAPSHOT</version>
 	<name>DiosMio GWT Webapp</name>
 
 	<properties>
@@ -136,22 +135,9 @@
 					<hostedWebapp>${webappDirectory}</hostedWebapp>
 					<i18nMessagesBundle>net.alaux.diosmio.gwt.client.Messages</i18nMessagesBundle>
 					<compileReport>true</compileReport>
-					<logLevel>DEBUG</logLevel>
+					<logLevel>INFO</logLevel>
 					<style>${gwt.style}</style>
 				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>gwt-maven-plugin</artifactId>
-				<version>2.5.0-rc1</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 
 			<!-- Copy static web files before executing gwt:run -->
