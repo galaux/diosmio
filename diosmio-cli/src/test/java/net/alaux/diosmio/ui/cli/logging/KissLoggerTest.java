@@ -8,6 +8,8 @@ import java.text.FieldPosition;
 import java.text.ParsePosition;
 import java.util.Date;
 
+import net.alaux.diosmio.cli.KissLogger;
+
 import org.apache.commons.lang.NotImplementedException;
 import org.junit.Assert;
 import org.junit.Test;

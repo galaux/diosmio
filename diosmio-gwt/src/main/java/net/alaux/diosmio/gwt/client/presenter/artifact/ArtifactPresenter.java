@@ -1,6 +1,6 @@
 package net.alaux.diosmio.gwt.client.presenter.artifact;
 
-import net.alaux.diosmio.gwt.client.ArtifactServiceAsync;
+import net.alaux.diosmio.gwt.client.ArtifactGwtServiceAsync;
 import net.alaux.diosmio.gwt.client.event.artifact.ArtifactDeletedEvent;
 import net.alaux.diosmio.gwt.client.event.artifact.ArtifactEditDoneEvent;
 import net.alaux.diosmio.gwt.client.event.artifact.ArtifactUpdatedEvent;
@@ -22,7 +22,7 @@ public class ArtifactPresenter implements ArtifactView.Presenter {
      * NOT to its GWT implementation ArtifactViewImpl !
      */
     private final ArtifactView view;
-    private final ArtifactServiceAsync service;
+    private final ArtifactGwtServiceAsync service;
     private final HandlerManager eventBus;
 
     private ArtifactDto artifact;
@@ -33,8 +33,8 @@ public class ArtifactPresenter implements ArtifactView.Presenter {
      * @param service
      * @param display
      */
-    public ArtifactPresenter(ArtifactServiceAsync service, ArtifactView view,
-	    HandlerManager eventBusParam) {
+    public ArtifactPresenter(ArtifactGwtServiceAsync service,
+	    ArtifactView view, HandlerManager eventBusParam) {
 
 	this.service = service;
 	this.view = view;
@@ -49,7 +49,7 @@ public class ArtifactPresenter implements ArtifactView.Presenter {
 	view.setName(null);
     }
 
-    public ArtifactPresenter(ArtifactServiceAsync s, ArtifactView v,
+    public ArtifactPresenter(ArtifactGwtServiceAsync s, ArtifactView v,
 	    HandlerManager b, Long id) {
 
 	this.service = s;
@@ -108,11 +108,10 @@ public class ArtifactPresenter implements ArtifactView.Presenter {
 		}
 	    });
 	} else {
-	    service.updateArtifact(artifact, new AsyncCallback<ArtifactDto>() {
+	    service.updateArtifact(artifact, new AsyncCallback<Void>() {
 
 		@Override
-		public void onSuccess(ArtifactDto result) {
-		    artifact = result;
+		public void onSuccess(Void result) {
 		    eventBus.fireEvent(new ArtifactUpdatedEvent(artifact));
 		    Window.alert("Artifact saved");
 		}

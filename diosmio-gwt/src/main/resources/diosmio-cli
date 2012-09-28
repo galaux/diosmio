@@ -4,4 +4,4 @@ WEBINF_DIR=/home/miguel/documents/it/diosmio/sources/diosmio-gwt/target/diosmio-
 
 java -cp "${WEBINF_DIR}/lib/*:" \
      -Djava.security.policy=${WEBINF_DIR}/classes/diosmio-cli.policy \
-     net.alaux.diosmio.ui.cli.Main $@
+     net.alaux.diosmio.cli.Main $@

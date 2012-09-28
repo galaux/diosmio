@@ -3,7 +3,7 @@ package net.alaux.diosmio.gwt.client.presenter.artifact;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.alaux.diosmio.gwt.client.ArtifactServiceAsync;
+import net.alaux.diosmio.gwt.client.ArtifactGwtServiceAsync;
 import net.alaux.diosmio.gwt.client.common.ColumnDefinition;
 import net.alaux.diosmio.gwt.client.common.SelectionModel;
 import net.alaux.diosmio.gwt.client.event.artifact.AddArtifactEvent;
@@ -21,7 +21,7 @@ public class ArtifactsListPresenter implements
 
     private final ArtifactsList<ArtifactDto> view;
     private final SelectionModel<ArtifactDto> selectionModel;
-    private final ArtifactServiceAsync service;
+    private final ArtifactGwtServiceAsync service;
     private final HandlerManager eventBus;
 
     // Logger logger = Logger.getLogger("ArtifactsListPresenter");
@@ -30,7 +30,7 @@ public class ArtifactsListPresenter implements
 
     private final List<ArtifactDto> artifacts;
 
-    public ArtifactsListPresenter(ArtifactServiceAsync service,
+    public ArtifactsListPresenter(ArtifactGwtServiceAsync service,
 	    ArtifactsList<ArtifactDto> view,
 	    List<ColumnDefinition<ArtifactDto>> columnDefinitions,
 	    HandlerManager eventBus) {

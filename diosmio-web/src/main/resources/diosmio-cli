@@ -4,4 +4,4 @@ WEBINF_DIR=${PWD}/$(dirname $0)/..
 
  java -cp "${WEBINF_DIR}/lib/*:" \
       -Djava.security.policy=${WEBINF_DIR}/classes/diosmio-cli.policy \
-      net.alaux.diosmio.ui.cli.Main $@
+      net.alaux.diosmio.cli.Main $@

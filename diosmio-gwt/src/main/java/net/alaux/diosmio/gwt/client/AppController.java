@@ -27,12 +27,12 @@ public class AppController implements PresenterOLD, ValueChangeHandler<String> {
      * RootPanel passed by EntryPoint
      */
     private HasWidgets container;
-    private final ArtifactServiceAsync service;
+    private final ArtifactGwtServiceAsync service;
     private final ClientFactory clientFactory;
 
     private MainAppPresenter mainAppPresenter;
 
-    public AppController(ArtifactServiceAsync service,
+    public AppController(ArtifactGwtServiceAsync service,
 	    ClientFactory clientFactory) {
 
 	this.service = service;

@@ -2,7 +2,7 @@ package net.alaux.diosmio.gwt.client.presenter;
 
 import java.util.List;
 
-import net.alaux.diosmio.gwt.client.ArtifactServiceAsync;
+import net.alaux.diosmio.gwt.client.ArtifactGwtServiceAsync;
 import net.alaux.diosmio.gwt.client.ClientFactory;
 import net.alaux.diosmio.gwt.client.common.ArtifactsColumnDefinitionsFactory;
 import net.alaux.diosmio.gwt.client.common.ColumnDefinition;
@@ -16,7 +16,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 
 public class MainAppPresenter implements MainAppView.Presenter {
 
-    private final ArtifactServiceAsync service;
+    private final ArtifactGwtServiceAsync service;
     private final MainAppView mainAppView;
     private final HandlerManager eventBus;
     private final ClientFactory clientFactory;
@@ -25,7 +25,7 @@ public class MainAppPresenter implements MainAppView.Presenter {
 
     private HasWidgets container;
 
-    public MainAppPresenter(ArtifactServiceAsync service,
+    public MainAppPresenter(ArtifactGwtServiceAsync service,
 	    MainAppView mainAppView, HandlerManager eventBus,
 	    ClientFactory clientFactory) {
 

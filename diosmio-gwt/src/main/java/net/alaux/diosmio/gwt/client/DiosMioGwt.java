@@ -17,8 +17,8 @@ public class DiosMioGwt implements EntryPoint {
 
 	ClientFactory clientFactory = GWT.create(ClientFactoryImpl.class);
 
-	ArtifactServiceAsync artifactService = GWT
-		.create(ArtifactService.class);
+	ArtifactGwtServiceAsync artifactService = GWT
+		.create(ArtifactGwtService.class);
 
 	AppController appController = new AppController(artifactService,
 		clientFactory);

@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.json.simple.JSONObject;
@@ -13,10 +15,15 @@ import org.json.simple.JSONObject;
  * @author Guillaume ALAUX <guillaume at alaux dot net> Date: 8/11/12
  */
 @Entity
-@Table(name = HostConfig.TABLE_NAME)
+@Table(name = "HOST_CONFIG")
+@NamedQueries({
+	@NamedQuery(name = HostConfig.Q_FIND_ALL, query = HostConfig.Q_FIND_ALL),
+	@NamedQuery(name = HostConfig.Q_DELETE_BY_ID, query = HostConfig.Q_DELETE_BY_ID) //
+})
 public class HostConfig implements Serializable {
 
-    public static final String TABLE_NAME = "HOST_CONFIG";
+    public static final String Q_FIND_ALL = "SELECT hc from HostConfig hc";
+    public static final String Q_DELETE_BY_ID = "DELETE FROM HostConfig hc WHERE hc.id = :id";
 
     @Id
     @GeneratedValue

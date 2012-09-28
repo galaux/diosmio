@@ -24,7 +24,7 @@
 	<!-- Servlets -->
 	<servlet>
 		<servlet-name>artifactServlet</servlet-name>
-		<servlet-class>net.alaux.diosmio.gwt.server.ArtifactServiceImpl</servlet-class>
+		<servlet-class>net.alaux.diosmio.gwt.server.ArtifactGwtServiceImpl</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
