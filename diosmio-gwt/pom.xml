@@ -18,9 +18,6 @@
 		<!-- Convenience property to set the GWT version -->
 		<gwt.version>2.5.0-rc1</gwt.version>
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
-		<!-- TODO Remove if everything is OK -->
-		<!-- This is inherited from parent -->
-		<!-- <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> -->
 		<gwt.style>DETAILED</gwt.style>
 	</properties>
 

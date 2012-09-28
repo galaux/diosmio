@@ -61,7 +61,6 @@
 		<!--</dependency> -->
 
 		<!-- Spring ********************************** -->
-		<!-- TODO Clean unnecessary Spring dependencies -->
 		<!-- Core utilities used by other modules. Define this if you use Spring 
 			Utility APIs (org.springframework.core.*/org.springframework.util.*) -->
 		<dependency>

@@ -1,4 +1,4 @@
-// $ANTLR 3.4 src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g 2012-09-28 18:13:07
+// $ANTLR 3.4 src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g 2012-09-28 21:16:39
 
 package net.alaux.diosmio.cli.antlr;
 
@@ -14,6 +14,8 @@ import java.util.ArrayList;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class DiosMioCliLexer extends Lexer {
     public static final int EOF=-1;
+    public static final int T__27=27;
+    public static final int T__28=28;
     public static final int ADD=4;
     public static final int ARTIFACT=5;
     public static final int CMD_ADD_ARTIFACT=6;
@@ -59,13 +61,55 @@ public class DiosMioCliLexer extends Lexer {
     }
     public String getGrammarFileName() { return "src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g"; }
 
+    // $ANTLR start "T__27"
+    public final void mT__27() throws RecognitionException {
+        try {
+            int _type = T__27;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:15:7: ( ':' )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:15:9: ':'
+            {
+            match(':'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__27"
+
+    // $ANTLR start "T__28"
+    public final void mT__28() throws RecognitionException {
+        try {
+            int _type = T__28;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:16:7: ( '@' )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:16:9: '@'
+            {
+            match('@'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__28"
+
     // $ANTLR start "HELP"
     public final void mHELP() throws RecognitionException {
         try {
             int _type = HELP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:143:13: ( 'help' )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:143:15: 'help'
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:144:13: ( 'help' )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:144:15: 'help'
             {
             match("help"); 
 
@@ -87,8 +131,8 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = ADD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:144:13: ( 'add' )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:144:15: 'add'
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:145:13: ( 'add' )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:145:15: 'add'
             {
             match("add"); 
 
@@ -110,8 +154,8 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = GET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:145:13: ( 'get' )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:145:15: 'get'
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:146:13: ( 'get' )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:146:15: 'get'
             {
             match("get"); 
 
@@ -133,8 +177,8 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = DELETE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:146:13: ( 'delete' )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:146:15: 'delete'
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:147:13: ( 'delete' )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:147:15: 'delete'
             {
             match("delete"); 
 
@@ -156,8 +200,8 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = LOAD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:148:13: ( 'load' )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:148:15: 'load'
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:149:13: ( 'load' )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:149:15: 'load'
             {
             match("load"); 
 
@@ -179,8 +223,8 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = PARSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:149:13: ( 'parse' )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:149:15: 'parse'
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:150:13: ( 'parse' )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:150:15: 'parse'
             {
             match("parse"); 
 
@@ -202,8 +246,8 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = ARTIFACT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:151:13: ( 'artifact' )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:151:15: 'artifact'
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:152:13: ( 'artifact' )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:152:15: 'artifact'
             {
             match("artifact"); 
 
@@ -225,8 +269,8 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = CONFIG;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:152:13: ( 'config' )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:152:15: 'config'
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:153:13: ( 'config' )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:153:15: 'config'
             {
             match("config"); 
 
@@ -248,10 +292,10 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = NUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:154:9: ( ( DIGIT )+ )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:154:11: ( DIGIT )+
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:155:9: ( ( DIGIT )+ )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:155:11: ( DIGIT )+
             {
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:154:11: ( DIGIT )+
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:155:11: ( DIGIT )+
             int cnt1=0;
             loop1:
             do {
@@ -306,10 +350,10 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:156:12: ( ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+ )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:156:14: ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:157:12: ( ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+ )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:157:14: ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+
             {
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:156:14: ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:157:14: ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+
             int cnt2=0;
             loop2:
             do {
@@ -364,7 +408,7 @@ public class DiosMioCliLexer extends Lexer {
     // $ANTLR start "DIGIT"
     public final void mDIGIT() throws RecognitionException {
         try {
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:158:17: ( '0' .. '9' )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:159:17: ( '0' .. '9' )
             // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
@@ -392,10 +436,10 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = WORD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:161:6: ( ( 'a' .. 'z' | 'A' .. 'Z' )+ )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:161:8: ( 'a' .. 'z' | 'A' .. 'Z' )+
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:162:6: ( ( 'a' .. 'z' | 'A' .. 'Z' )+ )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:162:8: ( 'a' .. 'z' | 'A' .. 'Z' )+
             {
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:161:8: ( 'a' .. 'z' | 'A' .. 'Z' )+
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:162:8: ( 'a' .. 'z' | 'A' .. 'Z' )+
             int cnt3=0;
             loop3:
             do {
@@ -450,10 +494,10 @@ public class DiosMioCliLexer extends Lexer {
         try {
             int _type = FILEPATH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:164:10: ( ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' | '_' | DIGIT )+ )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:164:12: ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' | '_' | DIGIT )+
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:165:10: ( ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' | '_' | DIGIT )+ )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:165:12: ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' | '_' | DIGIT )+
             {
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:164:12: ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' | '_' | DIGIT )+
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:165:12: ( 'a' .. 'z' | 'A' .. 'Z' | '/' | '.' | '-' | '_' | DIGIT )+
             int cnt4=0;
             loop4:
             do {
@@ -504,100 +548,116 @@ public class DiosMioCliLexer extends Lexer {
     // $ANTLR end "FILEPATH"
 
     public void mTokens() throws RecognitionException {
-        // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:8: ( HELP | ADD | GET | DELETE | LOAD | PARSE | ARTIFACT | CONFIG | NUMBER | WHITESPACE | WORD | FILEPATH )
-        int alt5=12;
+        // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:8: ( T__27 | T__28 | HELP | ADD | GET | DELETE | LOAD | PARSE | ARTIFACT | CONFIG | NUMBER | WHITESPACE | WORD | FILEPATH )
+        int alt5=14;
         alt5 = dfa5.predict(input);
         switch (alt5) {
             case 1 :
-                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:10: HELP
+                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:10: T__27
+                {
+                mT__27(); 
+
+
+                }
+                break;
+            case 2 :
+                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:16: T__28
+                {
+                mT__28(); 
+
+
+                }
+                break;
+            case 3 :
+                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:22: HELP
                 {
                 mHELP(); 
 
 
                 }
                 break;
-            case 2 :
-                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:15: ADD
+            case 4 :
+                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:27: ADD
                 {
                 mADD(); 
 
 
                 }
                 break;
-            case 3 :
-                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:19: GET
+            case 5 :
+                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:31: GET
                 {
                 mGET(); 
 
 
                 }
                 break;
-            case 4 :
-                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:23: DELETE
+            case 6 :
+                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:35: DELETE
                 {
                 mDELETE(); 
 
 
                 }
                 break;
-            case 5 :
-                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:30: LOAD
+            case 7 :
+                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:42: LOAD
                 {
                 mLOAD(); 
 
 
                 }
                 break;
-            case 6 :
-                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:35: PARSE
+            case 8 :
+                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:47: PARSE
                 {
                 mPARSE(); 
 
 
                 }
                 break;
-            case 7 :
-                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:41: ARTIFACT
+            case 9 :
+                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:53: ARTIFACT
                 {
                 mARTIFACT(); 
 
 
                 }
                 break;
-            case 8 :
-                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:50: CONFIG
+            case 10 :
+                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:62: CONFIG
                 {
                 mCONFIG(); 
 
 
                 }
                 break;
-            case 9 :
-                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:57: NUMBER
+            case 11 :
+                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:69: NUMBER
                 {
                 mNUMBER(); 
 
 
                 }
                 break;
-            case 10 :
-                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:64: WHITESPACE
+            case 12 :
+                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:76: WHITESPACE
                 {
                 mWHITESPACE(); 
 
 
                 }
                 break;
-            case 11 :
-                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:75: WORD
+            case 13 :
+                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:87: WORD
                 {
                 mWORD(); 
 
 
                 }
                 break;
-            case 12 :
-                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:80: FILEPATH
+            case 14 :
+                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:1:92: FILEPATH
                 {
                 mFILEPATH(); 
 
@@ -612,82 +672,84 @@ public class DiosMioCliLexer extends Lexer {
 
     protected DFA5 dfa5 = new DFA5(this);
     static final String DFA5_eotS =
-        "\1\uffff\7\15\1\25\1\uffff\1\15\1\uffff\1\15\1\uffff\7\15\1\uffff"+
-        "\1\15\1\37\1\15\1\41\4\15\1\46\1\uffff\1\15\1\uffff\1\15\1\51\2"+
-        "\15\1\uffff\2\15\1\uffff\1\56\2\15\1\61\1\uffff\1\62\1\15\2\uffff"+
-        "\1\64\1\uffff";
+        "\3\uffff\7\17\1\27\1\uffff\1\17\1\uffff\1\17\1\uffff\7\17\1\uffff"+
+        "\1\17\1\41\1\17\1\43\4\17\1\50\1\uffff\1\17\1\uffff\1\17\1\53\2"+
+        "\17\1\uffff\2\17\1\uffff\1\60\2\17\1\63\1\uffff\1\64\1\17\2\uffff"+
+        "\1\66\1\uffff";
     static final String DFA5_eofS =
-        "\65\uffff";
+        "\67\uffff";
     static final String DFA5_minS =
-        "\1\11\10\55\1\uffff\1\55\1\uffff\1\55\1\uffff\7\55\1\uffff\11\55"+
-        "\1\uffff\1\55\1\uffff\4\55\1\uffff\2\55\1\uffff\4\55\1\uffff\2\55"+
-        "\2\uffff\1\55\1\uffff";
+        "\1\11\2\uffff\10\55\1\uffff\1\55\1\uffff\1\55\1\uffff\7\55\1\uffff"+
+        "\11\55\1\uffff\1\55\1\uffff\4\55\1\uffff\2\55\1\uffff\4\55\1\uffff"+
+        "\2\55\2\uffff\1\55\1\uffff";
     static final String DFA5_maxS =
-        "\11\172\1\uffff\1\172\1\uffff\1\172\1\uffff\7\172\1\uffff\11\172"+
-        "\1\uffff\1\172\1\uffff\4\172\1\uffff\2\172\1\uffff\4\172\1\uffff"+
-        "\2\172\2\uffff\1\172\1\uffff";
+        "\1\172\2\uffff\10\172\1\uffff\1\172\1\uffff\1\172\1\uffff\7\172"+
+        "\1\uffff\11\172\1\uffff\1\172\1\uffff\4\172\1\uffff\2\172\1\uffff"+
+        "\4\172\1\uffff\2\172\2\uffff\1\172\1\uffff";
     static final String DFA5_acceptS =
-        "\11\uffff\1\12\1\uffff\1\14\1\uffff\1\13\7\uffff\1\11\11\uffff\1"+
-        "\2\1\uffff\1\3\4\uffff\1\1\2\uffff\1\5\4\uffff\1\6\2\uffff\1\4\1"+
-        "\10\1\uffff\1\7";
+        "\1\uffff\1\1\1\2\10\uffff\1\14\1\uffff\1\16\1\uffff\1\15\7\uffff"+
+        "\1\13\11\uffff\1\4\1\uffff\1\5\4\uffff\1\3\2\uffff\1\7\4\uffff\1"+
+        "\10\2\uffff\1\6\1\12\1\uffff\1\11";
     static final String DFA5_specialS =
-        "\65\uffff}>";
+        "\67\uffff}>";
     static final String[] DFA5_transitionS = {
-            "\2\11\1\uffff\2\11\22\uffff\1\11\14\uffff\3\13\12\10\7\uffff"+
-            "\32\12\4\uffff\1\13\1\uffff\1\2\1\12\1\7\1\4\2\12\1\3\1\1\3"+
-            "\12\1\5\3\12\1\6\12\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\4\12\1\14\25\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\3\12\1\16\15\12\1"+
-            "\17\10\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\4\12\1\20\25\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\4\12\1\21\25\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\16\12\1\22\13\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\1\23\31\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\16\12\1\24\13\12",
-            "\3\13\12\10\7\uffff\32\13\4\uffff\1\13\1\uffff\32\13",
-            "",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\32\12",
-            "",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\13\12\1\26\16\12",
-            "",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\3\12\1\27\26\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\23\12\1\30\6\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\23\12\1\31\6\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\13\12\1\32\16\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\1\33\31\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\21\12\1\34\10\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\15\12\1\35\14\12",
-            "",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\17\12\1\36\12\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\32\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\10\12\1\40\21\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\32\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\4\12\1\42\25\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\3\12\1\43\26\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\22\12\1\44\7\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\5\12\1\45\24\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\32\12",
-            "",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\5\12\1\47\24\12",
-            "",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\23\12\1\50\6\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\32\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\4\12\1\52\25\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\10\12\1\53\21\12",
-            "",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\1\54\31\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\4\12\1\55\25\12",
-            "",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\32\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\6\12\1\57\23\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\2\12\1\60\27\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\32\12",
-            "",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\32\12",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\23\12\1\63\6\12",
+            "\2\13\1\uffff\2\13\22\uffff\1\13\14\uffff\3\15\12\12\1\1\5\uffff"+
+            "\1\2\32\14\4\uffff\1\15\1\uffff\1\4\1\14\1\11\1\6\2\14\1\5\1"+
+            "\3\3\14\1\7\3\14\1\10\12\14",
             "",
             "",
-            "\15\13\7\uffff\32\12\4\uffff\1\13\1\uffff\32\12",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\4\14\1\16\25\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\3\14\1\20\15\14\1"+
+            "\21\10\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\4\14\1\22\25\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\4\14\1\23\25\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\16\14\1\24\13\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\1\25\31\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\16\14\1\26\13\14",
+            "\3\15\12\12\7\uffff\32\15\4\uffff\1\15\1\uffff\32\15",
+            "",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\32\14",
+            "",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\13\14\1\30\16\14",
+            "",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\3\14\1\31\26\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\23\14\1\32\6\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\23\14\1\33\6\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\13\14\1\34\16\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\1\35\31\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\21\14\1\36\10\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\15\14\1\37\14\14",
+            "",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\17\14\1\40\12\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\32\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\10\14\1\42\21\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\32\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\4\14\1\44\25\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\3\14\1\45\26\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\22\14\1\46\7\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\5\14\1\47\24\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\32\14",
+            "",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\5\14\1\51\24\14",
+            "",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\23\14\1\52\6\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\32\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\4\14\1\54\25\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\10\14\1\55\21\14",
+            "",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\1\56\31\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\4\14\1\57\25\14",
+            "",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\32\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\6\14\1\61\23\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\2\14\1\62\27\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\32\14",
+            "",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\32\14",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\23\14\1\65\6\14",
+            "",
+            "",
+            "\15\15\7\uffff\32\14\4\uffff\1\15\1\uffff\32\14",
             ""
     };
 
@@ -721,7 +783,7 @@ public class DiosMioCliLexer extends Lexer {
             this.transition = DFA5_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( HELP | ADD | GET | DELETE | LOAD | PARSE | ARTIFACT | CONFIG | NUMBER | WHITESPACE | WORD | FILEPATH );";
+            return "1:1: Tokens : ( T__27 | T__28 | HELP | ADD | GET | DELETE | LOAD | PARSE | ARTIFACT | CONFIG | NUMBER | WHITESPACE | WORD | FILEPATH );";
         }
     }
  

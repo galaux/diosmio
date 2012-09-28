@@ -27,42 +27,29 @@ public class ArtifactServiceImpl implements ArtifactService {
     @Autowired
     private AppMessages appMessages;
 
-    public static final String FILE_SEPARATOR = System
-	    .getProperty("file.separator");
+    // public static final String FILE_SEPARATOR = System
+    // .getProperty("file.separator");
 
     public Log logger = LogFactory.getLog(ArtifactServiceImpl.class);
 
     @Override
-    public Artifact create(String name, byte[] content) {
+    public Artifact create(Artifact artifact, byte[] content) {
 
 	logger.info("create()");
-
-	/*
-	 * TODO some sort of transaction: if
-	 * "fileDao.create(artifact, content);" fails then remove the Artifact
-	 * from the artifactDao too!
-	 */
-	Artifact artifact = new Artifact();
-	artifact.setName(name);
 	artifactDao.create(artifact);
-	artifactFileAo.create(artifact, content);
+	if (artifactFileAo.create(artifact, content)) {
+	    // If storage copy failed, then also remove Artifact from DB
+	    artifactDao.delete(artifact);
+	}
 
 	return artifact;
     }
 
+    @Deprecated
     @Override
     public Artifact create(Artifact artifact) {
 	logger.info("create()");
-
-	/*
-	 * TODO some sort of transaction: if
-	 * "fileDao.create(artifact, content);" fails then remove the Artifact
-	 * from the artifactDao too!
-	 */
 	artifactDao.create(artifact);
-	// TODO
-	// fileDao.create(artifact, content);
-
 	return artifact;
     }
 
@@ -81,9 +68,13 @@ public class ArtifactServiceImpl implements ArtifactService {
     @Override
     public void delete(Artifact artifact) {
 	logger.info("delete(Artifact(" + artifact.getId() + "))");
-	// TODO use boolean return of this method
-	artifactFileAo.delete(artifact);
-	artifactDao.delete(artifact);
+	if (artifactFileAo.delete(artifact)) {
+	    artifactDao.delete(artifact);
+	} else {
+	    logger.error("Were asked to remove an Artifact from DB and storage but cannot find corresponding file in storage");
+	    throw new RuntimeException(
+		    appMessages.get("error.storage.artifact_file_not_found"));
+	}
     }
 
     @Override
@@ -105,7 +96,6 @@ public class ArtifactServiceImpl implements ArtifactService {
 	logger.info("delete(" + ids + ")");
 	List<Long> deletedIds = new ArrayList<Long>();
 
-	// FIXME is it possible to fail here?
 	for (Long id : ids) {
 	    logger.info("\tdelete(" + id + ")");
 	    artifactDao.delete(id);

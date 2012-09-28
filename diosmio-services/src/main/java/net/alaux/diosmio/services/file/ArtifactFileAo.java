@@ -6,7 +6,7 @@ import net.alaux.diosmio.com.entity.Artifact;
 
 public interface ArtifactFileAo {
 
-    public void create(Artifact artifact, byte[] content);
+    public boolean create(Artifact artifact, byte[] content);
 
     File get(Artifact artifact);
 

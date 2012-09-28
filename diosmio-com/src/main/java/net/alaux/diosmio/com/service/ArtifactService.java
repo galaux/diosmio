@@ -11,8 +11,10 @@ import net.alaux.diosmio.com.entity.Artifact;
  */
 public interface ArtifactService extends Remote {
 
-    public Artifact create(String name, byte[] content) throws RemoteException;
+    public Artifact create(Artifact artifact, byte[] content)
+	    throws RemoteException;
 
+    @Deprecated
     public Artifact create(Artifact artifact) throws RemoteException;
 
     public Artifact get(Long id) throws RemoteException;

@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import net.alaux.diosmio.cli.Main;
 import net.alaux.diosmio.cli.client.CliClient;
 import net.alaux.diosmio.com.service.ArtifactService;
 import net.alaux.diosmio.com.service.HostConfigService;
@@ -35,12 +36,12 @@ public class CliRmiClient extends CliClient {
 		artifactService = (ArtifactService) registry
 			.lookup("artifactService");
 	    } catch (RemoteException e) {
-		// TODO add error message
-		throw new RuntimeException(e);
+		throw new RuntimeException(
+			Main.bundle.getString("error.server_connection"), e);
 
 	    } catch (NotBoundException e) {
-		// TODO add error message
-		throw new RuntimeException(e);
+		throw new RuntimeException(
+			Main.bundle.getString("error.server_connection"), e);
 	    }
 	}
 
@@ -57,12 +58,12 @@ public class CliRmiClient extends CliClient {
 		hostConfigService = (HostConfigService) registry
 			.lookup("hostConfigService");
 	    } catch (RemoteException e) {
-		// TODO add error message
-		throw new RuntimeException(e);
+		throw new RuntimeException(
+			Main.bundle.getString("error.server_connection"), e);
 
 	    } catch (NotBoundException e) {
-		// TODO add error message
-		throw new RuntimeException(e);
+		throw new RuntimeException(
+			Main.bundle.getString("error.server_connection"), e);
 	    }
 	}
 

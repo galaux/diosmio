@@ -98,9 +98,10 @@ deleteArtifact
      ;
 
 // Configurations ***************************************************
+// TODO add possibility for user to enter 'miguel@rocky.alaux.net:22'
 addConfig
-    : ADD CONFIG hostname sshPort sshUser
-        -> ^(CMD_ADD_CONFIG hostname sshPort sshUser)
+    : ADD CONFIG ( sshUser hostname sshPort | sshUser '@' hostname ':' sshPort )
+        -> ^(CMD_ADD_CONFIG sshUser hostname sshPort)
     ;
 
 getConfig

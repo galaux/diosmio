@@ -48,7 +48,7 @@ public class ArtifactFileAoImpl implements ArtifactFileAo {
     }
 
     @Override
-    public void create(Artifact artifact, byte[] content) {
+    public boolean create(Artifact artifact, byte[] content) {
 
 	File file = new File(getInnerPathName(artifact));
 
@@ -58,7 +58,6 @@ public class ArtifactFileAoImpl implements ArtifactFileAo {
 	}
 
 	try {
-	    // TODO handle internPath = dir + filename
 	    FileOutputStream fos = new FileOutputStream(file);
 	    try {
 		fos.write(content);
@@ -67,8 +66,11 @@ public class ArtifactFileAoImpl implements ArtifactFileAo {
 		fos.close();
 	    }
 	} catch (IOException e) {
-	    throw new RuntimeException(e);
+	    throw new RuntimeException(appMessages.get(
+		    "error.file_not_readable", file.getAbsolutePath()), e);
 	}
+
+	return true;
     }
 
     @Override

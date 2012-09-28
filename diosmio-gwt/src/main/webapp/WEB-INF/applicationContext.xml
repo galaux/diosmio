@@ -27,11 +27,12 @@
 
 	<!--<util:properties id="serviceProperties" location="file:${diosmio-conf-file}"/> -->
 
-	<bean id="fileDao" class="net.alaux.diosmio.services.dao.file.impl.SimpleFileDao" />
-	<bean id="artifactDao" class="net.alaux.diosmio.services.dao.db.impl.ArtifactDao" />
-	<bean id="artifactManager"
-		class="net.alaux.diosmio.services.core.impl.SimpleArtifactManager" />
-	<bean id="configDao" class="net.alaux.diosmio.services.dao.db.impl.SimpleConfigDao" />
+	<bean id="artifactFileAo" class="net.alaux.diosmio.services.file.impl.ArtifactFileAoImpl" />
+	<bean id="artifactDao" class="net.alaux.diosmio.services.dao.impl.ArtifactDaoImpl" />
+	<bean id="hostConfigDao" class="net.alaux.diosmio.services.dao.impl.HostConfigDaoImpl" />
+
+	<bean id="artifactService" class="net.alaux.diosmio.services.impl.ArtifactServiceImpl" />
+	<bean id="hostConfigService" class="net.alaux.diosmio.services.impl.HostConfigServiceImpl" />
 
 
 	<!-- applicationContext-cli-* enable how to communicate with the CLI -->

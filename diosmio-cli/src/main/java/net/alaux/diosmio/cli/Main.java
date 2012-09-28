@@ -74,16 +74,15 @@ public class Main {
 	    + "\tdelete [ artifact | config ] id" + LINE_SEP
 	    + "\t\tdelete specified element";
 
-    // TODO change this for the first stable version
-    public static final KissLogger.Level CLI_DEFAULT_LEVEL = KissLogger.Level.DEBUG;
+    public static final KissLogger.Level CLI_DEFAULT_LEVEL = KissLogger.Level.INFO;
     public static final KissLogger logger = new KissLogger(CLI_DEFAULT_LEVEL);
 
     public static final ResourceBundle bundle = ResourceBundle
 	    .getBundle("messages/messages");
 
     public static PrintWriter out = new PrintWriter(System.out, true);
-    // For now let's write error output to regular "out" output. Later, TODO
-    // think about a colorized err output?
+    // For now let's write error output to regular "out" output.
+    // Later, TODO think about a colorized err output?
     public static final PrintWriter err = out;
 
     /**
@@ -95,16 +94,14 @@ public class Main {
 
 	try {
 
-	    logger.info("Parsing CLI arguments");
+	    logger.debug("Parsing CLI arguments");
 	    // Parse command line
 	    Options options = createOptions();
 	    CommandLineParser parser = new PosixParser();
 	    CommandLine cmd = parser.parse(options, args);
 
-	    // TODO Make some command line basic verification (ie
-	    // "One OPT at least", "Only one OPT") #ABC
-
-	    // TODO Apply config file parameters
+	    // TODO Make some command line option basic verification (ie
+	    // "One OPT at least", "Only one OPT")
 
 	    if (cmd.hasOption(OPT_TECH_HELP)) {
 		HelpFormatter formatter = new HelpFormatter();
@@ -199,7 +196,7 @@ public class Main {
 
 	    // Artifact ***************************************************
 	    case DiosMioCliParser.CMD_ADD_ARTIFACT:
-		client.createArtifact(tree.getChild(0).toString());
+		client.createArtifact(new File(tree.getChild(0).toString()));
 		break;
 
 	    case DiosMioCliParser.CMD_GET_ARTIFACT:
@@ -231,15 +228,19 @@ public class Main {
 		}
 		break;
 
+	    case DiosMioCliParser.CMD_DELETE_CONFIG:
+		client.deleteConfiguration(new Long(tree.getChild(0).toString()));
+		break;
+
 	    // Misc *******************************************************
 	    case DiosMioCliParser.CMD_LOAD:
 		Main.logger.info("DiosMioCliParser.CMD_LOAD");
-		client.loadFile(tree.getChild(0).toString());
+		client.loadFile(new File(tree.getChild(0).toString()));
 		break;
 
 	    case DiosMioCliParser.CMD_PARSE:
 		Main.logger.info("DiosMioCliParser.CMD_PARSE");
-		client.parseFile(tree.getChild(0).toString());
+		client.parseFile(new File(tree.getChild(0).toString()));
 		break;
 
 	    case DiosMioCliParser.CMD_NO_OP:
@@ -296,6 +297,7 @@ public class Main {
 			    cmd.getOptionValue(OPT_TECH_CONFIG_FILE)));
 		    logger.error("Cannot access argument specified configuration file '"
 			    + cmd.getOptionValue(OPT_TECH_CONFIG_FILE) + "'");
+		    // Continue
 		}
 	    } else {
 		Main.err.println(MessageFormat.format(
@@ -314,15 +316,14 @@ public class Main {
 	}
 
 	if (is == null) {
-	    // TODO Handle this properly
-	    throw new Error(bundle.getString("error.no_config_file"));
+	    throw new RuntimeException(bundle.getString("error.no_config_file"));
 	}
 
 	Properties res = new Properties();
 	try {
 	    res.load(is);
 	} catch (IOException e) {
-	    throw new Error(bundle.getString("error.no_config_file"));
+	    throw new RuntimeException(bundle.getString("error.no_config_file"));
 	}
 
 	return res;
@@ -360,8 +361,6 @@ public class Main {
     private void updateCliLogger(KissLogger targetLogger,
 	    Properties properties, CommandLine cmd) {
 
-	// TODO handle this in a more simple manner: one try catch?
-
 	logger.info("Updating logger to reflect CLI or internal config");
 
 	File logFile = null;
@@ -369,25 +368,16 @@ public class Main {
 	// First, let's see if user provided CLI argument related to log file
 	if (cmd.hasOption(OPT_TECH_LOG_FILE)) {
 	    logFile = new File(cmd.getOptionValue(OPT_TECH_LOG_FILE));
-	    if (logFile == null) {
-		// TODO Should be checked earlier (see #ABC)
+	    if (logFile.exists() && !logFile.canWrite()) {
 		err.println(MessageFormat.format(
 			bundle.getString("error.access.write.argument"),
-			cmd.getOptionValue(OPT_TECH_LOG_FILE)));
+			logFile.getAbsolutePath()));
 		logger.error("Cannot write to argument specified log file '"
-			+ cmd.getOptionValue(OPT_TECH_LOG_FILE) + "'");
+			+ logFile.getAbsolutePath() + "'");
+		logFile = null;
 	    } else {
-		if (logFile.exists() && !logFile.canWrite()) {
-		    err.println(MessageFormat.format(
-			    bundle.getString("error.access.write.argument"),
-			    logFile.getAbsolutePath()));
-		    logger.error("Cannot write to argument specified log file '"
-			    + logFile.getAbsolutePath() + "'");
-		    logFile = null;
-		} else {
-		    logger.info("Found the following log file path given by argument '"
-			    + logFile.getAbsolutePath() + "'");
-		}
+		logger.info("Found the following log file path given by argument '"
+			+ logFile.getAbsolutePath() + "'");
 	    }
 	}
 

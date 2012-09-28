@@ -1,4 +1,4 @@
-// $ANTLR 3.4 src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g 2012-09-28 18:13:07
+// $ANTLR 3.4 src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g 2012-09-28 21:16:38
 
 package net.alaux.diosmio.cli.antlr;
 
@@ -19,10 +19,12 @@ import org.antlr.runtime.tree.*;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class DiosMioCliParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ADD", "ARTIFACT", "CMD_ADD_ARTIFACT", "CMD_ADD_CONFIG", "CMD_DELETE_ARTIFACT", "CMD_DELETE_CONFIG", "CMD_GET_ARTIFACT", "CMD_GET_CONFIG", "CMD_HELP", "CMD_LOAD", "CMD_NO_OP", "CMD_PARSE", "CONFIG", "DELETE", "DIGIT", "FILEPATH", "GET", "HELP", "LOAD", "NUMBER", "PARSE", "WHITESPACE", "WORD"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ADD", "ARTIFACT", "CMD_ADD_ARTIFACT", "CMD_ADD_CONFIG", "CMD_DELETE_ARTIFACT", "CMD_DELETE_CONFIG", "CMD_GET_ARTIFACT", "CMD_GET_CONFIG", "CMD_HELP", "CMD_LOAD", "CMD_NO_OP", "CMD_PARSE", "CONFIG", "DELETE", "DIGIT", "FILEPATH", "GET", "HELP", "LOAD", "NUMBER", "PARSE", "WHITESPACE", "WORD", "':'", "'@'"
     };
 
     public static final int EOF=-1;
+    public static final int T__27=27;
+    public static final int T__28=28;
     public static final int ADD=4;
     public static final int ARTIFACT=5;
     public static final int CMD_ADD_ARTIFACT=6;
@@ -915,7 +917,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "addConfig"
-    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:101:1: addConfig : ADD CONFIG hostname sshPort sshUser -> ^( CMD_ADD_CONFIG hostname sshPort sshUser ) ;
+    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:102:1: addConfig : ADD CONFIG ( sshUser hostname sshPort | sshUser '@' hostname ':' sshPort ) -> ^( CMD_ADD_CONFIG sshUser hostname sshPort ) ;
     public final DiosMioCliParser.addConfig_return addConfig() throws RecognitionException {
         DiosMioCliParser.addConfig_return retval = new DiosMioCliParser.addConfig_return();
         retval.start = input.LT(1);
@@ -925,55 +927,141 @@ public TreeAdaptor getTreeAdaptor() {
 
         Token ADD22=null;
         Token CONFIG23=null;
-        DiosMioCliParser.hostname_return hostname24 =null;
+        Token char_literal28=null;
+        Token char_literal30=null;
+        DiosMioCliParser.sshUser_return sshUser24 =null;
 
-        DiosMioCliParser.sshPort_return sshPort25 =null;
+        DiosMioCliParser.hostname_return hostname25 =null;
 
-        DiosMioCliParser.sshUser_return sshUser26 =null;
+        DiosMioCliParser.sshPort_return sshPort26 =null;
+
+        DiosMioCliParser.sshUser_return sshUser27 =null;
+
+        DiosMioCliParser.hostname_return hostname29 =null;
+
+        DiosMioCliParser.sshPort_return sshPort31 =null;
 
 
         CommonTree ADD22_tree=null;
         CommonTree CONFIG23_tree=null;
+        CommonTree char_literal28_tree=null;
+        CommonTree char_literal30_tree=null;
         RewriteRuleTokenStream stream_CONFIG=new RewriteRuleTokenStream(adaptor,"token CONFIG");
+        RewriteRuleTokenStream stream_27=new RewriteRuleTokenStream(adaptor,"token 27");
+        RewriteRuleTokenStream stream_28=new RewriteRuleTokenStream(adaptor,"token 28");
         RewriteRuleTokenStream stream_ADD=new RewriteRuleTokenStream(adaptor,"token ADD");
         RewriteRuleSubtreeStream stream_hostname=new RewriteRuleSubtreeStream(adaptor,"rule hostname");
         RewriteRuleSubtreeStream stream_sshPort=new RewriteRuleSubtreeStream(adaptor,"rule sshPort");
         RewriteRuleSubtreeStream stream_sshUser=new RewriteRuleSubtreeStream(adaptor,"rule sshUser");
         try {
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:102:5: ( ADD CONFIG hostname sshPort sshUser -> ^( CMD_ADD_CONFIG hostname sshPort sshUser ) )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:102:7: ADD CONFIG hostname sshPort sshUser
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:103:5: ( ADD CONFIG ( sshUser hostname sshPort | sshUser '@' hostname ':' sshPort ) -> ^( CMD_ADD_CONFIG sshUser hostname sshPort ) )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:103:7: ADD CONFIG ( sshUser hostname sshPort | sshUser '@' hostname ':' sshPort )
             {
-            ADD22=(Token)match(input,ADD,FOLLOW_ADD_in_addConfig433); if (state.failed) return retval; 
+            ADD22=(Token)match(input,ADD,FOLLOW_ADD_in_addConfig434); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_ADD.add(ADD22);
 
 
-            CONFIG23=(Token)match(input,CONFIG,FOLLOW_CONFIG_in_addConfig435); if (state.failed) return retval; 
+            CONFIG23=(Token)match(input,CONFIG,FOLLOW_CONFIG_in_addConfig436); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_CONFIG.add(CONFIG23);
 
 
-            pushFollow(FOLLOW_hostname_in_addConfig437);
-            hostname24=hostname();
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:103:18: ( sshUser hostname sshPort | sshUser '@' hostname ':' sshPort )
+            int alt3=2;
+            int LA3_0 = input.LA(1);
 
-            state._fsp--;
-            if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_hostname.add(hostname24.getTree());
+            if ( (LA3_0==WORD) ) {
+                int LA3_1 = input.LA(2);
 
-            pushFollow(FOLLOW_sshPort_in_addConfig439);
-            sshPort25=sshPort();
+                if ( (LA3_1==WORD) ) {
+                    alt3=1;
+                }
+                else if ( (LA3_1==28) ) {
+                    alt3=2;
+                }
+                else {
+                    if (state.backtracking>0) {state.failed=true; return retval;}
+                    NoViableAltException nvae =
+                        new NoViableAltException("", 3, 1, input);
 
-            state._fsp--;
-            if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_sshPort.add(sshPort25.getTree());
+                    throw nvae;
 
-            pushFollow(FOLLOW_sshUser_in_addConfig441);
-            sshUser26=sshUser();
+                }
+            }
+            else {
+                if (state.backtracking>0) {state.failed=true; return retval;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 3, 0, input);
 
-            state._fsp--;
-            if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_sshUser.add(sshUser26.getTree());
+                throw nvae;
+
+            }
+            switch (alt3) {
+                case 1 :
+                    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:103:20: sshUser hostname sshPort
+                    {
+                    pushFollow(FOLLOW_sshUser_in_addConfig440);
+                    sshUser24=sshUser();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) stream_sshUser.add(sshUser24.getTree());
+
+                    pushFollow(FOLLOW_hostname_in_addConfig442);
+                    hostname25=hostname();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) stream_hostname.add(hostname25.getTree());
+
+                    pushFollow(FOLLOW_sshPort_in_addConfig444);
+                    sshPort26=sshPort();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) stream_sshPort.add(sshPort26.getTree());
+
+                    }
+                    break;
+                case 2 :
+                    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:103:47: sshUser '@' hostname ':' sshPort
+                    {
+                    pushFollow(FOLLOW_sshUser_in_addConfig448);
+                    sshUser27=sshUser();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) stream_sshUser.add(sshUser27.getTree());
+
+                    char_literal28=(Token)match(input,28,FOLLOW_28_in_addConfig450); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_28.add(char_literal28);
+
+
+                    pushFollow(FOLLOW_hostname_in_addConfig452);
+                    hostname29=hostname();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) stream_hostname.add(hostname29.getTree());
+
+                    char_literal30=(Token)match(input,27,FOLLOW_27_in_addConfig454); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_27.add(char_literal30);
+
+
+                    pushFollow(FOLLOW_sshPort_in_addConfig456);
+                    sshPort31=sshPort();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) stream_sshPort.add(sshPort31.getTree());
+
+                    }
+                    break;
+
+            }
+
 
             // AST REWRITE
-            // elements: hostname, sshUser, sshPort
+            // elements: sshPort, sshUser, hostname
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -985,20 +1073,20 @@ public TreeAdaptor getTreeAdaptor() {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 103:9: -> ^( CMD_ADD_CONFIG hostname sshPort sshUser )
+            // 104:9: -> ^( CMD_ADD_CONFIG sshUser hostname sshPort )
             {
-                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:103:12: ^( CMD_ADD_CONFIG hostname sshPort sshUser )
+                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:104:12: ^( CMD_ADD_CONFIG sshUser hostname sshPort )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(
                 (CommonTree)adaptor.create(CMD_ADD_CONFIG, "CMD_ADD_CONFIG")
                 , root_1);
 
+                adaptor.addChild(root_1, stream_sshUser.nextTree());
+
                 adaptor.addChild(root_1, stream_hostname.nextTree());
 
                 adaptor.addChild(root_1, stream_sshPort.nextTree());
-
-                adaptor.addChild(root_1, stream_sshUser.nextTree());
 
                 adaptor.addChild(root_0, root_1);
                 }
@@ -1042,7 +1130,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "getConfig"
-    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:106:1: getConfig : GET CONFIG ( id )? -> ^( CMD_GET_CONFIG ( id )? ) ;
+    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:107:1: getConfig : GET CONFIG ( id )? -> ^( CMD_GET_CONFIG ( id )? ) ;
     public final DiosMioCliParser.getConfig_return getConfig() throws RecognitionException {
         DiosMioCliParser.getConfig_return retval = new DiosMioCliParser.getConfig_return();
         retval.start = input.LT(1);
@@ -1050,45 +1138,45 @@ public TreeAdaptor getTreeAdaptor() {
 
         CommonTree root_0 = null;
 
-        Token GET27=null;
-        Token CONFIG28=null;
-        DiosMioCliParser.id_return id29 =null;
+        Token GET32=null;
+        Token CONFIG33=null;
+        DiosMioCliParser.id_return id34 =null;
 
 
-        CommonTree GET27_tree=null;
-        CommonTree CONFIG28_tree=null;
+        CommonTree GET32_tree=null;
+        CommonTree CONFIG33_tree=null;
         RewriteRuleTokenStream stream_CONFIG=new RewriteRuleTokenStream(adaptor,"token CONFIG");
         RewriteRuleTokenStream stream_GET=new RewriteRuleTokenStream(adaptor,"token GET");
         RewriteRuleSubtreeStream stream_id=new RewriteRuleSubtreeStream(adaptor,"rule id");
         try {
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:107:5: ( GET CONFIG ( id )? -> ^( CMD_GET_CONFIG ( id )? ) )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:107:7: GET CONFIG ( id )?
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:108:5: ( GET CONFIG ( id )? -> ^( CMD_GET_CONFIG ( id )? ) )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:108:7: GET CONFIG ( id )?
             {
-            GET27=(Token)match(input,GET,FOLLOW_GET_in_getConfig478); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_GET.add(GET27);
+            GET32=(Token)match(input,GET,FOLLOW_GET_in_getConfig495); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_GET.add(GET32);
 
 
-            CONFIG28=(Token)match(input,CONFIG,FOLLOW_CONFIG_in_getConfig480); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_CONFIG.add(CONFIG28);
+            CONFIG33=(Token)match(input,CONFIG,FOLLOW_CONFIG_in_getConfig497); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_CONFIG.add(CONFIG33);
 
 
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:107:18: ( id )?
-            int alt3=2;
-            int LA3_0 = input.LA(1);
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:108:18: ( id )?
+            int alt4=2;
+            int LA4_0 = input.LA(1);
 
-            if ( (LA3_0==NUMBER) ) {
-                alt3=1;
+            if ( (LA4_0==NUMBER) ) {
+                alt4=1;
             }
-            switch (alt3) {
+            switch (alt4) {
                 case 1 :
-                    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:107:18: id
+                    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:108:18: id
                     {
-                    pushFollow(FOLLOW_id_in_getConfig482);
-                    id29=id();
+                    pushFollow(FOLLOW_id_in_getConfig499);
+                    id34=id();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_id.add(id29.getTree());
+                    if ( state.backtracking==0 ) stream_id.add(id34.getTree());
 
                     }
                     break;
@@ -1109,16 +1197,16 @@ public TreeAdaptor getTreeAdaptor() {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 108:9: -> ^( CMD_GET_CONFIG ( id )? )
+            // 109:9: -> ^( CMD_GET_CONFIG ( id )? )
             {
-                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:108:12: ^( CMD_GET_CONFIG ( id )? )
+                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:109:12: ^( CMD_GET_CONFIG ( id )? )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(
                 (CommonTree)adaptor.create(CMD_GET_CONFIG, "CMD_GET_CONFIG")
                 , root_1);
 
-                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:108:29: ( id )?
+                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:109:29: ( id )?
                 if ( stream_id.hasNext() ) {
                     adaptor.addChild(root_1, stream_id.nextTree());
 
@@ -1167,7 +1255,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "deleteConfig"
-    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:111:1: deleteConfig : DELETE CONFIG id -> ^( CMD_DELETE_CONFIG id ) ;
+    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:112:1: deleteConfig : DELETE CONFIG id -> ^( CMD_DELETE_CONFIG id ) ;
     public final DiosMioCliParser.deleteConfig_return deleteConfig() throws RecognitionException {
         DiosMioCliParser.deleteConfig_return retval = new DiosMioCliParser.deleteConfig_return();
         retval.start = input.LT(1);
@@ -1175,34 +1263,34 @@ public TreeAdaptor getTreeAdaptor() {
 
         CommonTree root_0 = null;
 
-        Token DELETE30=null;
-        Token CONFIG31=null;
-        DiosMioCliParser.id_return id32 =null;
+        Token DELETE35=null;
+        Token CONFIG36=null;
+        DiosMioCliParser.id_return id37 =null;
 
 
-        CommonTree DELETE30_tree=null;
-        CommonTree CONFIG31_tree=null;
+        CommonTree DELETE35_tree=null;
+        CommonTree CONFIG36_tree=null;
         RewriteRuleTokenStream stream_CONFIG=new RewriteRuleTokenStream(adaptor,"token CONFIG");
         RewriteRuleTokenStream stream_DELETE=new RewriteRuleTokenStream(adaptor,"token DELETE");
         RewriteRuleSubtreeStream stream_id=new RewriteRuleSubtreeStream(adaptor,"rule id");
         try {
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:112:5: ( DELETE CONFIG id -> ^( CMD_DELETE_CONFIG id ) )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:112:7: DELETE CONFIG id
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:113:5: ( DELETE CONFIG id -> ^( CMD_DELETE_CONFIG id ) )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:113:7: DELETE CONFIG id
             {
-            DELETE30=(Token)match(input,DELETE,FOLLOW_DELETE_in_deleteConfig517); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_DELETE.add(DELETE30);
+            DELETE35=(Token)match(input,DELETE,FOLLOW_DELETE_in_deleteConfig534); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_DELETE.add(DELETE35);
 
 
-            CONFIG31=(Token)match(input,CONFIG,FOLLOW_CONFIG_in_deleteConfig519); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_CONFIG.add(CONFIG31);
+            CONFIG36=(Token)match(input,CONFIG,FOLLOW_CONFIG_in_deleteConfig536); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_CONFIG.add(CONFIG36);
 
 
-            pushFollow(FOLLOW_id_in_deleteConfig521);
-            id32=id();
+            pushFollow(FOLLOW_id_in_deleteConfig538);
+            id37=id();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_id.add(id32.getTree());
+            if ( state.backtracking==0 ) stream_id.add(id37.getTree());
 
             // AST REWRITE
             // elements: id
@@ -1217,9 +1305,9 @@ public TreeAdaptor getTreeAdaptor() {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 113:9: -> ^( CMD_DELETE_CONFIG id )
+            // 114:9: -> ^( CMD_DELETE_CONFIG id )
             {
-                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:113:12: ^( CMD_DELETE_CONFIG id )
+                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:114:12: ^( CMD_DELETE_CONFIG id )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(
@@ -1270,7 +1358,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "loadFile"
-    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:117:1: loadFile : LOAD filepath -> ^( CMD_LOAD filepath ) ;
+    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:118:1: loadFile : LOAD filepath -> ^( CMD_LOAD filepath ) ;
     public final DiosMioCliParser.loadFile_return loadFile() throws RecognitionException {
         DiosMioCliParser.loadFile_return retval = new DiosMioCliParser.loadFile_return();
         retval.start = input.LT(1);
@@ -1278,27 +1366,27 @@ public TreeAdaptor getTreeAdaptor() {
 
         CommonTree root_0 = null;
 
-        Token LOAD33=null;
-        DiosMioCliParser.filepath_return filepath34 =null;
+        Token LOAD38=null;
+        DiosMioCliParser.filepath_return filepath39 =null;
 
 
-        CommonTree LOAD33_tree=null;
+        CommonTree LOAD38_tree=null;
         RewriteRuleTokenStream stream_LOAD=new RewriteRuleTokenStream(adaptor,"token LOAD");
         RewriteRuleSubtreeStream stream_filepath=new RewriteRuleSubtreeStream(adaptor,"rule filepath");
         try {
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:118:5: ( LOAD filepath -> ^( CMD_LOAD filepath ) )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:118:7: LOAD filepath
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:119:5: ( LOAD filepath -> ^( CMD_LOAD filepath ) )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:119:7: LOAD filepath
             {
-            LOAD33=(Token)match(input,LOAD,FOLLOW_LOAD_in_loadFile556); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_LOAD.add(LOAD33);
+            LOAD38=(Token)match(input,LOAD,FOLLOW_LOAD_in_loadFile573); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_LOAD.add(LOAD38);
 
 
-            pushFollow(FOLLOW_filepath_in_loadFile558);
-            filepath34=filepath();
+            pushFollow(FOLLOW_filepath_in_loadFile575);
+            filepath39=filepath();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_filepath.add(filepath34.getTree());
+            if ( state.backtracking==0 ) stream_filepath.add(filepath39.getTree());
 
             // AST REWRITE
             // elements: filepath
@@ -1313,9 +1401,9 @@ public TreeAdaptor getTreeAdaptor() {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 119:9: -> ^( CMD_LOAD filepath )
+            // 120:9: -> ^( CMD_LOAD filepath )
             {
-                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:119:12: ^( CMD_LOAD filepath )
+                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:120:12: ^( CMD_LOAD filepath )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(
@@ -1366,7 +1454,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "parseFile"
-    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:122:1: parseFile : PARSE filepath -> ^( CMD_PARSE filepath ) ;
+    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:123:1: parseFile : PARSE filepath -> ^( CMD_PARSE filepath ) ;
     public final DiosMioCliParser.parseFile_return parseFile() throws RecognitionException {
         DiosMioCliParser.parseFile_return retval = new DiosMioCliParser.parseFile_return();
         retval.start = input.LT(1);
@@ -1374,27 +1462,27 @@ public TreeAdaptor getTreeAdaptor() {
 
         CommonTree root_0 = null;
 
-        Token PARSE35=null;
-        DiosMioCliParser.filepath_return filepath36 =null;
+        Token PARSE40=null;
+        DiosMioCliParser.filepath_return filepath41 =null;
 
 
-        CommonTree PARSE35_tree=null;
+        CommonTree PARSE40_tree=null;
         RewriteRuleTokenStream stream_PARSE=new RewriteRuleTokenStream(adaptor,"token PARSE");
         RewriteRuleSubtreeStream stream_filepath=new RewriteRuleSubtreeStream(adaptor,"rule filepath");
         try {
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:123:5: ( PARSE filepath -> ^( CMD_PARSE filepath ) )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:123:7: PARSE filepath
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:124:5: ( PARSE filepath -> ^( CMD_PARSE filepath ) )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:124:7: PARSE filepath
             {
-            PARSE35=(Token)match(input,PARSE,FOLLOW_PARSE_in_parseFile591); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_PARSE.add(PARSE35);
+            PARSE40=(Token)match(input,PARSE,FOLLOW_PARSE_in_parseFile608); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_PARSE.add(PARSE40);
 
 
-            pushFollow(FOLLOW_filepath_in_parseFile593);
-            filepath36=filepath();
+            pushFollow(FOLLOW_filepath_in_parseFile610);
+            filepath41=filepath();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) stream_filepath.add(filepath36.getTree());
+            if ( state.backtracking==0 ) stream_filepath.add(filepath41.getTree());
 
             // AST REWRITE
             // elements: filepath
@@ -1409,9 +1497,9 @@ public TreeAdaptor getTreeAdaptor() {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 124:9: -> ^( CMD_PARSE filepath )
+            // 125:9: -> ^( CMD_PARSE filepath )
             {
-                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:124:12: ^( CMD_PARSE filepath )
+                // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:125:12: ^( CMD_PARSE filepath )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(
@@ -1462,7 +1550,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "id"
-    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:127:1: id : NUMBER ;
+    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:128:1: id : NUMBER ;
     public final DiosMioCliParser.id_return id() throws RecognitionException {
         DiosMioCliParser.id_return retval = new DiosMioCliParser.id_return();
         retval.start = input.LT(1);
@@ -1470,23 +1558,23 @@ public TreeAdaptor getTreeAdaptor() {
 
         CommonTree root_0 = null;
 
-        Token NUMBER37=null;
+        Token NUMBER42=null;
 
-        CommonTree NUMBER37_tree=null;
+        CommonTree NUMBER42_tree=null;
 
         try {
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:128:5: ( NUMBER )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:128:7: NUMBER
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:129:5: ( NUMBER )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:129:7: NUMBER
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            NUMBER37=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_id626); if (state.failed) return retval;
+            NUMBER42=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_id643); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            NUMBER37_tree = 
-            (CommonTree)adaptor.create(NUMBER37)
+            NUMBER42_tree = 
+            (CommonTree)adaptor.create(NUMBER42)
             ;
-            adaptor.addChild(root_0, NUMBER37_tree);
+            adaptor.addChild(root_0, NUMBER42_tree);
             }
 
             }
@@ -1522,7 +1610,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "filepath"
-    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:131:1: filepath : FILEPATH ;
+    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:132:1: filepath : FILEPATH ;
     public final DiosMioCliParser.filepath_return filepath() throws RecognitionException {
         DiosMioCliParser.filepath_return retval = new DiosMioCliParser.filepath_return();
         retval.start = input.LT(1);
@@ -1530,23 +1618,23 @@ public TreeAdaptor getTreeAdaptor() {
 
         CommonTree root_0 = null;
 
-        Token FILEPATH38=null;
+        Token FILEPATH43=null;
 
-        CommonTree FILEPATH38_tree=null;
+        CommonTree FILEPATH43_tree=null;
 
         try {
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:131:10: ( FILEPATH )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:131:12: FILEPATH
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:132:10: ( FILEPATH )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:132:12: FILEPATH
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            FILEPATH38=(Token)match(input,FILEPATH,FOLLOW_FILEPATH_in_filepath639); if (state.failed) return retval;
+            FILEPATH43=(Token)match(input,FILEPATH,FOLLOW_FILEPATH_in_filepath656); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            FILEPATH38_tree = 
-            (CommonTree)adaptor.create(FILEPATH38)
+            FILEPATH43_tree = 
+            (CommonTree)adaptor.create(FILEPATH43)
             ;
-            adaptor.addChild(root_0, FILEPATH38_tree);
+            adaptor.addChild(root_0, FILEPATH43_tree);
             }
 
             }
@@ -1582,7 +1670,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "hostname"
-    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:133:1: hostname : WORD ;
+    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:134:1: hostname : WORD ;
     public final DiosMioCliParser.hostname_return hostname() throws RecognitionException {
         DiosMioCliParser.hostname_return retval = new DiosMioCliParser.hostname_return();
         retval.start = input.LT(1);
@@ -1590,23 +1678,23 @@ public TreeAdaptor getTreeAdaptor() {
 
         CommonTree root_0 = null;
 
-        Token WORD39=null;
+        Token WORD44=null;
 
-        CommonTree WORD39_tree=null;
+        CommonTree WORD44_tree=null;
 
         try {
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:133:10: ( WORD )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:133:12: WORD
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:134:10: ( WORD )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:134:12: WORD
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            WORD39=(Token)match(input,WORD,FOLLOW_WORD_in_hostname647); if (state.failed) return retval;
+            WORD44=(Token)match(input,WORD,FOLLOW_WORD_in_hostname664); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            WORD39_tree = 
-            (CommonTree)adaptor.create(WORD39)
+            WORD44_tree = 
+            (CommonTree)adaptor.create(WORD44)
             ;
-            adaptor.addChild(root_0, WORD39_tree);
+            adaptor.addChild(root_0, WORD44_tree);
             }
 
             }
@@ -1642,7 +1730,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "sshPort"
-    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:135:1: sshPort : NUMBER ;
+    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:136:1: sshPort : NUMBER ;
     public final DiosMioCliParser.sshPort_return sshPort() throws RecognitionException {
         DiosMioCliParser.sshPort_return retval = new DiosMioCliParser.sshPort_return();
         retval.start = input.LT(1);
@@ -1650,23 +1738,23 @@ public TreeAdaptor getTreeAdaptor() {
 
         CommonTree root_0 = null;
 
-        Token NUMBER40=null;
+        Token NUMBER45=null;
 
-        CommonTree NUMBER40_tree=null;
+        CommonTree NUMBER45_tree=null;
 
         try {
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:135:9: ( NUMBER )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:135:11: NUMBER
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:136:9: ( NUMBER )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:136:11: NUMBER
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            NUMBER40=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_sshPort655); if (state.failed) return retval;
+            NUMBER45=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_sshPort672); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            NUMBER40_tree = 
-            (CommonTree)adaptor.create(NUMBER40)
+            NUMBER45_tree = 
+            (CommonTree)adaptor.create(NUMBER45)
             ;
-            adaptor.addChild(root_0, NUMBER40_tree);
+            adaptor.addChild(root_0, NUMBER45_tree);
             }
 
             }
@@ -1702,7 +1790,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "sshUser"
-    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:137:1: sshUser : WORD ;
+    // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:138:1: sshUser : WORD ;
     public final DiosMioCliParser.sshUser_return sshUser() throws RecognitionException {
         DiosMioCliParser.sshUser_return retval = new DiosMioCliParser.sshUser_return();
         retval.start = input.LT(1);
@@ -1710,23 +1798,23 @@ public TreeAdaptor getTreeAdaptor() {
 
         CommonTree root_0 = null;
 
-        Token WORD41=null;
+        Token WORD46=null;
 
-        CommonTree WORD41_tree=null;
+        CommonTree WORD46_tree=null;
 
         try {
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:137:9: ( WORD )
-            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:137:11: WORD
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:138:9: ( WORD )
+            // src/main/java/net/alaux/diosmio/cli/antlr/DiosMioCli.g:138:11: WORD
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            WORD41=(Token)match(input,WORD,FOLLOW_WORD_in_sshUser663); if (state.failed) return retval;
+            WORD46=(Token)match(input,WORD,FOLLOW_WORD_in_sshUser680); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            WORD41_tree = 
-            (CommonTree)adaptor.create(WORD41)
+            WORD46_tree = 
+            (CommonTree)adaptor.create(WORD46)
             ;
-            adaptor.addChild(root_0, WORD41_tree);
+            adaptor.addChild(root_0, WORD46_tree);
             }
 
             }
@@ -1780,25 +1868,30 @@ public TreeAdaptor getTreeAdaptor() {
     public static final BitSet FOLLOW_DELETE_in_deleteArtifact394 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_ARTIFACT_in_deleteArtifact396 = new BitSet(new long[]{0x0000000000800000L});
     public static final BitSet FOLLOW_id_in_deleteArtifact398 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ADD_in_addConfig433 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_CONFIG_in_addConfig435 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_hostname_in_addConfig437 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_sshPort_in_addConfig439 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_sshUser_in_addConfig441 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_GET_in_getConfig478 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_CONFIG_in_getConfig480 = new BitSet(new long[]{0x0000000000800002L});
-    public static final BitSet FOLLOW_id_in_getConfig482 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DELETE_in_deleteConfig517 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_CONFIG_in_deleteConfig519 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_id_in_deleteConfig521 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LOAD_in_loadFile556 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_filepath_in_loadFile558 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PARSE_in_parseFile591 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_filepath_in_parseFile593 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NUMBER_in_id626 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FILEPATH_in_filepath639 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_WORD_in_hostname647 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NUMBER_in_sshPort655 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_WORD_in_sshUser663 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ADD_in_addConfig434 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_CONFIG_in_addConfig436 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_sshUser_in_addConfig440 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_hostname_in_addConfig442 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_sshPort_in_addConfig444 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_sshUser_in_addConfig448 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_28_in_addConfig450 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_hostname_in_addConfig452 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_27_in_addConfig454 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_sshPort_in_addConfig456 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_GET_in_getConfig495 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_CONFIG_in_getConfig497 = new BitSet(new long[]{0x0000000000800002L});
+    public static final BitSet FOLLOW_id_in_getConfig499 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DELETE_in_deleteConfig534 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_CONFIG_in_deleteConfig536 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_id_in_deleteConfig538 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LOAD_in_loadFile573 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_filepath_in_loadFile575 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PARSE_in_parseFile608 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_filepath_in_parseFile610 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NUMBER_in_id643 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FILEPATH_in_filepath656 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_WORD_in_hostname664 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NUMBER_in_sshPort672 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_WORD_in_sshUser680 = new BitSet(new long[]{0x0000000000000002L});
 
 }

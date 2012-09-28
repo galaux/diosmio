@@ -48,8 +48,8 @@ public abstract class CliClient {
 	try {
 	    artifacts = getArtifactService().getAll();
 	} catch (RemoteException e) {
-	    // TODO add error message
-	    throw new RuntimeException(e);
+	    throw new RuntimeException(
+		    Main.bundle.getString("error.server_connection"), e);
 	}
 
 	for (Artifact artifact : artifacts) {
@@ -63,8 +63,8 @@ public abstract class CliClient {
 	try {
 	    artifact = getArtifactService().get(id);
 	} catch (RemoteException e) {
-	    // TODO add error message
-	    throw new RuntimeException(e);
+	    throw new RuntimeException(
+		    Main.bundle.getString("error.server_connection"), e);
 	}
 	if (artifact != null) {
 	    Main.out.println(artifact);
@@ -73,7 +73,7 @@ public abstract class CliClient {
 	}
     }
 
-    private void createArtifact(File file) {
+    private void doCreateArtifact(File file) {
 
 	Main.logger.info("Creating artifact " + file.getName());
 
@@ -86,7 +86,9 @@ public abstract class CliClient {
 		bos.write(buf, 0, readNum);
 	    }
 
-	    getArtifactService().create(file.getName(), bos.toByteArray());
+	    Artifact artifact = new Artifact();
+	    artifact.setName(file.getName());
+	    getArtifactService().create(artifact, bos.toByteArray());
 
 	    fis.close();
 
@@ -101,25 +103,24 @@ public abstract class CliClient {
 	}
     }
 
-    // TODO turn this "String" into File and check this is true for all methods
-    // in here
-    public void createArtifact(String path) {
+    public void createArtifact(File file) {
 
-	File file = new File(path);
-	if (file == null || !file.exists() || !file.canRead()) {
+	if (!file.exists() || !file.canRead()) {
 	    throw new RuntimeException(MessageFormat.format(
-		    Main.bundle.getString("error.access.read"), path));
+		    Main.bundle.getString("error.access.read"),
+		    file.getAbsoluteFile()));
 	}
 
 	if (file.isFile()) {
-	    createArtifact(file);
+	    doCreateArtifact(file);
 	} else {
-	    Main.logger.info("Scanning for files in " + path + ".");
+	    Main.logger.info("Scanning for files in " + file.getAbsolutePath()
+		    + ".");
 	    List<File> files = getFilesOfExtension(file, "war");
 	    Main.logger.info(" Found " + files.size());
 	    for (File f : files) {
 		try {
-		    createArtifact(f);
+		    doCreateArtifact(f);
 
 		} catch (RuntimeException e) {
 		    Main.err.println(e);
@@ -167,21 +168,21 @@ public abstract class CliClient {
 	    getArtifactService().delete(id);
 	    Main.out.println(Main.bundle.getString("info.artifact.deleted"));
 	} catch (RemoteException e) {
-	    // TODO add error message
-	    throw new RuntimeException(e);
+	    throw new RuntimeException(
+		    Main.bundle.getString("error.server_connection"), e);
 	}
     }
 
     // Configuration **********************************************************
 
-    public void createConfiguration(String hostname, String sshPort,
-	    String sshUser) {
+    public void createConfiguration(String sshUser, String hostname,
+	    String sshPort) {
 	try {
 	    getHostConfigService().create(
 		    new HostConfig(hostname, sshPort, sshUser));
 	} catch (RemoteException e) {
-	    // TODO add error message
-	    throw new RuntimeException(e);
+	    throw new RuntimeException(
+		    Main.bundle.getString("error.server_connection"), e);
 	}
     }
 
@@ -190,8 +191,8 @@ public abstract class CliClient {
 	try {
 	    Main.out.println(getHostConfigService().get(id));
 	} catch (RemoteException e) {
-	    // TODO add error message
-	    throw new RuntimeException(e);
+	    throw new RuntimeException(
+		    Main.bundle.getString("error.server_connection"), e);
 	}
     }
 
@@ -206,20 +207,31 @@ public abstract class CliClient {
 		Main.out.println((hostConfig).toString());
 	    }
 	} catch (RemoteException e) {
-	    // TODO add error message
-	    throw new RuntimeException(e);
+	    throw new RuntimeException(
+		    Main.bundle.getString("error.server_connection"), e);
+	}
+    }
+
+    public void deleteConfiguration(Long id) {
+
+	try {
+	    getHostConfigService().delete(id);
+	    Main.out.println(Main.bundle
+		    .getString("info.configuration.deleted"));
+	} catch (RemoteException e) {
+	    throw new RuntimeException(
+		    Main.bundle.getString("error.server_connection"), e);
 	}
     }
 
     // Automatic loading ******************************************************
 
-    public void loadFile(String filePath) {
+    public void loadFile(File file) {
 
-	File file = new File(filePath);
-	if (file == null || !file.canRead()) {
+	if (!file.canRead()) {
 	    throw new RuntimeException(MessageFormat.format(
 		    Main.bundle.getString("cli.error.cannot_read_file"),
-		    filePath));
+		    file.getAbsoluteFile()));
 	}
 
 	List<Artifact> artifacts = new ArrayList<Artifact>();
@@ -236,14 +248,13 @@ public abstract class CliClient {
 	Main.out.println("Not yet persisting Artifacts. TODO?");
     }
 
-    public void parseFile(String filePath) {
+    public void parseFile(File file) {
 
 	Main.logger.info("parseFile");
-	File file = new File(filePath);
-	if (file == null || !file.canRead()) {
+	if (!file.canRead()) {
 	    throw new RuntimeException(MessageFormat.format(
 		    Main.bundle.getString("cli.error.cannot_read_file"),
-		    filePath));
+		    file.getAbsoluteFile()));
 	}
 
 	List<Artifact> artifacts = new ArrayList<Artifact>();
@@ -294,5 +305,4 @@ public abstract class CliClient {
 		    file.getAbsolutePath()));
 	}
     }
-
 }

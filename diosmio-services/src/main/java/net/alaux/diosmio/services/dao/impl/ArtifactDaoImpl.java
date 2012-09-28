@@ -35,23 +35,21 @@ public class ArtifactDaoImpl implements ArtifactDao {
 
 	TransactionStatus status = transactionManager
 		.getTransaction(new DefaultTransactionDefinition());
-
 	em.persist(artifact);
 	transactionManager.commit(status);
     }
 
     @Override
     public Artifact get(Long id) {
-
 	logger.info("get(" + id + ")");
-
-	Artifact result = em.find(Artifact.class, id);
-	return result;
-    }
+	return em.find(Artifact.class, id);
+    };
 
     @Override
     public List<Artifact> getAll() {
+
 	logger.info("getAll()");
+
 	return em.createQuery(Artifact.Q_FIND_ALL, Artifact.class)
 		.getResultList();
     }
@@ -69,6 +67,7 @@ public class ArtifactDaoImpl implements ArtifactDao {
 
     @Override
     public void delete(Artifact artifact) {
+
 	logger.info("delete(Artifact(" + artifact.getId() + "))");
 
 	TransactionStatus status = transactionManager
@@ -79,14 +78,13 @@ public class ArtifactDaoImpl implements ArtifactDao {
 
     @Override
     public void delete(Long id) {
+
 	logger.info("delete(" + id + ")");
 
 	TransactionStatus status = transactionManager
 		.getTransaction(new DefaultTransactionDefinition());
-
 	em.createNamedQuery(Artifact.Q_DELETE_BY_ID, Artifact.class)
 		.setParameter("id", id).executeUpdate();
-
 	transactionManager.commit(status);
     }
 }

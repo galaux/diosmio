@@ -54,8 +54,7 @@ public class HostConfig implements Serializable {
 
     @Override
     public String toString() {
-	return this.getClass().getSimpleName() + " - id=" + id + ", " + sshUser
-		+ "@" + hostname + ":" + sshPort;
+	return id + "\t" + sshUser + "@" + hostname + ":" + sshPort;
     }
 
     public Long getId() {
