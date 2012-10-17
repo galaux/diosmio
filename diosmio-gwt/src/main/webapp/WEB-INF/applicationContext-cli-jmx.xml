@@ -13,8 +13,8 @@
 		lazy-init="false">
 		<property name="beans">
 			<map>
-				<entry key="net.alaux.diosmio:name=artifactManager" value-ref="artifactManager" />
-				<entry key="net.alaux.diosmio:name=configDao" value-ref="configDao" />
+				<entry key="net.alaux.diosmio:name=artifactService" value-ref="artifactService" />
+				<entry key="net.alaux.diosmio:name=hostConfigService" value-ref="hostConfigService" />
 			</map>
 		</property>
 	</bean>

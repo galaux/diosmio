@@ -49,16 +49,16 @@
 		<!-- </dependency> -->
 
 		<!-- Cassandra ******************************* -->
-		<!--<dependency> -->
-		<!--<groupId>me.prettyprint</groupId> -->
-		<!--<artifactId>hector-core</artifactId> -->
-		<!--<version>1.0-5</version> -->
-		<!--</dependency> -->
-		<!--<dependency> -->
-		<!--<groupId>me.prettyprint</groupId> -->
-		<!--<artifactId>hector-object-mapper</artifactId> -->
-		<!--<version>3.0-04</version> -->
-		<!--</dependency> -->
+		<dependency>
+		<groupId>me.prettyprint</groupId> 
+		<artifactId>hector-core</artifactId>
+		<version>1.0-5</version>
+		</dependency>
+		<dependency>
+		<groupId>me.prettyprint</groupId>
+		<artifactId>hector-object-mapper</artifactId>
+		<version>3.0-04</version>
+		</dependency>
 
 		<!-- Spring ********************************** -->
 		<!-- Core utilities used by other modules. Define this if you use Spring 
